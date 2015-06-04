@@ -24,47 +24,47 @@ abstract class String
         return preg_replace('/[\0\xC2\xA0\x0B\t\ \ \ \]+/u', '', $string);
     }
 
-	/**
-	 * Remove all type of spaces by a simple space
-	 * @param string $string
-	 * @return string
-	 */
-	public static function normalizeWhitespace($string) {
-		/**
+    /**
+     * Remove all type of spaces by a simple space
+     * @param string $string
+     * @return string
+     */
+    public static function normalizeWhitespace($string) {
+        /**
          * \0 :  NIL char
          * \xC2 : non-breaking space
          * \xA0 : non-breaking space
          * \x0B : vertical tab
          * \t : tab
          */
-		return trim(preg_replace('/[\0\xC2\xA0\x0B\t\ \ \ \]+/u', ' ', $string));
-	}
+        return trim(preg_replace('/[\0\xC2\xA0\x0B\t\ \ \ \]+/u', ' ', $string));
+    }
 
-	/**
-	 * Remove line breaks
-	 * @param string $string
-	 * @return string
-	 */
-	public static function removeLine($string)
-	{
-		$string = preg_replace('/[\r\n]+/', '', $string);
-		return $string;
-	}
+    /**
+     * Remove line breaks
+     * @param string $string
+     * @return string
+     */
+    public static function removeLine($string)
+    {
+        $string = preg_replace('/[\r\n]+/', '', $string);
+        return $string;
+    }
 
-	/**
-	 * Remove multi-spaces, line breaks, indentations and HTML tags
-	 * @param String $string Chaîne de caractères à traiter
-	 * @return String Chaîne de caractères traitée
-	 */
-	public static function normalize($string)
-	{
-		$string = str_replace(array('<br/>', '<br />', '</br>', '<br>', '<br >', '< br >'), ' ', $string);
-		$string = html_entity_decode($string, ENT_HTML5, 'UTF-8');
-		$string = strip_tags($string);
-		$string = self::removeLine($string);
-		$string = self::normalizeWhitespace($string);
-		return $string;
-	}
+    /**
+     * Remove multi-spaces, line breaks, indentations and HTML tags
+     * @param String $string Chaîne de caractères à traiter
+     * @return String Chaîne de caractères traitée
+     */
+    public static function normalize($string)
+    {
+        $string = str_replace(array('<br/>', '<br />', '</br>', '<br>', '<br >', '< br >'), ' ', $string);
+        $string = html_entity_decode($string, ENT_HTML5, 'UTF-8');
+        $string = strip_tags($string);
+        $string = self::removeLine($string);
+        $string = self::normalizeWhitespace($string);
+        return $string;
+    }
 
     /**
      * Generates a random string of alphanumeric characters
@@ -190,15 +190,15 @@ abstract class String
     }
 
     /**
-	 * Verify a string to be an URL
-	 * @param string $string String to test
-	 * @return boolean True if the string is an URL, false otherwise
-	 */
-	public static function isURL($string) {
+     * Verify a string to be an URL
+     * @param string $string String to test
+     * @return boolean True if the string is an URL, false otherwise
+     */
+    public static function isURL($string) {
         if (!is_string($string)) {
             return false;
         }
 
-		return (bool) preg_match('_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS', $string);
-	}
+        return (bool) preg_match('_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS', $string);
+    }
 }

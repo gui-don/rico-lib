@@ -32,7 +32,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
         return array(
             array(array(), array()), // 0
             array(array('666'), array()),
-			array('ok', null),
+            array('ok', null),
             array(array(array(12, 3)), array(array(12), array(3))),
             array(array(array('key' => 2), array('key' => 6, 'other' => 7)), array('key' => array(2, 6), 'other' => array(1 => 7))),
             array(array(array('first' => 1, 'second' => 2, 'third' => 3), array('first' => 1), array('first' => 1, 'third' => 3, 'second' => 2)), array('first' => array(1, 1, 1), 'second' => array(0 => 2, 2 => 2), 'third' => array(0 => 3, 2 => 3))), // 5
@@ -40,18 +40,18 @@ class VectorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-	 * @covers Vector::pluck
-	 * @dataProvider providerPluck
-	 */
+     * @covers Vector::pluck
+     * @dataProvider providerPluck
+     */
     public function testPluck($array, $property, $expected)
     {
         $this->assertSame($expected, Vector::pluck($array, $property));
     }
 
     /**
-	 * @covers Vector::transpose
-	 * @dataProvider providerTranspose
-	 */
+     * @covers Vector::transpose
+     * @dataProvider providerTranspose
+     */
     public function testTranspose($array, $expected)
     {
         $this->assertSame($expected, Vector::transpose($array));
