@@ -1,0 +1,18 @@
+# Ignore backup files
+*.bak
+*.php~
+*.ini~
+*.tpl~
+*.html~
+*.md~
+*.txt~
+*.twig~
+*.sh~
+*.yml~
+
+# Ignore junk files
+[Tt]humbs.db
+.DS_Store
+
+# Ignore netbeans file
+nbproject/
