@@ -36,10 +36,7 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
             array(7484, true),
             array(0, true),
             array(0.1818, true), // 10
-            array(array('error', 'test', 'not a number'), false),
-            array(array('error', 'test', 8), false),
-            array(array(19,  5.2, 8.7), true),
-            array(array(19, 'e7', 8.7), false)
+            array('0.14.3', false),
         );
     }
 
