@@ -111,43 +111,6 @@ Pompidou
         );
     }
 
-    public function providerIsPositiveInt()
-    {
-        return array(
-            array('test', false), // 0
-            array(true, false),
-            array('2e4', false),
-            array(-47.12, false),
-            array(0, false),
-            array(12.5, false), // 5
-            array('471845', true),
-            array(7484, true),
-            array(899, true),
-            array(125, true)
-        );
-    }
-
-    public function providerIsNumber()
-    {
-        return array(
-            array('test', false), // 0
-            array(false, false),
-            array(null, false),
-            array('2e4', false),
-            array('a35', false),
-            array('-187417840', true), // 5
-            array('471845', true),
-            array(-47.12, true),
-            array(7484, true),
-            array(0, true),
-            array(0.1818, true), // 10
-            array(array('error', 'test', 'not a number'), false),
-            array(array('error', 'test', 8), false),
-            array(array(19,  5.2, 8.7), true),
-            array(array(19, 'e7', 8.7), false)
-        );
-    }
-
     public function providerSlugify()
     {
         return array(
@@ -163,20 +126,6 @@ Pompidou
             array('     PMI : Qué vale su Gestión de Producción
                 (GPAO) ?', 'pmi-que-vale-su-gestion-de-produccion-gpao'),
             array('', ''),
-        );
-    }
-
-    public function providerIsHexadecimal()
-    {
-        return array(
-            array('000000', true), // 0
-            array(000000, false),
-            array('111111', true),
-            array('eAf0e6', true),
-            array('eAf0e656', false),
-            array('AGCDEA', false), // 5
-            array('EEE654', true),
-            array(222222, false)
         );
     }
 
@@ -199,35 +148,40 @@ Pompidou
         );
     }
 
-    public function providerIsURL() {
-		return array(
-			array('', false), // 0
-			array('work', false),
-			array('array(5)', false),
-			array('326a', false),
-			array('http://google.com', true),
-			array('97/:google.com', false), // 5
-			array('les-marchands.fr', false),
-			array('www.yahoo.co.jp', false),
-			array('http://fr.wikipedia.org/', true),
-			array('https://fr.wikipedia.org/wiki/Uniform_Resource_Locator', true),
-			array('https://www.youtube.com/watch?v=TjkVXzmsP78&feature=related', true), // 10
-			array('http://bit.ly/xZolh7', true),
-			array('ftp://ftp.rfc-editor.org/in-notes/rfc2396.txt', true),
-			array('http://local.mysmartaudit.net/vokto/815/secretaire-delegue-general-etes-vous-satisfait-de-vos-outils-numeriques-dans-l-exercice-de-vos-fonctions/?cpid=test&reset=2', true),
-			array('http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true),
-			array('http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true),
-			array('http://local.mysmartaudit.net/dell-sonicwall/888/ファイアウォールに不満ですか/', true), // 15
-			array('http://local.mysmartaudit.net/ファイアウ/888/ォールに不満ですか/', true),
-			array('http://test.comune url?', false),
-			array('http://उदाहरण.परीक्षा', true),
-			array('///a', false),
-			array('http://foo.bar?q=Spaces should be encoded', false), // 20
-			array('http://foo.com/blah_blah_(wikipedia)_(again)', true),
-			array('http://10.1.1.255/', false),
-			array('http://.www.foo.bar/', false)
-		);
-	}
+    public function providerMinify()
+    {
+        return array(
+            array('ceci est un
+                test', 'ceci est un test'),
+            array('ok$"é', 'ok$"é'),
+            array(null, ''),
+            array(false, ''),
+            array(0, '0'),
+            array('a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}', 'a:focus{outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}'),
+            array('/*************
+                        OK OK OK
+                   **************/
+                   [class*="span" ] {
+    float: left;
+    min-height: 1px;
+    margin-left: 20px;
+  }', '[class*="span" ]{float:left;min-height:1px;margin-left:20px;}'),
+            array('audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}', 'audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}')
+        );
+    }
 
     /**
      * @covers String::removeWhitespace
@@ -287,39 +241,12 @@ Pompidou
     }
 
     /**
-     * @covers String::isPositiveInt
-     * @dataProvider providerIsPositiveInt
-     */
-    public function testIsPositiveInt($value, $expected)
-    {
-        $this->assertSame($expected, String::isPositiveInt($value));
-    }
-
-    /**
-     * @covers String::isNumber
-     * @dataProvider providerIsNumber
-     */
-    public function testIsNumber($strValue, $bExpected)
-    {
-        $this->assertSame($bExpected, String::isNumber($strValue));
-    }
-
-    /**
      * @covers String::slugify
      * @dataProvider providerSlugify
      */
     public function testSlugify($strValue, $bExpected)
     {
         $this->assertSame($bExpected, String::slugify($strValue));
-    }
-
-    /**
-     * @covers String::isHexadecimal
-     * @dataProvider providerIsHexadecimal
-     */
-    public function testIsHeadecimal($value, $expected)
-    {
-        $this->assertSame($expected, String::isHexadecimal($value));
     }
 
     /**
@@ -332,10 +259,11 @@ Pompidou
     }
 
     /**
-	 * @covers String::isUrl
-	 * @dataProvider providerIsURL
-	 */
-	public function testIsURL($strValue, $bExpected) {
-		$this->assertSame($bExpected, String::isURL($strValue));
-	}
+     * @covers String::minify
+     * @dataProvider providerMinify
+     */
+    public function testMinify($value, $expected)
+    {
+        $this->assertSame($expected, String::minify($value));
+    }
 }

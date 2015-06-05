@@ -3,7 +3,7 @@
 namespace Lib;
 
 /**
- * Library Vector
+ * Vector Library
  */
 abstract class Vector
 {

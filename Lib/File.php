@@ -13,12 +13,12 @@ abstract class File
     const LIST_DIRECTORY_BOTH = 3;
 
     /**
-     * Get all files and folders inside a folder
+     * Get filenames and folders names inside a directory
      * @param string $strPath
-     * @param int $nOption
+     * @param int $option
      * @return string[]
      */
-    public static function listDirectory($strPath, $nOption = self::LIST_DIRECTORY_BOTH)
+    public static function listDirectory($strPath, $option = self::LIST_DIRECTORY_BOTH)
     {
         if(!file_exists($strPath) || !is_dir($strPath)) {
             return false;
@@ -33,7 +33,7 @@ abstract class File
             }
 
             $strCompleteFile = $strPath.'/'.$strFile;
-            switch ($nOption) {
+            switch ($option) {
                 case self::LIST_DIRECTORY_FILE_ONLY:
                     if (!is_dir($strCompleteFile)) {
                         $aResult[] = $strFile;
