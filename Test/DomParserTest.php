@@ -84,7 +84,7 @@ class DomParserTest extends \PHPUnit_Framework_TestCase
             array(array('bad'), false),
             array('inexistent', null),
             array('tbody', '5.4.0
-
+       
         Added options parameter.'),
             array('title', 'Descrição'), // 5
             array('empty', ''),
