@@ -1,7 +1,6 @@
 # Rico-lib Project #
-=========================
 
-_________________________________________________________________________________________
+---
 
 ___________________________________![rico](rico.png)___________________________________
 
@@ -16,43 +15,43 @@ Nothing. Just a recent version of PHP.
 
 #### File lib ####
 
-- listDirectory($strPath, $option) : Get filenames and folders names inside a directory
+- **listDirectory($strPath, $option)** : Get filenames and folders names inside a directory
 
 
 #### String lib ####
 
-- removeWhitespace($string) : Remove all sort of spaces from a string
+- **removeWhitespace($string)** : Remove all sort of spaces from a string
 
-- normalizeWhitespace($string) : Replace all sort of spaces by a simple space
+- **normalizeWhitespace($string)** : Replace all sort of spaces by a simple space
 
-- removeLine($string) : Remove all sort of line breaks
+- **removeLine($string)** : Remove all sort of line breaks
 
-- normalize($string) : Clean a string by removing multi-spaces, line breaks, indents and HTML tags
+- **normalize($string)** : Clean a string by removing multi-spaces, line breaks, indents and HTML tags
 
-- randString($length, $allowedChars) : Generates a random string of alphanumeric characters
+- **randString($length, $allowedChars)** : Generates a random string of alphanumeric characters
 
-- slugify($string) : Transform a random string into a ascii-only string
+- **slugify($string)** : Transform a random string into a ascii-only string
 
-- beautifulise($string) : Transform an ugly string (with incorrect ponctuation) into beautiful string (with correct ponctuation)
+- **beautifulise($string)** : Transform an ugly string (with incorrect ponctuation) into beautiful string (with correct ponctuation)
 
 
 #### Checker lib ####
 
-- isPositiveInt($mixed) : Checks a variable to be a positive integer (primary key)
+- **isPositiveInt($mixed)** : Checks a variable to be a positive integer (primary key)
 
-- isNumber($mixed) : Check a value to be a decimal number (float or integer)
+- **isNumber($mixed)** : Check a value to be a decimal number (float or integer)
 
-- isHexadecimal($string) : Check a value to be a hexadecimal value
+- **isHexadecimal($string)** : Check a value to be a hexadecimal value
 
-- isURL($string) : Check a string to be an URL
+- **isURL($string)** : Check a string to be an URL
 
-- isEmail($string) : Check a string to be an email
+- **isEmail($string)** : Check a string to be an email
 
-- isPhoneNumber($string) : Check a string to be a phone number
+- **isPhoneNumber($string)** : Check a string to be a phone number
 
 
 #### Vector lib ####
 
-- pluck($data, $property) : Extract all property values from a multidimensional array
+- **pluck($data, $property)** : Extract all property values from a multidimensional array
 
-- transpose($array) : Transform multiple similar arrays into key-valued arrays
+- **transpose($array)** : Transform multiple similar arrays into key-valued arrays
