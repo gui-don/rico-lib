@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\StringTest;
+namespace Rico\Test\StringTest;
 
-use \Lib\String;
+use \Rico\Lib\String;
 
 class StringTest extends \PHPUnit_Framework_TestCase
 {

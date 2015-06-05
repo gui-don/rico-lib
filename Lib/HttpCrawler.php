@@ -1,9 +1,9 @@
 <?php
 
-namespace Lib;
+namespace Rico\Lib;
 
-use \Lib\DomParser;
-use \Lib\String;
+use \Rico\Lib\DomParser;
+use \Rico\Lib\String;
 
 /**
  * Tool to crawl HTTP pages

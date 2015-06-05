@@ -1,8 +1,8 @@
 <?php
 
-namespace Lib;
+namespace Rico\Lib;
 
-use \Lib\String;
+use \Rico\Lib\String;
 
 /**
  * Utility to parse the content of an Xml file

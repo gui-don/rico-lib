@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\VectorTest;
+namespace Rico\Test\VectorTest;
 
-use \Lib\Vector;
+use \Rico\Lib\Vector;
 
 class VectorTest extends \PHPUnit_Framework_TestCase
 {

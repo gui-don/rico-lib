@@ -14,7 +14,7 @@ if (version_compare(PHP_VERSION, '5.5.0', '<')) {
  */
 spl_autoload_register(function ($class) {
     // project-specific namespace prefix
-    $prefix = 'Lib\\';
+    $prefix = 'Rico\\Lib\\';
 
     // base directory for the namespace prefix
     $base_dir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__ . '/Lib/';

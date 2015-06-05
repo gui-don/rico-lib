@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\CheckerTest;
+namespace Rico\Test\CheckerTest;
 
-use \Lib\Checker;
+use \Rico\Lib\Checker;
 
 class CheckerTest extends \PHPUnit_Framework_TestCase
 {

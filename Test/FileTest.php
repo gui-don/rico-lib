@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\FileTest;
+namespace Rico\Test\FileTest;
 
-use \Lib\File;
+use \Rico\Lib\File;
 
 /**
  * Test class for File.

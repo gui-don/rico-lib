@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\DomParserTest;
+namespace Rico\Test\DomParserTest;
 
-use \Lib\DomParser;
+use \Rico\Lib\DomParser;
 
 /**
  * Test class for DomParser
@@ -139,7 +139,7 @@ class DomParserTest extends \PHPUnit_Framework_TestCase
         $sharpenedDomParser = $this->page2->slimDomParserById($id);
 
         if ($expected || $expected === '') {
-            $this->assertInstanceOf('\Lib\DomParser', $sharpenedDomParser);
+            $this->assertInstanceOf('\Rico\Lib\DomParser', $sharpenedDomParser);
             $this->assertSame(trim($expected), trim($sharpenedDomParser->getDomBody()->textContent));
         } else {
             $this->assertSame($expected, $sharpenedDomParser);
@@ -155,7 +155,7 @@ class DomParserTest extends \PHPUnit_Framework_TestCase
         $sharpenedDomParser = $this->page2->slimDomParserByClass($class);
 
         if ($expected || $expected === '') {
-            $this->assertInstanceOf('\Lib\DomParser', $sharpenedDomParser);
+            $this->assertInstanceOf('\Rico\Lib\DomParser', $sharpenedDomParser);
             $this->assertSame(trim($expected), trim($sharpenedDomParser->getDomBody()->textContent));
         } else {
             $this->assertSame($expected, $sharpenedDomParser);
