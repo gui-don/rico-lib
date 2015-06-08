@@ -84,6 +84,7 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
             array('http://.www.foo.bar/', false),
             array('http://a.b-c.club', true), // 25
             array('http://127.0.0.1/server.php', true),
+            array('https://phpunit.de/manual/current/en/test-doubles.html', true),
         );
     }
 
