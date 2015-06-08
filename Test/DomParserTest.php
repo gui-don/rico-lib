@@ -14,8 +14,8 @@ class DomParserTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->page1 = new DomParser(file_get_contents('files/page.html'));
-        $this->page2 = new DomParser(file_get_contents('files/page2.html'));
+        $this->page1 = new DomParser(file_get_contents(__DIR__.'/files/page.html'));
+        $this->page2 = new DomParser(file_get_contents(__DIR__.'/files/page2.html'));
     }
 
     public function providerGetFirstValueByTagName()
