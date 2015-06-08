@@ -72,16 +72,18 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
             array('ftp://ftp.rfc-editor.org/in-notes/rfc2396.txt', true),
             array('http://local.mysmartaudit.net/vokto/815/secretaire-delegue-general-etes-vous-satisfait-de-vos-outils-numeriques-dans-l-exercice-de-vos-fonctions/?cpid=test&reset=2', true),
             array('http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true),
-            array('http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true),
-            array('http://local.mysmartaudit.net/dell-sonicwall/888/ファイアウォールに不満ですか/', true), // 15
+            array('http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true), // 15
+            array('http://local.mysmartaudit.net/dell-sonicwall/888/ファイアウォールに不満ですか/', true),
             array('http://local.mysmartaudit.net/ファイアウ/888/ォールに不満ですか/', true),
             array('http://test.comune url?', false),
             array('http://उदाहरण.परीक्षा', true),
-            array('///a', false),
-            array('http://foo.bar?q=Spaces should be encoded', false), // 20
+            array('///a', false), // 20
+            array('http://foo.bar?q=Spaces should be encoded', false),
             array('http://foo.com/blah_blah_(wikipedia)_(again)', true),
             array('http://10.1.1.255/', false),
-            array('http://.www.foo.bar/', false)
+            array('http://.www.foo.bar/', false),
+            array('http://a.b-c.club', true), // 25
+            array('http://127.0.0.1/server.php', true),
         );
     }
 
