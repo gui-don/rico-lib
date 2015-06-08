@@ -4,19 +4,22 @@ namespace Rico\Lib;
 
 use \Rico\Lib\DomParser;
 use \Rico\Lib\String;
+use \Rico\Lib\Checker;
+use \Rico\Lib\Exception\InvalidUrlException;
+use Rico\Lib\Exception\DownloadException;
 
 /**
  * Tool to crawl HTTP pages
- * @depends \Lib\DomParser
- * @depends \Lib\String
+ * @depends \Rico\Lib\DomParser
+ * @depends \Rico\Lib\String
  */
 class HttpCrawler
 {
     const RETRY = 3;
 
     protected $url;
-    protected $domain;
-    protected $userAgent = 'Mozilla/5.0 (Windows NT 6.1; rv:35.0) Gecko/20100101 Firefox/35.0';
+    protected $host;
+    protected $userAgent = 'Mozilla/5.0 (Windows NT 6.1; rv:40.0) Gecko/20100101 Firefox/40.0';
     protected $cookies = array();
     protected $referer;
     protected $sockProxy;
@@ -36,7 +39,7 @@ class HttpCrawler
     protected $headerConnection = 'Keep-Alive';
     protected $headerAcceptCharset = 'utf-8';
 
-    protected static $firstTime = true;
+    private $firstTime = true;
 
     /**
      * Crawl a page
@@ -45,14 +48,14 @@ class HttpCrawler
     public function __construct($url)
     {
         if (!$this->setUrl($url)) {
-            $this->logMessage('The URL (“'.$url.'”) is not valid or domain does not match.');
+            throw new InvalidUrlException('The URL (“'.$url.'”) is not valid or host does not match.');
         }
     }
 
     /**
-     * Try to get content to parse
+     * Get the content of the current URL
      */
-    public function downloadCurrentPage()
+    public function loadCurrentPage()
     {
         $this->setRawBody($this->download($this->getUrl()));
         $this->setParser(new DomParser($this->getRawBody()));
@@ -66,10 +69,10 @@ class HttpCrawler
     public function clickTo($link)
     {
         if (!$this->setUrl($link)) {
-            $this->logMessage('The URL (“'.$link.'”) is not valid or domain does not match');
-            return false;
+            throw new InvalidUrlException('The URL (“'.$link.'”) is not valid or host does not match.');
         }
-        $this->downloadCurrentPage();
+
+        $this->loadCurrentPage();
     }
 
     /**
@@ -84,7 +87,7 @@ class HttpCrawler
         $previousUrl = $this->getUrl();
 
         if (!$this->setUrl($url)) {
-            $this->logMessage('The URL (“'.$link.'”) is not valid or domain does not match');
+            $this->riseError('The URL (“'.$link.'”) is not valid or host does not match');
             $this->setUrl($previousUrl);
             return false;
         }
@@ -94,7 +97,7 @@ class HttpCrawler
         if (!empty($matches[1])) {
             $contentName = $matches[1];
         } else {
-            $this->logMessage('The ressource (“'.$this->getUrl().'”) got no name - not downloading');
+            $this->riseError('The ressource (“'.$this->getUrl().'”) got no name - not downloading');
             $this->setUrl($previousUrl);
             return false;
         }
@@ -117,7 +120,7 @@ class HttpCrawler
 
         // Content too light - not saving
         if (strlen($content) < 10) {
-            $this->logMessage('The content seems too light - not saving');
+            $this->riseError('The content seems too light - not saving');
         }
 
         unset($content);
@@ -131,10 +134,12 @@ class HttpCrawler
      * Log a message into the console
      * @param string $message Message content
      */
-    protected function logMessage($message)
+    protected function riseError($message)
     {
         if (php_sapi_name() == "cli") {
             echo '### '.$message.PHP_EOL;
+        } else {
+            throw new Exception($message);
         }
     }
 
@@ -147,14 +152,11 @@ class HttpCrawler
     {
         // Wait some time to fool distant servers
         $sleep = (int) mt_rand(($this->getSleep() - $this->getSleepMargin()), ($this->getSleep() + $this->getSleepMargin())).'.'.mt_rand(0, 9);
-        if (!self::$firstTime) {
+        if (!$this->firstTime) {
             sleep($sleep);
         } else {
-            self::$firstTime = false;
+            $this->firstTime = false;
         }
-
-        // Log what we are doing now
-        $this->logMessage(date('Y-m-d H:i:s').' - [Sleep time: '.$sleep.'] - Try to get '.$url);
 
         // Get cURL resource
         $curl = curl_init();
@@ -175,7 +177,9 @@ class HttpCrawler
 
         // Set headers
         $headers = array();
-        $headers[]  = 'Host: '.parse_url($url, PHP_URL_HOST);
+        if (!empty($this->getHost())) {
+            $headers[]  = 'Host: '.$this->getHost();
+        }
 
         if (!empty($this->getUserAgent())) {
             $headers[]  = 'User-Agent: '.$this->getUserAgent();
@@ -248,7 +252,7 @@ class HttpCrawler
 
         // Error log message
         if ($httpCode != 200) {
-            $this->logMessage('Error when getting '.$url.' (CODE : '.$httpCode);
+            throw new DownloadException('Error when getting “'.$url.'” (CODE: '.$httpCode.')');
         }
 
         // Return content - handling gzip if necessary
@@ -359,9 +363,9 @@ class HttpCrawler
         return $this->headerAcceptCharset;
     }
 
-    public function getDomain()
+    public function getHost()
     {
-        return $this->domain;
+        return $this->host;
     }
 
     public function setRecursiveDownload($recursiveDownload)
@@ -372,17 +376,14 @@ class HttpCrawler
 
     public function setUrl($url)
     {
-        if (String::isUrl($url)) {
-            $urlInfo = parse_url($url);
+        if (Checker::isUrl($url)) {
+            $this->url = $url;
 
-            if (empty($this->getDomain())) {
-                $this->domain = $urlInfo['host'];
+            if (empty($this->getHost()) || parse_url($url, PHP_URL_HOST) != $this->getHost()) {
+                $this->setHost(parse_url($url, PHP_URL_HOST));
             }
 
-            if ($urlInfo['host'] == $this->getDomain()) {
-                $this->url = $url;
-                return $this;
-            }
+            return $this;
         }
 
         return false;
@@ -481,6 +482,19 @@ class HttpCrawler
     public function setHeaderAcceptCharset($headerAcceptCharset)
     {
         $this->headerAcceptCharset = $headerAcceptCharset;
+        return $this;
+    }
+
+    public function setHost($host)
+    {
+        // Reset the firstime bool if host has changed
+        if ($this->host != $host) {
+            $this->firstTime = true;
+        }
+
+        $this->host = $host;
+
+
         return $this;
     }
 }
