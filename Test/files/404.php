@@ -1,5 +1,7 @@
 <?php
 
-header('HTTP/1.0 404 Not Found');
+echo "The page don’t exist.";
+
+header('HTTP/1.1 404 Not Found');
 exit;
 

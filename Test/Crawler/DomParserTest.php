@@ -1,8 +1,8 @@
 <?php
 
-namespace Rico\Test\DomParserTest;
+namespace Rico\Test\Crawler\DomParserTest;
 
-use \Rico\Lib\DomParser;
+use \Rico\Lib\Crawler\DomParser;
 
 /**
  * Test class for DomParser
@@ -14,8 +14,8 @@ class DomParserTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->page1 = new DomParser(file_get_contents(__DIR__.'/files/page.html'));
-        $this->page2 = new DomParser(file_get_contents(__DIR__.'/files/page2.html'));
+        $this->page1 = new DomParser(file_get_contents(__DIR__.'/../files/page.html'));
+        $this->page2 = new DomParser(file_get_contents(__DIR__.'/../files/page2.html'));
     }
 
     public function providerGetFirstValueByTagName()
@@ -139,7 +139,7 @@ class DomParserTest extends \PHPUnit_Framework_TestCase
         $sharpenedDomParser = $this->page2->slimDomParserById($id);
 
         if ($expected || $expected === '') {
-            $this->assertInstanceOf('\Rico\Lib\DomParser', $sharpenedDomParser);
+            $this->assertInstanceOf('\Rico\Lib\Crawler\DomParser', $sharpenedDomParser);
             $this->assertSame(trim($expected), trim($sharpenedDomParser->getDomBody()->textContent));
         } else {
             $this->assertSame($expected, $sharpenedDomParser);
@@ -155,7 +155,7 @@ class DomParserTest extends \PHPUnit_Framework_TestCase
         $sharpenedDomParser = $this->page2->slimDomParserByClass($class);
 
         if ($expected || $expected === '') {
-            $this->assertInstanceOf('\Rico\Lib\DomParser', $sharpenedDomParser);
+            $this->assertInstanceOf('\Rico\Lib\Crawler\DomParser', $sharpenedDomParser);
             $this->assertSame(trim($expected), trim($sharpenedDomParser->getDomBody()->textContent));
         } else {
             $this->assertSame($expected, $sharpenedDomParser);
