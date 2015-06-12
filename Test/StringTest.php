@@ -183,6 +183,22 @@ video {
         );
     }
 
+    public function providerGetResourceNameInUrl()
+    {
+        return array(
+            array('nope', ''), // 0
+            array(null, false),
+            array(false, false),
+            array(0, false),
+            array(new \stdClass(), false),
+            array('https://www.gog.com/game/prince_of_persia_warrior_within', 'prince_of_persia_warrior_within'), // 5
+            array('http://i3.kym-cdn.com/photos/images/original/000/976/353/cca.png', 'cca.png'),
+            array('https://en.wikipedia.org/wiki/Portable_Document_Format', 'Portable_Document_Format'),
+            array('http://docs.sfr.fr/guide/Vos_chaines_TV_box_de_SFR.pdf?#zoom=81&statusbar=0&navpanes=0&messages=0', 'Vos_chaines_TV_box_de_SFR.pdf'),
+            array('/home/test/Vidéos/Best_vid_ever.mp4', 'Best_vid_ever.mp4')
+        );
+    }
+
     /**
      * @covers String::removeWhitespace
      * @dataProvider providerRemoveWhitespace
@@ -265,5 +281,14 @@ video {
     public function testMinify($value, $expected)
     {
         $this->assertSame($expected, String::minify($value));
+    }
+
+    /**
+     * @covers String::getResourceNameInUrl
+     * @dataProvider providerGetResourceNameInUrl
+     */
+    public function testGetResourceNameInUrl($value, $expected)
+    {
+        $this->assertSame($expected, String::getResourceNameInUrl($value));
     }
 }

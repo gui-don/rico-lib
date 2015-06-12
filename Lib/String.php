@@ -149,4 +149,20 @@ abstract class String
         $string = preg_replace('# ?([\;\:\{\}\,]) ?#', '$1', $string);
         return $string;
     }
+
+    /**
+     * Get the name of a resource (image, pdf, ...) out of an URL
+     * @param string $url
+     * @return string Name of the resource
+     */
+    public static function getResourceNameInUrl($url)
+    {
+        if (!is_string($url)) {
+            return false;
+        }
+
+        preg_match("/\/([^\/\?]+)(?:[\?\#].*)?$/", $url, $matches);
+
+        return !empty($matches[1]) ? $matches[1] : '';
+    }
 }

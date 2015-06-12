@@ -34,6 +34,8 @@ Nothing. Just a recent version of PHP.
 
 - **beautifulise($string)** : Transform an ugly string (with incorrect ponctuation) into beautiful string (with correct ponctuation)
 
+- **getResourceNameInUrl($url)** : Get the name of a resource (image, pdf, ...) out of an URL
+
 
 #### Checker lib ####
 
