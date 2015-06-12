@@ -21,6 +21,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         );
 
         self::$webServerProcess = proc_open('php -S 127.0.0.1:5555', $descriptorspec, self::$pipes, __DIR__.'/../files');
+        sleep(2);
     }
 
     public static function tearDownAfterClass()
