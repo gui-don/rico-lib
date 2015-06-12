@@ -1,6 +1,6 @@
 <?php
 
-namespace Rico\Lib\Exception;
+namespace Rico\Lib\Crawler\Exception;
 
 class InvalidUrlException extends \Exception
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Rico\Lib;
+namespace Rico\Lib\Crawler;
 
 use \Rico\Lib\String;
 
