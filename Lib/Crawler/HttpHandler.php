@@ -2,6 +2,7 @@
 
 namespace Rico\Lib\Crawler;
 
+use Rico\Lib\Crawler\Interfaces\HttpRequestInterface;
 use Rico\Lib\Crawler\HttpRequest;
 use Rico\Lib\Crawler\HttpResponse;
 use Rico\Lib\Crawler\DomParser;
@@ -35,11 +36,11 @@ class HttpHandler
 
     /**
      * Crawl a page
-     * @param string $url URL to crawl
+     * @param string $httpRequest URL to crawl
      */
-    public function __construct($url)
+    public function __construct(HttpRequestInterface $httpRequest)
     {
-        $this->setRequest(new HttpRequest($url));
+        $this->setRequest($httpRequest);
     }
 
     /**

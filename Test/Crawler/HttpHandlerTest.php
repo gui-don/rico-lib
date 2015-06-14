@@ -46,13 +46,13 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         // Create http request object
         $httpRequestMock = new HttpRequest('http://127.0.0.1:8888/server.php');
 
-        // Expect setUrl method to trigger once
+        // Expect setRequest method to trigger once
         $mock->expects($this->once())->method('setRequest')->with($this->equalTo($httpRequestMock))->will($this->returnSelf());
 
         // Test it
         $reflectedClass = new \ReflectionClass($classname);
         $constructor = $reflectedClass->getConstructor();
-        $constructor->invoke($mock, 'http://127.0.0.1:8888/server.php');
+        $constructor->invoke($mock, $httpRequestMock);
     }
 
     /**
@@ -62,7 +62,7 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
     {
         //Get mocks, without the constructor being called
         $httpRequestMock = $this->getMockBuilder('Rico\Lib\Crawler\HttpRequest')->setMethods(array('send'))->setConstructorArgs(array('http://127.0.0.1:8888/server.php'))->getMock();
-        $mock = $this->getMockBuilder('Rico\Lib\Crawler\HttpHandler')->setMethods(array('setRequest', 'setResponse', 'setParser', 'getRequest', 'getResponse', 'getParser'))->setConstructorArgs(array('http://127.0.0.1:8888/server.php'))->getMock();
+        $mock = $this->getMockBuilder('Rico\Lib\Crawler\HttpHandler')->setMethods(array('setRequest', 'setResponse', 'setParser', 'getRequest', 'getResponse', 'getParser'))->setConstructorArgs(array($httpRequestMock))->getMock();
 
         // Set httpRequest mock
         $httpResponse = new HttpResponse('OK', 200, 'headers...', 'text/html');
@@ -86,7 +86,7 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testTrueGet()
     {
-        $httpHandler = new HttpHandler('http://127.0.0.1:8888/server.php');
+        $httpHandler = new HttpHandler(new HttpRequest('http://127.0.0.1:8888/server.php'));
 
         $begin = microtime(true);
         $httpHandler->get();
@@ -240,7 +240,7 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testClickTo()
     {
-        $httpHandler = new HttpHandler('http://127.0.0.1:8888/server.php');
+        $httpHandler = new HttpHandler(new HttpRequest('http://127.0.0.1:8888/server.php'));
 
         // Previous URL is totally ignored because it wasn’t downloaded
         $begin = microtime(true);

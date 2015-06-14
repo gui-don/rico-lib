@@ -2,13 +2,13 @@
 
 namespace Rico\Lib\Crawler;
 
+use Rico\Lib\Crawler\Interfaces\HttpRequestInterface;
 use Rico\Lib\Checker;
 use Rico\Lib\Crawler\HttpResponse;
 use Rico\Lib\Crawler\Exception\DownloadException;
-use Rico\Lib\Crawler\Exception\ResponseException;
 use Rico\Lib\Crawler\Exception\InvalidUrlException;
 
-class HttpRequest
+class HttpRequest implements HttpRequestInterface
 {
     const STATUS_NOT_SEND = 0;
     const STATUS_SEND = 1;

@@ -2,10 +2,12 @@
 
 namespace Rico\Lib\Crawler;
 
+use Rico\Lib\Crawler\Interfaces\HttpResponseInterface;
+
 /**
  * HttpResponse class
  */
-class HttpResponse
+class HttpResponse implements HttpResponseInterface
 {
     protected $content;
     protected $mime;
@@ -34,6 +36,51 @@ class HttpResponse
      */
     public function save($path, $override = true)
     {
+//        if (!empty($url)) {
+//            $previousUrl = $this->getUrl();
+//
+//            if (!$this->setUrl($url)) {
+//                $this->setUrl($previousUrl);
+//                throw new InvalidUrlException('The URL (“'.$url.'”) is not valid or host does not match.');
+//            }
+//        }
+//
+//        // Download content
+//        $content = $this->download($this->getUrl());
+//
+//        // Get content name
+//        $contentName = String::getResourceNameInUrl($url);
+//        if (empty($contentName)) {
+//            md5($content);
+//        }
+//
+//        var_dump(fil$content);
+//        exit;
+//
+//        // File already exists, without override
+//        if (file_exists($path.$contentName) && !$override) {
+//            throw new FileException('Cannot save the downloaded content to “'.$path.$contentName.'”. Target already exist! Use override=true to ignore.');
+//        }
+//
+//        // If the content already exist, with override
+//        if (file_exists($path.$contentName) && $override) {
+//            unlink($path.$contentName);
+//        }
+//
+//        $saveContentHandler = fopen($path.$contentName, 'x');
+//        fwrite($saveContentHandler, $content);
+//        fclose($saveContentHandler);
+//
+//        // Content too light - not saving
+//        if (strlen($content) < 10) {
+//            $this->riseError('The content seems too light - not saving');
+//        }
+//
+//        unset($content);
+//
+//        $this->setUrl($previousUrl);
+//
+//        return $path.$contentName;
     }
 
     public function getContent()

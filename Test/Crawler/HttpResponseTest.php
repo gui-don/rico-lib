@@ -35,6 +35,22 @@ class HttpResponseTest extends \PHPUnit_Framework_TestCase
      */
     public function testSave()
     {
-        
+
+    }
+
+    /**
+     * @covers HttpResponse::save
+     */
+    public function testSaveWithoutFilename()
+    {
+
+    }
+
+    /**
+     * @covers HttpResponse::save
+     */
+    public function testSaveWithoutOverride()
+    {
+
     }
 }
