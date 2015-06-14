@@ -35,6 +35,8 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         unlink(self::TEST_DIR.self::$strFile2);
         unlink(self::TEST_DIR.self::$strFile3);
         unlink(self::TEST_DIR.self::$strDir2.'/'.self::$strFile4);
+        rmdir(self::TEST_DIR.'new/path');
+        rmdir(self::TEST_DIR.'new');
         rmdir(self::TEST_DIR.self::$strDir);
         rmdir(self::TEST_DIR.self::$strDir2);
         rmdir(self::TEST_DIR);
@@ -50,6 +52,20 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(array('file' => array(self::$strFile4)), File::listDirectory(self::TEST_DIR.self::$strDir2));
         $this->assertEquals(array(self::$strDir, self::$strDir2), File::listDirectory(self::TEST_DIR, File::LIST_DIRECTORY_DIR_ONLY));
         $this->assertEquals(array(self::$strFile1, self::$strFile2, self::$strFile3), File::listDirectory(self::TEST_DIR, File::LIST_DIRECTORY_FILE_ONLY));
+    }
+
+    /**
+     * @covers File::createPath
+     */
+    public function testCreatePath()
+    {
+        // Test simple path creation
+        $this->assertTrue(File::createPath(self::TEST_DIR.'new/path'));
+        $this->assertTrue(file_exists(self::TEST_DIR.'new/path'));
+
+        // Test path creation over a file that already exists
+        $this->assertFalse(File::createPath(self::TEST_DIR.self::$strFile2));
+        $this->assertFalse(is_dir(self::TEST_DIR.self::$strFile2));
     }
 
 }

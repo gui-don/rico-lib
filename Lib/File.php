@@ -14,25 +14,25 @@ abstract class File
 
     /**
      * Get filenames and folders names inside a directory
-     * @param string $strPath
+     * @param string $path
      * @param int $option
      * @return string[]
      */
-    public static function listDirectory($strPath, $option = self::LIST_DIRECTORY_BOTH)
+    public static function listDirectory($path, $option = self::LIST_DIRECTORY_BOTH)
     {
-        if(!file_exists($strPath) || !is_dir($strPath)) {
+        if(!file_exists($path) || !is_dir($path)) {
             return false;
         }
 
         $aResult = array();
 
-        $resourceDir = @opendir($strPath);
+        $resourceDir = @opendir($path);
         while (false !== ($strFile = readdir($resourceDir))) {
             if (in_array($strFile, array('.', '..'))) {
                 continue;
             }
 
-            $strCompleteFile = $strPath.'/'.$strFile;
+            $strCompleteFile = $path.'/'.$strFile;
             switch ($option) {
                 case self::LIST_DIRECTORY_FILE_ONLY:
                     if (!is_dir($strCompleteFile)) {
@@ -58,5 +58,23 @@ abstract class File
         closedir($resourceDir);
 
         return $aResult;
+    }
+
+    /**
+     * Create all missing directories from a path
+     * @param string $path
+     */
+    public static function createPath($path)
+    {
+        if (!is_string($path)) {
+            return false;
+        }
+
+        if (file_exists($path)) {
+            return false;
+        }
+
+        mkdir($path, 0777, true);
+        return true;
     }
 }

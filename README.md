@@ -15,7 +15,9 @@ Nothing. Just a recent version of PHP.
 
 #### File lib ####
 
-- **listDirectory($strPath, $option)** : Get filenames and folders names inside a directory
+- **listDirectory($path, $option)** : Get filenames and folders names inside a directory
+
+- **createPath($path)** : Create all missing directories from a path
 
 
 #### String lib ####
