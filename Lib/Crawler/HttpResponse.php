@@ -2,7 +2,10 @@
 
 namespace Rico\Lib\Crawler;
 
+use Rico\Lib\Crawler\Exception\FileException;
 use Rico\Lib\Crawler\Interfaces\HttpResponseInterface;
+use Rico\Lib\File;
+use Rico\Lib\String;
 
 /**
  * HttpResponse class
@@ -31,56 +34,38 @@ class HttpResponse implements HttpResponseInterface
 
     /**
      * Save the response in a file
-     * @param type $path
+     * @param type $filename
      * @param type $override
      */
-    public function save($path, $override = true)
+    public function save($filename, $override = true)
     {
-//        if (!empty($url)) {
-//            $previousUrl = $this->getUrl();
-//
-//            if (!$this->setUrl($url)) {
-//                $this->setUrl($previousUrl);
-//                throw new InvalidUrlException('The URL (“'.$url.'”) is not valid or host does not match.');
-//            }
-//        }
-//
-//        // Download content
-//        $content = $this->download($this->getUrl());
-//
-//        // Get content name
-//        $contentName = String::getResourceNameInUrl($url);
-//        if (empty($contentName)) {
-//            md5($content);
-//        }
-//
-//        var_dump(fil$content);
-//        exit;
-//
-//        // File already exists, without override
-//        if (file_exists($path.$contentName) && !$override) {
-//            throw new FileException('Cannot save the downloaded content to “'.$path.$contentName.'”. Target already exist! Use override=true to ignore.');
-//        }
-//
-//        // If the content already exist, with override
-//        if (file_exists($path.$contentName) && $override) {
-//            unlink($path.$contentName);
-//        }
-//
-//        $saveContentHandler = fopen($path.$contentName, 'x');
-//        fwrite($saveContentHandler, $content);
-//        fclose($saveContentHandler);
-//
-//        // Content too light - not saving
-//        if (strlen($content) < 10) {
-//            $this->riseError('The content seems too light - not saving');
-//        }
-//
-//        unset($content);
-//
-//        $this->setUrl($previousUrl);
-//
-//        return $path.$contentName;
+        if(!is_string($filename)) {
+            return false;
+        }
+
+        // Create a filename id needed
+        if (is_dir($filename)) {
+            $filename .= md5($this->getContent()).'.'.String::getResourceNameInUrl($this->getMime());
+        }
+
+        // File already exists, without override
+        if (file_exists($filename) && !$override) {
+            throw new FileException('Cannot save the downloaded content to “'.$filename.'”. Target already exist! Use override=true to ignore.');
+        }
+
+        // If the content already exist, with override
+        if (file_exists($filename) && $override) {
+            unlink($filename);
+        }
+
+        // Create path if it does not exist
+        File::createPath(dirname($filename));
+
+        $saveContentHandler = fopen($filename, 'w');
+        fwrite($saveContentHandler, $this->getContent());
+        fclose($saveContentHandler);
+
+        return true;
     }
 
     public function getContent()
