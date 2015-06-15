@@ -62,6 +62,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         // Test simple path creation
         $this->assertTrue(File::createPath(self::TEST_DIR.'new/path'));
         $this->assertTrue(file_exists(self::TEST_DIR.'new/path'));
+        $this->assertSame('0755', substr(sprintf('%o', fileperms(self::TEST_DIR.'new/path')), -4));
 
         // Test path creation over a file that already exists
         $this->assertFalse(File::createPath(self::TEST_DIR.self::$strFile2));

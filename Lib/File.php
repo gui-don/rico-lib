@@ -74,7 +74,7 @@ abstract class File
             return false;
         }
 
-        mkdir($path, 0777, true);
+        mkdir($path, 0755, true);
         return true;
     }
 }
