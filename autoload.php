@@ -17,7 +17,7 @@ spl_autoload_register(function ($class) {
     $prefix = 'Rico\\Lib\\';
 
     // base directory for the namespace prefix
-    $base_dir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__ . '/Lib/';
+    $base_dir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__ . '/src/Lib/';
 
     // does the class use the namespace prefix?
     $len = strlen($prefix);
