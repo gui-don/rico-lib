@@ -1,0 +1,9 @@
+{
+    "name": "gui-don/rico-library",
+    "type": "library",
+    "description": "Rico project library",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
