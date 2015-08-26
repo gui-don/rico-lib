@@ -2,7 +2,7 @@
 
 ---
 
-___________________________________![rico](rico.png)___________________________________
+<p align="center"><img src="rico.png" /></p>
 
 
 ## A bunch of PHP utility libraries. ##
@@ -18,6 +18,8 @@ Nothing. Just a recent version of PHP.
 - **listDirectory($path, $option)** : Get filenames and folders names inside a directory
 
 - **createPath($path)** : Create all missing directories from a path
+
+- **createSymlink($link, $path)** : Create a symbolic link
 
 
 #### String lib ####
