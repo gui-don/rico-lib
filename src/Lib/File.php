@@ -63,6 +63,7 @@ abstract class File
     /**
      * Create all missing directories from a path
      * @param string $path
+     * @return bool True if path has been created, false otherwise
      */
     public static function createPath($path)
     {
@@ -76,5 +77,28 @@ abstract class File
 
         mkdir($path, 0755, true);
         return true;
+    }
+
+    /**
+     * Create a symbolic link
+     * @param string $link Absolute or relative symbolic link
+     * @param string $file
+     * @return bool True if symbolic link has been created, false otherwise
+     */
+    public static function createSymlink($link, $file)
+    {
+        if (!is_string($file) || !is_string($link)) {
+            return false;
+        }
+
+        if (!file_exists($link) && !file_exists(dirname($file).'/'.$link)) {
+            return false;
+        }
+
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        return symlink($link, $file);
     }
 }

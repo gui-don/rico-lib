@@ -23,7 +23,9 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         mkdir(self::TEST_DIR);
         mkdir(self::TEST_DIR.self::$strDir);
         mkdir(self::TEST_DIR.self::$strDir2);
-        file_put_contents(self::TEST_DIR.self::$strFile1, str_repeat(mt_rand(0,9), 5000));
+        $str = '';
+        for ($i = 1; $i <= 1000; $i++, $str .= mt_rand(0,9));
+        file_put_contents(self::TEST_DIR.self::$strFile1, $str);
         file_put_contents(self::TEST_DIR.self::$strFile2, str_repeat(mt_rand(0,9), 5000));
         file_put_contents(self::TEST_DIR.self::$strFile3, str_repeat(mt_rand(0,9), 2048576));
         file_put_contents(self::TEST_DIR.self::$strDir2.'/'.self::$strFile4, str_repeat(mt_rand(0,9), 288576));
@@ -35,11 +37,50 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         unlink(self::TEST_DIR.self::$strFile2);
         unlink(self::TEST_DIR.self::$strFile3);
         unlink(self::TEST_DIR.self::$strDir2.'/'.self::$strFile4);
+        unlink('another/relative.txt');
+        unlink('another/absolute.txt');
         rmdir(self::TEST_DIR.'new/path');
         rmdir(self::TEST_DIR.'new');
         rmdir(self::TEST_DIR.self::$strDir);
         rmdir(self::TEST_DIR.self::$strDir2);
         rmdir(self::TEST_DIR);
+        rmdir('another');
+    }
+
+    /**
+     * @covers File::createSymlink
+     */
+    public function testCreateSymlink()
+    {
+        $md5 = md5(file_get_contents(self::TEST_DIR.self::$strFile1));
+        mkdir('another');
+
+        // Test absolute symlink
+        $link = getcwd().'/'.self::TEST_DIR.self::$strFile1;
+        $this->assertTrue(File::createSymlink($link, 'another/absolute.txt'));
+        $this->assertTrue(file_exists('another/absolute.txt'));
+        $this->assertSame('0644', substr(sprintf('%o', fileperms('another/absolute.txt')), -4));
+        $this->assertSame($md5, md5(file_get_contents('another/absolute.txt')));
+
+        // Test relative symlink
+        $link = '../'.self::TEST_DIR.self::$strFile1;
+        $this->assertTrue(File::createSymlink($link, 'another/relative.txt'));
+        $this->assertTrue(file_exists('another/relative.txt'));
+        $this->assertSame('0644', substr(sprintf('%o', fileperms('another/relative.txt')), -4));
+        $this->assertSame($md5, md5(file_get_contents('another/relative.txt')));
+
+        // Test symlink creation over a file that already exists
+        $md5 = md5(file_get_contents(self::TEST_DIR.self::$strFile2));
+        $link = '../'.self::TEST_DIR.self::$strFile2;
+        $this->assertTrue(File::createSymlink($link, 'another/relative.txt'));
+        $this->assertTrue(file_exists('another/relative.txt'));
+        $this->assertSame('0644', substr(sprintf('%o', fileperms('another/relative.txt')), -4));
+        $this->assertSame($md5, md5(file_get_contents('another/relative.txt')));
+
+        // Test symlink creation with a non-existing file
+        $link = 'dontexist.file';
+        $this->assertFalse(File::createSymlink($link, self::TEST_DIR.self::$strFile2));
+        $this->assertFalse(file_exists($link));
     }
 
     /**
