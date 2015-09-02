@@ -65,7 +65,7 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         $mock = $this->getMockBuilder('Rico\Lib\Crawler\HttpHandler')->setMethods(array('setRequest', 'setResponse', 'setParser', 'getRequest', 'getResponse', 'getParser'))->setConstructorArgs(array($httpRequestMock))->getMock();
 
         // Set httpRequest mock
-        $httpResponse = new HttpResponse('OK', 200, 'headers...', 'text/html');
+        $httpResponse = new HttpResponse('OK', 200, 'Header: OK', 'text/html');
         $httpDomParser = new DomParser('OK');
         $httpRequestMock->method('send')->willReturn($httpResponse);
 
@@ -101,8 +101,8 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($httpHandler->getResponse()->getMime());
         $this->assertSame(200, $httpHandler->getResponse()->getCode());
         // Check request
-        $this->assertSame('MagicCookie=YUMMY; another=one', $httpHandler->getRequest()->getHeaderCookie());
-        $this->assertSame('http://127.0.0.1:8888/server.php', $httpHandler->getRequest()->getHeaderReferer());
+        $this->assertSame('MagicCookie=YUMMY; another=one', $httpHandler->getRequest()->getHeaders()->getCookie());
+        $this->assertSame('http://127.0.0.1:8888/server.php', $httpHandler->getRequest()->getHeaders()->getReferer());
 
         return $httpHandler;
     }
@@ -130,8 +130,8 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($httpHandler->getResponse()->getMime());
         $this->assertSame(404, $httpHandler->getResponse()->getCode());
         // Check request
-        $this->assertSame('MagicCookie=YUMMY; another=one', $httpHandler->getRequest()->getHeaderCookie());
-        $this->assertSame('http://127.0.0.1:8888/404.php', $httpHandler->getRequest()->getHeaderReferer());
+        $this->assertSame('MagicCookie=YUMMY; another=one', $httpHandler->getRequest()->getHeaders()->getCookie());
+        $this->assertSame('http://127.0.0.1:8888/404.php', $httpHandler->getRequest()->getHeaders()->getReferer());
 
         return $httpHandler;
     }
@@ -157,8 +157,8 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($httpHandler->getResponse()->getMime());
         $this->assertSame(200, $httpHandler->getResponse()->getCode());
         // Check request
-        $this->assertSame('MagicCookie=NEW; another=one', $httpHandler->getRequest()->getHeaderCookie());
-        $this->assertSame('http://127.0.0.1:8888/newCookie.php', $httpHandler->getRequest()->getHeaderReferer());
+        $this->assertSame('MagicCookie=NEW; another=one', $httpHandler->getRequest()->getHeaders()->getCookie());
+        $this->assertSame('http://127.0.0.1:8888/newCookie.php', $httpHandler->getRequest()->getHeaders()->getReferer());
 
         return $httpHandler;
     }
@@ -184,8 +184,8 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($httpHandler->getResponse()->getMime());
         $this->assertSame(200, $httpHandler->getResponse()->getCode());
         // Check request
-        $this->assertSame('MagicCookie=NEW; another=one', $httpHandler->getRequest()->getHeaderCookie());
-        $this->assertSame('', $httpHandler->getRequest()->getHeaderReferer());
+        $this->assertSame('MagicCookie=NEW; another=one', $httpHandler->getRequest()->getHeaders()->getCookie());
+        $this->assertSame('', $httpHandler->getRequest()->getHeaders()->getReferer());
 
         return $httpHandler;
     }
@@ -213,8 +213,8 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($httpHandler->getResponse()->getMime());
         $this->assertSame(200, $httpHandler->getResponse()->getCode());
         // Check request
-        $this->assertSame('MagicCookie=NEW; another=one', $httpHandler->getRequest()->getHeaderCookie());
-        $this->assertSame('', $httpHandler->getRequest()->getHeaderReferer());
+        $this->assertSame('MagicCookie=NEW; another=one', $httpHandler->getRequest()->getHeaders()->getCookie());
+        $this->assertSame('', $httpHandler->getRequest()->getHeaders()->getReferer());
 
         return $httpHandler;
     }
@@ -256,8 +256,8 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($httpHandler->getResponse()->getMime());
         $this->assertSame(200, $httpHandler->getResponse()->getCode());
         // Check request
-        $this->assertSame('MagicCookie=NEW', $httpHandler->getRequest()->getHeaderCookie());
-        $this->assertSame('http://127.0.0.1:8888/newCookie.php', $httpHandler->getRequest()->getHeaderReferer());
+        $this->assertSame('MagicCookie=NEW', $httpHandler->getRequest()->getHeaders()->getCookie());
+        $this->assertSame('http://127.0.0.1:8888/newCookie.php', $httpHandler->getRequest()->getHeaders()->getReferer());
 
         return $httpHandler;
     }
@@ -268,7 +268,7 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testClickToWithPreserveHost($httpHandler)
     {
-        $httpHandler->getRequest()->setHeaderHost('fantasy-host.com');
+        $httpHandler->getRequest()->getHeaders()->setHost('fantasy-host.com');
 
         // Even if a new URL is loaded, host must not changed because of the preserveHost parameter
         $begin = microtime(true);
@@ -288,7 +288,7 @@ class HttpHandlerTest extends \PHPUnit_Framework_TestCase
         // Check referer
         $this->assertRegExp('#\[HTTP_REFERER\] => http\:\/\/127\.0\.0\.1\:8888\/newCookie\.php#', $httpHandler->getResponse()->getContent());
         // Check request
-        $this->assertSame('MagicCookie=YUMMY; another=one', $httpHandler->getRequest()->getHeaderCookie());
-        $this->assertSame('http://127.0.0.1:8888/server.php', $httpHandler->getRequest()->getHeaderReferer());
+        $this->assertSame('MagicCookie=YUMMY; another=one', $httpHandler->getRequest()->getHeaders()->getCookie());
+        $this->assertSame('http://127.0.0.1:8888/server.php', $httpHandler->getRequest()->getHeaders()->getReferer());
     }
 }

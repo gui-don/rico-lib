@@ -2,6 +2,8 @@
 
 namespace Rico\Lib\Crawler\Interfaces;
 
+use Rico\Lib\Crawler\Interfaces\HttpResponseHeaderInterface;
+
 /**
  * HttpResponse interface
  */
@@ -32,6 +34,6 @@ interface HttpResponseInterface
 
     public function setCode($code);
 
-    public function setHeaders($headers);
+    public function setHeaders(HttpResponseHeaderInterface $headers);
 
 }

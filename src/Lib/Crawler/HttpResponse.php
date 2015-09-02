@@ -4,6 +4,7 @@ namespace Rico\Lib\Crawler;
 
 use Rico\Lib\Crawler\Exception\FileException;
 use Rico\Lib\Crawler\Interfaces\HttpResponseInterface;
+use Rico\Lib\Crawler\Interfaces\HttpResponseHeaderInterface;
 use Rico\Lib\File;
 use Rico\Lib\String;
 
@@ -15,20 +16,23 @@ class HttpResponse implements HttpResponseInterface
     protected $content;
     protected $mime;
     protected $code;
+    /**
+     * @var HttpResponseHeaderInterface
+     */
     protected $headers;
 
     /**
      * Create a new HttpResponse object
-     * @param type $content
-     * @param type $code
-     * @param type $headers
-     * @param type $mime
+     * @param string $content
+     * @param int $code
+     * @param string $rawHeader
+     * @param string $mime
      */
-    public function __construct($content, $code, $headers = array(), $mime = '')
+    public function __construct($content, $code, $rawHeader = '', $mime = '')
     {
         $this->setContent($content);
         $this->setCode($code);
-        $this->setHeaders($headers);
+        $this->setHeaders(new HttpResponseHeader($rawHeader));
         $this->setMime($mime);
     }
 
@@ -106,7 +110,7 @@ class HttpResponse implements HttpResponseInterface
         return $this;
     }
 
-    public function setHeaders($headers)
+    public function setHeaders(HttpResponseHeaderInterface $headers)
     {
         $this->headers = $headers;
         return $this;

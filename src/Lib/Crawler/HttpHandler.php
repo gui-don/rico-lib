@@ -58,7 +58,7 @@ class HttpHandler
 
         // Disable referer if needed
         if ($this->getDisableReferer()) {
-            $this->getRequest()->setHeaderReferer('');
+            $this->getRequest()->getHeaders()->setReferer('');
         }
 
         // Send request and get response
@@ -73,14 +73,13 @@ class HttpHandler
         $this->setParser(new DomParser($this->getResponse()->getContent()));
 
         // Set cookies if needed
-        preg_match('#\R(?:Set-Cookie\:\ )(\N+);?#u', $this->getResponse()->getHeaders(), $matches);
-        if (isset($matches[1])) {
+        if ($this->getResponse()->getHeaders()->getSetCookie()) {
             $newCookies = array();
-            parse_str(preg_replace('#\; ?#', '&', trim($matches[1])), $newCookies);
+            parse_str(preg_replace('#\; ?#', '&', trim($this->getResponse()->getHeaders()->getSetCookie())), $newCookies);
             $oldCookies = array();
-            parse_str(preg_replace('#\; ?#', '&', $this->getRequest()->getHeaderCookie()), $oldCookies);
+            parse_str(preg_replace('#\; ?#', '&', $this->getRequest()->getHeaders()->getCookie()), $oldCookies);
 
-            $this->getRequest()->setHeaderCookie(http_build_query($newCookies + $oldCookies, '', '; '));
+            $this->getRequest()->getHeaders()->setCookie(http_build_query($newCookies + $oldCookies, '', '; '));
         }
     
         // Set referer
@@ -99,17 +98,17 @@ class HttpHandler
     public function clickTo($url, $preserveHost = false)
     {
         // Get previous host
-        $previousHost = $this->getRequest()->getHeaderHost();
+        $previousHost = $this->getRequest()->getHeaders()->getHost();
 
         // Set a new URL
         $this->getRequest()->setUrl($url);
 
         if ($preserveHost) {
-            $this->getRequest()->setHeaderHost($previousHost);
+            $this->getRequest()->getHeaders()->setHost($previousHost);
         }
 
         // Set the first time variable to determine the delay
-        $newHost = $this->getRequest()->getHeaderHost();
+        $newHost = $this->getRequest()->getHeaders()->getHost();
         if ($newHost == $previousHost) {
             $this->setFirstTime(false);
         } else {

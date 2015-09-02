@@ -35,11 +35,10 @@ class HttpResponseTest extends \PHPUnit_Framework_TestCase
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)->disableOriginalConstructor()->getMock();
-
         // Expectations
         $mock->expects($this->once())->method('setContent')->with($this->equalTo('Some content'))->willReturn($mock);
         $mock->expects($this->once())->method('setCode')->with($this->equalTo(200))->willReturn($mock);
-        $mock->expects($this->once())->method('setHeaders')->with($this->equalTo('Status: 200 OK'))->willReturn($mock);
+        $mock->expects($this->once())->method('setHeaders')->with($this->equalTo(new \Rico\Lib\Crawler\HttpResponseHeader('Status: 200 OK')))->willReturn($mock);
         $mock->expects($this->once())->method('setMime')->with($this->equalTo('application/x-www-form-urlencoded'))->willReturn($mock);
 
         // Test it
