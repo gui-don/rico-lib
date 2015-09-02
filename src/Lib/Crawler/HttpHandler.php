@@ -81,12 +81,10 @@ class HttpHandler
 
             $this->getRequest()->getHeaders()->setCookie(http_build_query($newCookies + $oldCookies, '', '; '));
         }
-    
+
         // Set referer
         if (!$this->getDisableReferer()) {
-            $this->getRequest()->setHeaderReferer($this->getRequest()->getUrl());
-        } else {
-            
+            $this->getRequest()->getHeaders()->setReferer($this->getRequest()->getUrl());
         }
     }
 
