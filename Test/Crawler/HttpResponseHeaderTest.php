@@ -140,7 +140,9 @@ X-Request-Id: e2a0e97ff79eec69b6069d4fa94360f5
 X-Runtime: 0.040326
 X-Served-By: 7d2a2d05162492046d9960cdbc326796
 X-UA-Compatible: IE=Edge,chrome=1
-X-XSS-Protection: 1; mode=block';
+X-XSS-Protection: 1; mode=block
+
+Set-Cookie: another=one';
 
         $expected = array(
             'Cache-Control' => 'no-cache',
@@ -149,7 +151,7 @@ X-XSS-Protection: 1; mode=block';
             'Date' => 'Tue, 01 Sep 2015 21:29:22 GMT',
             'Public-Key-Pins' => 'max-age=300; pin-sha256="WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18="; pin-sha256="JbQbUG5JMJUoI6brnx0x3vZF6jilxsapbXGVfjhN8Fg="; includeSubDomains',
             'Server' => 'GitHub.com',
-            'Set-Cookie' => '_gh_sess=eyJzZXNzaW9uX2lkIjoiYWM1NWQzMjI3MGMyODQ5MDgxZjI1YmI5ZjI5YjczMmQiLCJzcHlfcmVwbyI6Imp2ZW5hbnQvcGFzc2ZmIiwic3B5X3JlcG9fYXQiOjE0NDExNDI5NjIsIl9jc3JmX3Rva2VuIjoidTVnWVdOZW1YODhaME5pWnd1WDE5RjZFaldpWHNGbXdET2Fkam9yNEI3Yz0ifQ%3D%3D--2f4a6b5e28d4f604c5dd084adea7f96e025771f8; path=/; secure; HttpOnly',
+            'Set-Cookie' => '_gh_sess=eyJzZXNzaW9uX2lkIjoiYWM1NWQzMjI3MGMyODQ5MDgxZjI1YmI5ZjI5YjczMmQiLCJzcHlfcmVwbyI6Imp2ZW5hbnQvcGFzc2ZmIiwic3B5X3JlcG9fYXQiOjE0NDExNDI5NjIsIl9jc3JmX3Rva2VuIjoidTVnWVdOZW1YODhaME5pWnd1WDE5RjZFaldpWHNGbXdET2Fkam9yNEI3Yz0ifQ%3D%3D--2f4a6b5e28d4f604c5dd084adea7f96e025771f8; path=/; secure; HttpOnly; another=one',
             'Status' => '200 OK',
             'Strict-Transport-Security' => 'max-age=31536000; includeSubdomains; preload',
             'Transfer-Encoding' => 'chunked',

@@ -13,7 +13,6 @@ class HttpRequest implements HttpRequestInterface
 {
     const STATUS_NOT_SEND = 0;
     const STATUS_SEND = 1;
-    const STATUS_REDIRECTED = 2;
 
     protected $status = self::STATUS_NOT_SEND;
 

@@ -242,6 +242,62 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers HttpRequest::send
+     */
+    public function testSendWithRedirection()
+    {
+        $httpRequest = new HttpRequest('http://127.0.0.1:5555/redirect301.php');
+        $httpResponse = $httpRequest->send();
+
+        // Check response
+        $this->assertSame('TOUT EST BON', $httpResponse->getContent());
+        $this->assertSame('127.0.0.1', $httpResponse->getHeaders()->getHeaders()['host'][1]);
+        $this->assertSame('redirection=from301; whatwhat=ok', $httpResponse->getHeaders()->getSetCookie());
+        $this->assertSame('fr', $httpResponse->getHeaders()->getContentLanguage());
+        $this->assertEmpty($httpResponse->getHeaders()->getContentEncoding());
+        $this->assertSame(200, $httpResponse->getCode());
+        // Check request
+        $this->assertSame(HttpRequest::STATUS_SEND, $httpRequest->getStatus());
+
+        $httpRequest->setUrl('http://127.0.0.1:5555/redirect302.php');
+        $httpResponse = $httpRequest->send();
+
+        // Check response
+        $this->assertSame('TOUT EST BON', $httpResponse->getContent());
+        $this->assertSame('127.0.0.1', $httpResponse->getHeaders()->getHeaders()['host'][1]);
+        $this->assertSame('redirection=from302; whatwhat=ok', $httpResponse->getHeaders()->getSetCookie());
+        $this->assertSame('fr', $httpResponse->getHeaders()->getContentLanguage());
+        $this->assertEmpty($httpResponse->getHeaders()->getContentEncoding());
+        $this->assertSame(200, $httpResponse->getCode());
+        // Check request
+        $this->assertSame(HttpRequest::STATUS_SEND, $httpRequest->getStatus());
+    }
+
+    /**
+     * @covers HttpRequest::send
+     */
+    public function testSendWithoutRedirection()
+    {
+        $httpRequest = new HttpRequest('http://127.0.0.1:5555/redirect302.php');
+
+        // Disable automatic redirection
+        $httpRequest->setFollowRedirection(false);
+
+        $httpResponse = $httpRequest->send();
+
+        $this->assertSame('', $httpResponse->getContent());
+        $this->assertSame('127.0.0.1', $httpResponse->getHeaders()->getHeaders()['host'][1]);
+        $this->assertSame('redirection=from302', $httpResponse->getHeaders()->getSetCookie());
+        $this->assertSame('httpAnswer.php', $httpResponse->getHeaders()->getLocation());
+        $this->assertEmpty($httpResponse->getHeaders()->getContentLanguage());
+        $this->assertEmpty($httpResponse->getHeaders()->getContentEncoding());
+        $this->assertSame(302, $httpResponse->getCode());
+        // Check request
+        $this->assertSame(HttpRequest::STATUS_SEND, $httpRequest->getStatus());
+    }
+
+
+    /**
+     * @covers HttpRequest::send
      * @depends testSendWithAnImage
      * @expectedException Rico\Lib\Crawler\Exception\DownloadException
      */

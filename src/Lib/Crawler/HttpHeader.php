@@ -25,7 +25,12 @@ class HttpHeader
 
         for ($i = 0, $j = count($matches[0]); $i < $j; $i++) {
             if (isset($this->headers[strtolower($matches[1][$i])][0])) {
-                $this->headers[strtolower($matches[1][$i])][1] = $matches[2][$i];
+                // Handle cookie exception - append if there are tow setCookie headers
+                if (strtolower($matches[1][$i]) != 'set-cookie') {
+                    $this->headers[strtolower($matches[1][$i])][1] = $matches[2][$i];
+                } else {
+                    $this->headers[strtolower($matches[1][$i])][1] .= empty($this->headers[strtolower($matches[1][$i])][1]) ? $matches[2][$i] : '; '.$matches[2][$i];
+                }
             } else {
                 $this->addHeader($matches[1][$i], $matches[2][$i]);
             }
