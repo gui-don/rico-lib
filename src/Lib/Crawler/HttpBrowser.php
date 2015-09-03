@@ -12,7 +12,7 @@ use Rico\Lib\Crawler\Exception\ResponseException;
  * Tool to handle HTTP pages
  * @depends php5-curl
  */
-class HttpHandler
+class HttpBrowser
 {
     /**
      * @var HttpRequest
