@@ -43,22 +43,19 @@ class HttpBrowserTest extends \PHPUnit_Framework_TestCase
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)->disableOriginalConstructor()->getMock();
 
-        // Create http request object
-        $httpRequestMock = new HttpRequest('http://127.0.0.1:8888/server.php');
-
         // Expect setRequest method to trigger once
-        $mock->expects($this->once())->method('setRequest')->with($this->equalTo($httpRequestMock))->will($this->returnSelf());
+        $mock->expects($this->once())->method('setRequest')->will($this->returnSelf());
 
         // Test it
         $reflectedClass = new \ReflectionClass($classname);
         $constructor = $reflectedClass->getConstructor();
-        $constructor->invoke($mock, $httpRequestMock);
+        $constructor->invoke($mock);
     }
 
     /**
-     * @covers HttpBrowser::get
+     * @covers HttpBrowser::load
      */
-    public function testGet()
+    public function testLoad()
     {
         //Get mocks, without the constructor being called
         $httpRequestMock = $this->getMockBuilder('Rico\Lib\Crawler\HttpRequest')->setMethods(array('send'))->setConstructorArgs(array('http://127.0.0.1:8888/server.php'))->getMock();
@@ -78,18 +75,19 @@ class HttpBrowserTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('setResponse')->with($this->equalTo($httpResponse))->will($this->returnSelf());
         $mock->expects($this->once())->method('setParser')->will($this->returnSelf());
 
-        $mock->get();
+        $mock->load();
     }
 
     /**
-     * @covers HttpBrowser::get
+     * @covers HttpBrowser::load
      */
-    public function testTrueGet()
+    public function testTrueLoad()
     {
-        $httpBrowser = new HttpBrowser(new HttpRequest('http://127.0.0.1:8888/server.php'));
+        $httpBrowser = new HttpBrowser();
+        $httpBrowser->getRequest()->setUrl('http://127.0.0.1:8888/server.php');
 
         $begin = microtime(true);
-        $httpBrowser->get();
+        $httpBrowser->load();
         $end = microtime(true);
         $crawlingTime = $end - $begin;
 
@@ -108,17 +106,17 @@ class HttpBrowserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers HttpBrowser::get
-     * @depends testTrueGet
+     * @covers HttpBrowser::load
+     * @depends testTrueLoad
      */
-    public function testGetWithoutStrictMode(HttpBrowser $httpBrowser)
+    public function testLoadWithoutStrictMode(HttpBrowser $httpBrowser)
     {
         $httpBrowser->setStrictMode(false);
         $httpBrowser->getRequest()->setUrl('http://127.0.0.1:8888/404.php');
 
         // This works because strict mode is disabled
         $begin = microtime(true);
-        $httpBrowser->get();
+        $httpBrowser->load();
         $end = microtime(true);
         $crawlingTime = $end - $begin;
 
@@ -137,15 +135,15 @@ class HttpBrowserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers HttpBrowser::get
-     * @depends testGetWithoutStrictMode
+     * @covers HttpBrowser::load
+     * @depends testLoadWithoutStrictMode
      */
-    public function testGetNewCookie(HttpBrowser $httpBrowser)
+    public function testLoadNewCookie(HttpBrowser $httpBrowser)
     {
         $httpBrowser->getRequest()->setUrl('http://127.0.0.1:8888/newCookie.php');
 
         $begin = microtime(true);
-        $httpBrowser->get();
+        $httpBrowser->load();
         $end = microtime(true);
         $crawlingTime = $end - $begin;
 
@@ -164,15 +162,15 @@ class HttpBrowserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers HttpBrowser::get
-     * @depends testGetNewCookie
+     * @covers HttpBrowser::load
+     * @depends testLoadNewCookie
      */
-    public function testGetWithoutReferer(HttpBrowser $httpBrowser)
+    public function testLoadWithoutReferer(HttpBrowser $httpBrowser)
     {
         $httpBrowser->setDisableReferer(true);
 
         $begin = microtime(true);
-        $httpBrowser->get();
+        $httpBrowser->load();
         $end = microtime(true);
         $crawlingTime = $end - $begin;
 
@@ -191,16 +189,16 @@ class HttpBrowserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers HttpBrowser::get
-     * @depends testGetWithoutReferer
+     * @covers HttpBrowser::clickTo
+     * @depends testLoadWithoutReferer
      */
-    public function testGetWithDelay(HttpBrowser $httpBrowser)
+    public function testClickToWithDelay(HttpBrowser $httpBrowser)
     {
         $httpBrowser->setDelay(2);
         $httpBrowser->setDelayMargin(1);
 
         $begin = microtime(true);
-        $httpBrowser->get();
+        $httpBrowser->load();
         $end = microtime(true);
         $crawlingTime = $end - $begin;
 
@@ -220,11 +218,11 @@ class HttpBrowserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers HttpBrowser::get
-     * @depends testGetWithDelay
+     * @covers HttpBrowser::load
+     * @depends testLoadWithDelay
      * @expectedException Rico\Lib\Crawler\Exception\ResponseException
      */
-    public function testGetFail(HttpBrowser $httpBrowser)
+    public function testLoadFail(HttpBrowser $httpBrowser)
     {
         $httpBrowser->setStrictMode(true);
         $httpBrowser->setDelay(0);
@@ -232,7 +230,7 @@ class HttpBrowserTest extends \PHPUnit_Framework_TestCase
         $httpBrowser->getRequest()->setUrl('http://127.0.0.1:8888/404.php');
 
         // This fails, because strict mode is enabled and URL returns a 404
-        $httpBrowser->get();
+        $httpBrowser->load();
     }
 
     /**

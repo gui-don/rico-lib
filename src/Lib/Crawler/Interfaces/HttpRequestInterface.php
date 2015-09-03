@@ -9,7 +9,7 @@ use Rico\Lib\Crawler\Interfaces\HttpRequestHeaderInterface;
  */
 interface HttpRequestInterface
 {
-    public function __construct($url);
+    public function __construct();
 
     /**
      * Send a http request and get the response

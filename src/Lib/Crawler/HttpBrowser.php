@@ -29,7 +29,15 @@ class HttpBrowser
 
     protected $delay = 0;
     protected $delayMargin = 0;
+    /**
+     * Determine whether or not the referer to be set and send at each request
+     * @var bool
+     */
     protected $disableReferer = false;
+    /**
+     * Determine whether or not an error should rise if the HTTP code is not 200
+     * @var bool
+     */
     protected $strictMode = true;
 
     private $firstTime = true;
@@ -38,15 +46,15 @@ class HttpBrowser
      * Crawl a page
      * @param string $httpRequest URL to crawl
      */
-    public function __construct(HttpRequestInterface $httpRequest)
+    public function __construct()
     {
-        $this->setRequest($httpRequest);
+        $this->setRequest(new HttpRequest());
     }
 
     /**
      * Get the content of the current page
      */
-    public function get()
+    public function load()
     {
         // Wait some time to fool distant servers - bypass the first time
         $sleep = (int) mt_rand(($this->getDelay() - $this->getDelayMargin()), ($this->getDelay() + $this->getDelayMargin())).'.'.mt_rand(0, 9);
@@ -114,7 +122,7 @@ class HttpBrowser
         }
 
         // Download the content
-        $this->get();
+        $this->load();
     }
 
     public function getRequest()

@@ -43,21 +43,22 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
         $mock = $this->getMockBuilder($classname)->disableOriginalConstructor()->getMock();
 
         // Expectations
-        $mock->expects($this->once())->method('setUrl')->with($this->equalTo('https://php.net/manual/fr/book.fileinfo.php'))->willReturn($mock);
+        $mock->expects($this->once())->method('setHeaders')->willReturn($mock);
 
         // Test it
         $reflectedClass = new \ReflectionClass($classname);
         $constructor = $reflectedClass->getConstructor();
-        $constructor->invoke($mock, 'https://php.net/manual/fr/book.fileinfo.php');
+        $constructor->invoke($mock);
     }
 
     /**
-     * @covers HttpRequest::__construct
-     * @expectedException Rico\Lib\Crawler\Exception\InvalidUrlException
+     * @covers HttpRequest::send
+     * @expectedException Rico\Lib\Crawler\Exception\RequestException
      */
-    public function testConstructorFail()
+    public function testSendFail()
     {
-        new HttpRequest('hhhtp://google.com');
+        $httpRequest = new HttpRequest();
+        $httpRequest->send();
     }
 
     /**
@@ -65,7 +66,8 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testSend()
     {
-        $httpRequest = new HttpRequest('http://127.0.0.1:5555/httpAnswer.php');
+        $httpRequest = new HttpRequest();
+        $httpRequest->setUrl('http://127.0.0.1:5555/httpAnswer.php');
         $httpResponse = $httpRequest->send();
 
         // Check response
@@ -245,7 +247,8 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testSendWithRedirection()
     {
-        $httpRequest = new HttpRequest('http://127.0.0.1:5555/redirect301.php');
+        $httpRequest = new HttpRequest();
+        $httpRequest->setUrl('http://127.0.0.1:5555/redirect301.php');
         $httpResponse = $httpRequest->send();
 
         // Check response
@@ -277,7 +280,8 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testSendWithoutRedirection()
     {
-        $httpRequest = new HttpRequest('http://127.0.0.1:5555/redirect302.php');
+        $httpRequest = new HttpRequest();
+        $httpRequest->setUrl('http://127.0.0.1:5555/redirect302.php');
 
         // Disable automatic redirection
         $httpRequest->setFollowRedirection(false);
@@ -301,7 +305,7 @@ class HttpRequestTest extends \PHPUnit_Framework_TestCase
      * @depends testSendWithAnImage
      * @expectedException Rico\Lib\Crawler\Exception\DownloadException
      */
-    public function testSendFail($httpRequest)
+    public function testSendFailWithBadURL($httpRequest)
     {
         $httpRequest->setUrl('http://127.127.127.127:6666/thisLINKDONTEXIT');
         $httpRequest->send();

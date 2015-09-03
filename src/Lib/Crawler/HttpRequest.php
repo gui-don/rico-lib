@@ -8,6 +8,7 @@ use Rico\Lib\Checker;
 use Rico\Lib\Crawler\HttpResponse;
 use Rico\Lib\Crawler\Exception\DownloadException;
 use Rico\Lib\Crawler\Exception\InvalidUrlException;
+use Rico\Lib\Crawler\Exception\RequestException;
 
 class HttpRequest implements HttpRequestInterface
 {
@@ -18,6 +19,10 @@ class HttpRequest implements HttpRequestInterface
 
     protected $url;
     protected $sockProxy;
+    /**
+     * Determine whether or not the request should follow HTTP redirection (301 and 302)
+     * @var bool
+     */
     protected $followRedirection = true;
 
     /**
@@ -25,13 +30,9 @@ class HttpRequest implements HttpRequestInterface
      */
     protected $headers;
 
-    public function __construct($url)
+    public function __construct()
     {
-        $this->headers = new HttpRequestHeader();
-
-        if (!$this->setUrl($url)) {
-            throw new InvalidUrlException('The URL (“'.$url.'”) is invalid.');
-        }
+        $this->setHeaders(new HttpRequestHeader());
     }
 
     /**
@@ -41,6 +42,10 @@ class HttpRequest implements HttpRequestInterface
      */
     public function send()
     {
+        if (empty($this->getUrl())) {
+            throw new RequestException('Cannot send a request. No URL!');
+        }
+
         // Construct header array
         $headers = array();
         foreach ($this->getHeaders()->convert() as $header => $value) {
@@ -141,6 +146,11 @@ class HttpRequest implements HttpRequestInterface
             }
 
             return $this;
+        }
+
+        // If there is no URL, throw an exception
+        if (empty($this->url)) {
+            throw new InvalidUrlException('The URL (“'.$url.'”) is invalid.');
         }
 
         return false;
