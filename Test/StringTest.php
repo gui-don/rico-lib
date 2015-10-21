@@ -143,8 +143,17 @@ Pompidou
             array('Ceci est faux : Oops !', 'Ceci est faux : Oops !'),
             array('C\'est bien ici la soirée moule-frites ?', 'C’est bien ici la soirée moule-frites ?'),
             array('"Fénéant" qu\'il disent ! C\'est présomptueux !', '“Fénéant” qu’il disent ! C’est présomptueux !'), // 10
+            array('Wrong spaces are " wrong ".', 'Wrong spaces are “ wrong ”.'),
+            array('400000$, 1000000€, 345243£, 12000¥', '400 000 $, 1 000 000 €, 345 243 £, 12 000 ¥'),
+            array('In cash: $3000', 'In cash: $3 000'),
+            array('Then he cries "Bastard"!', 'Then he cries “Bastard”!'),
+            array('"No!" "No!" "No!", "No!" and "No"...', '“No!” “No!” “No!”, “No!” and “No”…'), // 15
             array('Gandhi nous enseigne ; « Je pense. »', 'Gandhi nous enseigne ; « Je pense. »'),
-            array('Il m\'a dit : "oui" ! Ou plutôt, "Moui" !', 'Il m’a dit : “oui” ! Ou plutôt, “Moui” !'),
+            array('Le fameux " " " est trompeur disait "Renouard".', 'Le fameux " " " est trompeur disait "Renouard".'),
+            array('Il m\'a dit :
+    "oui" ! Ou plutôt, "Moui" !', 'Il m’a dit :
+    “oui” ! Ou plutôt, “Moui” !'),
+            array('a "mystery voice" suddenly speaks to them: "A game has now started. In order to escape the room, Keisuke is the "unlocker" and one heroine the "keyhole". With an assigned act, he must "use the key"."', 'a “mystery voice” suddenly speaks to them: “A game has now started. In order to escape the room, Keisuke is the “unlocker” and one heroine the “keyhole”. With an assigned act, he must “use the key”.”')
         );
     }
 

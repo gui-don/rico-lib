@@ -130,8 +130,19 @@ abstract class String
             return false;
         }
 
+        // Be careful, there are non secable spaces here
         $string = str_replace(array(' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'), array(' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'), $string);
-        $string = preg_replace('#([^\"]*)\"([^\"]*)\"([^\"]*)#u', '$1“$2”$3', $string);
+        $string = preg_replace('#(\d)\s?([$€£¥])#u', '$1 $2', $string);
+        $string = preg_replace_callback('#\d{4,}#u', function($matches) { return number_format($matches[0], 0, ',', ' '); }, $string);
+
+        // Count quotes
+        $QuotesCount = strlen($string) - strlen(str_replace('"', '', $string));
+
+        // Repeat two times is important for quotes inside quotes
+        if ($QuotesCount % 2 == 0) {
+            $string = preg_replace('#([\s\r\n]|^)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
+            $string = preg_replace('#([\s\r\n]|^)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
+        }
 
         return $string;
     }
