@@ -208,6 +208,42 @@ video {
         );
     }
 
+    public function providerAlphaToId()
+    {
+        return array(
+            array(array(null, ''), false), // 0
+            array(array(false, ''), false),
+            array(array(0, ''), false),
+            array(array(new \stdClass(), ''), false),
+            array(array('test', new \stdClass()), false),
+            array(array('abraCADABRA', ''), 17251060315943390), // 5
+            array(array('phpcode', ''), 858638639286),
+            array(array('phpcode', 'secret'), 1193128009855),
+            array(array('', ''), ''),
+            array(array('', 'secret'), ''),
+            array(array('777', ''), 128931), // 10
+            array(array('/home/', ''), 106817320)
+        );
+    }
+
+    public function providerIdToAlpha()
+    {
+        return array(
+            array(array(null, ''), false), // 0
+            array(array(false, ''), false),
+            array(array(0, ''), 'a'),
+            array(array(new \stdClass(), ''), false),
+            array(array('test', new \stdClass()), false),
+            array(array('abraCADABRA', ''), false), // 5
+            array(array(858638639286, ''), 'phpcode'),
+            array(array(1193128009855, 'secret'), 'phpcode'),
+            array(array(0, 'secret'), 'h'),
+            array(array(128931, ''), '777'), // 10
+            array(array(106817320, ''), 'homea'),
+            array(array(92395783831158784, ''), 'gPkLA3jITS'),
+        );
+    }
+
     /**
      * @covers String::removeWhitespace
      * @dataProvider providerRemoveWhitespace
@@ -299,5 +335,23 @@ video {
     public function testGetResourceNameInUrl($value, $expected)
     {
         $this->assertSame($expected, String::getResourceNameInUrl($value));
+    }
+
+    /**
+     * @covers String::alphaToId
+     * @dataProvider providerAlphaToId
+     */
+    public function testAlphaToId($values, $expected)
+    {
+        $this->assertSame($expected, String::alphaToId($values[0], $values[1]));
+    }
+
+    /**
+     * @covers String::idToAplpha
+     * @dataProvider providerIdToAlpha
+     */
+    public function testIdToAplpha($values, $expected)
+    {
+        $this->assertSame($expected, String::IdToAlpha($values[0], $values[1]));
     }
 }

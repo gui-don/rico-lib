@@ -176,4 +176,71 @@ abstract class String
 
         return !empty($matches[1]) ? $matches[1] : '';
     }
+
+    /**
+     * Convert an alphabetic string into an identifier (an integer)
+     * @param string $string Alphanumeric string to be converted
+     * @param string $secret Password to decode the alphabetic string
+     * @return int
+     */
+    public static function alphaToId($string, $secret = '')
+    {
+        if (!is_string($secret) || !is_string($string)) {
+            return false;
+        }
+
+        $out =  '';
+        $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $base = strlen($index);
+        $stringLength = strlen($string) - 1;
+
+        if ($secret) {
+            $splitIndex = str_split($index);
+
+            // Create a new generated secret order based on secret
+            array_multisort(array_slice(str_split(hash('sha512', $secret)), 0, $base), SORT_DESC, $splitIndex);
+            $index = implode($splitIndex);
+        }
+
+        for ($t = $stringLength; $t >= 0; $t--) {
+            $bcp = $base ** ($stringLength - $t);
+            $out += strpos($index, substr($string, $t, 1)) * $bcp;
+        }
+
+        return $out;
+    }
+
+    /**
+     * Convert a integer into an alphanumeric string
+     * @param int $identifier Identifier to be converted
+     * @param string $secret Password to encode the integer
+     * @return string
+     */
+    public static function IdToAlpha($identifier, $secret = '')
+    {
+        if (!is_string($secret) || !is_numeric($identifier)) {
+            return false;
+        }
+
+        $out =  '';
+        $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $base = strlen($index);
+
+        if ($secret) {
+            $splitIndex = str_split($index);
+
+            // Create a new generated secret order based on secret
+            array_multisort(array_slice(str_split(hash('sha512', $secret)), 0, $base), SORT_DESC, $splitIndex);
+            $index = implode($splitIndex);
+        }
+
+        for ($t = ($identifier != 0 ? floor(log($identifier, $base)) : 0); $t >= 0; $t--) {
+            $bcp = $base ** $t;
+            $a = floor($identifier / $bcp) % $base;
+            $out .= substr($index, $a, 1);
+            $identifier = $identifier - ($a * $bcp);
+        }
+
+        return $out;
+    }
 }

@@ -40,6 +40,10 @@ Nothing. Just a recent version of PHP.
 
 - **getResourceNameInUrl($url)** : Get the name of a resource (image, pdf, ...) out of an URL
 
+- **alphaToId($string, $secret)** : Convert an alphanumeric string into an identifier (an integer)
+
+- **IdToAlpha($integer, $secret)** : Convert a integer into an alphanumeric string
+
 
 #### Checker lib ####
 
