@@ -131,7 +131,8 @@ abstract class String
         }
 
         // Be careful, there are non secable spaces here
-        $string = str_replace(array(' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'), array(' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'), $string);
+        $string = self::normalizeWhitespace($string);
+        $string = str_replace(array('\'\'',' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'), array('"' ,' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'), $string);
         $string = preg_replace('#(\d)\s?([$€£¥])#u', '$1 $2', $string);
         $string = preg_replace_callback('#\d{4,}#u', function($matches) { return number_format($matches[0], 0, ',', ' '); }, $string);
 

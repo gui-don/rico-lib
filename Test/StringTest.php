@@ -139,7 +139,7 @@ Pompidou
             array(false, false),
             array(new \stdClass(), false), // 5
             array('OK', 'OK'),
-            array(' No normalize   !', ' No normalize   !'),
+            array(' No normalize   !', 'No normalize !'),
             array('Ceci est faux : Oops !', 'Ceci est faux : Oops !'),
             array('C\'est bien ici la soirée moule-frites ?', 'C’est bien ici la soirée moule-frites ?'),
             array('"Fénéant" qu\'il disent ! C\'est présomptueux !', '“Fénéant” qu’il disent ! C’est présomptueux !'), // 10
@@ -149,11 +149,13 @@ Pompidou
             array('Then he cries "Bastard"!', 'Then he cries “Bastard”!'),
             array('"No!" "No!" "No!", "No!" and "No"...', '“No!” “No!” “No!”, “No!” and “No”…'), // 15
             array('Gandhi nous enseigne ; « Je pense. »', 'Gandhi nous enseigne ; « Je pense. »'),
+            array('\'\'Camion!\'\'', '“Camion!”'),
             array('Le fameux " " " est trompeur disait "Renouard".', 'Le fameux " " " est trompeur disait "Renouard".'),
             array('the Tetsumen Tou ("Iron Fist" - a reference to the original Red Baron TV series, "Dragon") doctors', 'the Tetsumen Tou (“Iron Fist” - a reference to the original Red Baron TV series, “Dragon”) doctors'),
+            array('As an expression of gratitude for the heroes of both the    ".hack//Sign" and the     ".hack" game series,', 'As an expression of gratitude for the heroes of both the “.hack//Sign” and the “.hack” game series,'),
             array('Il m\'a dit :
     "oui" ! Ou plutôt, "Moui" !', 'Il m’a dit :
-    “oui” ! Ou plutôt, “Moui” !'),
+ “oui” ! Ou plutôt, “Moui” !'),
             array('a "mystery voice" suddenly speaks to them: "A game has now started. In order to escape the room, Keisuke is the "unlocker" and one heroine the "keyhole". With an assigned act, he must "use the key"."', 'a “mystery voice” suddenly speaks to them: “A game has now started. In order to escape the room, Keisuke is the “unlocker” and one heroine the “keyhole”. With an assigned act, he must “use the key”.”')
         );
     }
