@@ -150,6 +150,7 @@ Pompidou
             array('"No!" "No!" "No!", "No!" and "No"...', '“No!” “No!” “No!”, “No!” and “No”…'), // 15
             array('Gandhi nous enseigne ; « Je pense. »', 'Gandhi nous enseigne ; « Je pense. »'),
             array('Le fameux " " " est trompeur disait "Renouard".', 'Le fameux " " " est trompeur disait "Renouard".'),
+            array('the Tetsumen Tou ("Iron Fist" - a reference to the original Red Baron TV series, "Dragon") doctors', 'the Tetsumen Tou (“Iron Fist” - a reference to the original Red Baron TV series, “Dragon”) doctors'),
             array('Il m\'a dit :
     "oui" ! Ou plutôt, "Moui" !', 'Il m’a dit :
     “oui” ! Ou plutôt, “Moui” !'),

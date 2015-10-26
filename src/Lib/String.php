@@ -140,8 +140,8 @@ abstract class String
 
         // Repeat two times is important for quotes inside quotes
         if ($QuotesCount % 2 == 0) {
-            $string = preg_replace('#([\s\r\n]|^)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
-            $string = preg_replace('#([\s\r\n]|^)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
+            $string = preg_replace('#([\s\r\n\p{P}]|^|)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
+            $string = preg_replace('#([\s\r\n\p{P}]|^|)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
         }
 
         return $string;
