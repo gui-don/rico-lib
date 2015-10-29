@@ -319,7 +319,11 @@ video {
      */
     public function testBeautifulise($value, $expected)
     {
-        $this->assertSame($expected, String::beautifulise($value));
+        $result = String::beautifulise($value);
+        $this->assertSame($expected, $result);
+
+        // Re doing it changes nothing
+        $this->assertSame($expected, String::beautifulise($result));
     }
 
     /**
