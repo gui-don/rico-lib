@@ -101,4 +101,40 @@ abstract class File
 
         return symlink($link, $file);
     }
+
+    /**
+     * Count the number of lines in a file
+     * @param string $file Absolute or relative URL of the file
+     * @param bool $countEmpty Determine wheter empty lines are counted or not
+     * @return int Number of line in a file or false if an error occured
+     */
+    public static function count($file, $countEmpty = false)
+    {
+        if (!is_string($file) || !file_exists($file)) {
+            return false;
+        }
+
+        $lines = 0;
+        $handle = fopen($file, 'r');
+        while (!feof($handle)) {
+            $line = fgets($handle, 4096);
+            $lastChar = strlen($line) - 1;
+
+            if ($lastChar == 0) {
+                if ($countEmpty) {
+                    $lines++;
+                }
+                continue;
+            }
+
+            echo $lastChar.PHP_EOL;
+            if ($line[$lastChar] == "\n" || $line[$lastChar] == "\r") {
+                $lines++;
+            }
+        }
+
+        fclose($handle);
+
+        return $lines;
+    }
 }

@@ -110,4 +110,18 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse(is_dir(self::TEST_DIR.self::$strFile2));
     }
 
+    /**
+     * @covers File::count
+     */
+    public function testCount()
+    {
+        $this->assertSame(File::count('nonexistingfile.txt'), false);
+        $this->assertSame(File::count(__DIR__.'/testFiles/empty.list'), 0);
+        $this->assertSame(File::count(__DIR__.'/testFiles/empty.list', true), 0);
+        $this->assertSame(File::count(__DIR__.'/testFiles/long.list'), 48508);
+        $this->assertSame(File::count(__DIR__.'/testFiles/long.list', true), 48508);
+        $this->assertSame(File::count(__DIR__.'/testFiles/large.list'), 84);
+        $this->assertSame(File::count(__DIR__.'/testFiles/large.list', true), 87);
+    }
+
 }

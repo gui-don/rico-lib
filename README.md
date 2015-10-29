@@ -21,6 +21,8 @@ Nothing. Just a recent version of PHP.
 
 - **createSymlink($link, $path)** : Create a symbolic link
 
+- **count($file, $countEmpty = false)** : Count the number of line in a file
+
 
 #### String lib ####
 
