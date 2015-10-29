@@ -127,7 +127,6 @@ abstract class File
                 continue;
             }
 
-            echo $lastChar.PHP_EOL;
             if ($line[$lastChar] == "\n" || $line[$lastChar] == "\r") {
                 $lines++;
             }
