@@ -136,4 +136,30 @@ abstract class File
 
         return $lines;
     }
+
+    /**
+     * Add a new line at the end of a file without duplication
+     * @param string $file File path and name
+     * @param string $line Line to add
+     * @return bool True if the line has been added, false otherwise, null if an error occured
+     */
+    public static function addLine($file, $line)
+    {
+        if (!is_string($file) || !is_string($line) || !file_exists($file)) {
+            return null;
+        }
+
+        $handle = fopen($file, 'r+');
+        while (($currentLine = fgets($handle)) !== false) {
+            if (trim($currentLine) == $line) {
+                return false;
+            }
+        }
+
+        fwrite($handle, $line.PHP_EOL);
+
+        fclose($handle);
+
+        return true;
+    }
 }

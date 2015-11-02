@@ -231,7 +231,7 @@ abstract class String
             $splitIndex = str_split($index);
 
             // Create a new generated secret order based on secret
-            array_multisort(array_slice(str_split(hash('sha512', $secret)), 0, $base), SORT_DESC, $splitIndex);
+            array_multisort(str_split(substr(hash('sha512', $secret), 0, $base)), SORT_DESC, $splitIndex);
             $index = implode($splitIndex);
         }
 

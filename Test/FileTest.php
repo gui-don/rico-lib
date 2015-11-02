@@ -39,6 +39,7 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         unlink(self::TEST_DIR.self::$strDir2.'/'.self::$strFile4);
         unlink('another/relative.txt');
         unlink('another/absolute.txt');
+        fclose(fopen(__DIR__.'/testFiles/empty.list', 'w+'));
         rmdir(self::TEST_DIR.'new/path');
         rmdir(self::TEST_DIR.'new');
         rmdir(self::TEST_DIR.self::$strDir);
@@ -115,13 +116,62 @@ class FileTest extends \PHPUnit_Framework_TestCase {
      */
     public function testCount()
     {
-        $this->assertSame(File::count('nonexistingfile.txt'), false);
-        $this->assertSame(File::count(__DIR__.'/testFiles/empty.list'), 0);
-        $this->assertSame(File::count(__DIR__.'/testFiles/empty.list', true), 0);
-        $this->assertSame(File::count(__DIR__.'/testFiles/long.list'), 48508);
-        $this->assertSame(File::count(__DIR__.'/testFiles/long.list', true), 48508);
-        $this->assertSame(File::count(__DIR__.'/testFiles/large.list'), 84);
-        $this->assertSame(File::count(__DIR__.'/testFiles/large.list', true), 87);
+        $this->assertSame(false, File::count('nonexistingfile.txt'));
+        $this->assertSame(0, File::count(__DIR__.'/testFiles/empty.list'));
+        $this->assertSame(0, File::count(__DIR__.'/testFiles/empty.list', true));
+        $this->assertSame(48508, File::count(__DIR__.'/testFiles/long.list'));
+        $this->assertSame(48508, File::count(__DIR__.'/testFiles/long.list', true));
+        $this->assertSame(84, File::count(__DIR__.'/testFiles/large.list'));
+        $this->assertSame(87, File::count(__DIR__.'/testFiles/large.list', true));
     }
 
+    /**
+     * @covers File::addLine
+     * @
+     */
+    public function testAddLineErrors()
+    {
+        // Null tests
+        $this->assertSame(null, File::addLine('nonexistingfile.txt', 'test'));
+        $this->assertSame(null, File::addLine(new \stdClass(), 'test'));
+        $this->assertSame(null, File::addLine(-4.32, 600));
+        $this->assertSame(null, File::addLine(324.64, 'test'));
+        $this->assertSame(null, File::addLine('nonfile', '23432'));
+        $this->assertSame(null, File::addLine(true, '23432'));
+        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', false));
+        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', true));
+        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', 32432));
+        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', 3.3));
+        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', new \stdClass()));
+    }
+
+    /**
+     * @covers File::addLine
+     */
+    public function testAddLine()
+    {
+        // Test new line
+        $this->assertSame(true, File::addLine(__DIR__.'/testFiles/empty.list', 'Coucou'));
+        $this->assertSame(1, File::count(__DIR__.'/testFiles/empty.list'));
+        $this->assertSame('Coucou'.PHP_EOL, file_get_contents(__DIR__.'/testFiles/empty.list'));
+
+
+        // Test second line
+        $this->assertSame(true, File::addLine(__DIR__.'/testFiles/empty.list', 'Another'));
+        $this->assertSame(2, File::count(__DIR__.'/testFiles/empty.list'));
+        $this->assertSame("Coucou".PHP_EOL."Another".PHP_EOL, file_get_contents(__DIR__.'/testFiles/empty.list'));
+
+        fclose(fopen(__DIR__.'/testFiles/empty.list', 'w+'));
+    }
+
+    /**
+     * @covers File::addLine
+     */
+    public function testAddLineDuplicate()
+    {
+        // Test duplicate line
+        $this->assertSame(11, File::count(__DIR__.'/testFiles/short.list'));
+        $this->assertSame(false, File::addLine(__DIR__.'/testFiles/short.list', '295837'));
+        $this->assertSame(11, File::count(__DIR__.'/testFiles/short.list'));
+    }
 }
