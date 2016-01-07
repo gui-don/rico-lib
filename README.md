@@ -23,8 +23,10 @@ Nothing. Just a recent version of PHP.
 
 - **count($file, $countEmpty = false)** : Count the number of line in a file
 
+- **addLine($file, $line)** : Add a new line at the end of a file without duplication
 
-#### String lib ####
+
+#### Chars lib ####
 
 - **removeWhitespace($string)** : Remove all sort of spaces from a string
 

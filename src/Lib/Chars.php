@@ -5,7 +5,7 @@ namespace Rico\Lib;
 /**
  * String Library
  */
-abstract class String
+abstract class Chars
 {
     /**
      * Remove all sort of spaces from a string
@@ -105,7 +105,7 @@ abstract class String
         $string = preg_replace('#[^\\pL\d]+#u', '-', $string);
 
         // Transliterate
-        $string = iconv('utf-8', 'us-ascii//TRANSLIT', $string);
+        $string = \iconv('utf-8', 'us-ascii//TRANSLIT', $string);
 
         // Lowercase
         $string = strtolower($string);

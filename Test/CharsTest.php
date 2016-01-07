@@ -2,9 +2,9 @@
 
 namespace Rico\Test\StringTest;
 
-use \Rico\Lib\String;
+use \Rico\Lib\Chars;
 
-class StringTest extends \PHPUnit_Framework_TestCase
+class CharsTest extends \PHPUnit_Framework_TestCase
 {
     public function providerRemoveWhitespace()
     {
@@ -248,55 +248,55 @@ video {
     }
 
     /**
-     * @covers String::removeWhitespace
+     * @covers Chars::removeWhitespace
      * @dataProvider providerRemoveWhitespace
      */
     public function testRemoveWhitespace($value, $expected)
     {
-        $this->assertSame($expected, String::removeWhitespace($value));
+        $this->assertSame($expected, Chars::removeWhitespace($value));
     }
 
     /**
-     * @covers String::normalizeWhitespace
+     * @covers Chars::normalizeWhitespace
      * @dataProvider providerNormalizeWhitespace
      */
     public function testNormalizeWhitespace($value, $expected)
     {
-        $this->assertSame($expected, String::normalizeWhitespace($value));
+        $this->assertSame($expected, Chars::normalizeWhitespace($value));
     }
 
     /**
-     * @covers String::removeLine
+     * @covers Chars::removeLine
      * @dataProvider providerRemoveLine
      */
     public function testRemoveLine($value, $expected)
     {
-        $this->assertSame($expected, String::removeLine($value));
+        $this->assertSame($expected, Chars::removeLine($value));
     }
 
     /**
-     * @covers String::normalize
+     * @covers Chars::normalize
      * @dataProvider providerNormalize
      */
     public function testNormalize($value, $expected)
     {
-        $this->assertSame($expected, String::normalize($value));
+        $this->assertSame($expected, Chars::normalize($value));
     }
 
     /**
-     * @covers String::randString
+     * @covers Chars::randString
      * @dataProvider providerRandString
      */
     public function testRandString($value, $expectingFalse, $allowedChars)
     {
         if ($expectingFalse) {
-            $this->assertFalse(String::randString($value));
+            $this->assertFalse(Chars::randString($value));
         } else {
             if ($allowedChars) {
-                $result = String::randString($value, $allowedChars);
+                $result = Chars::randString($value, $allowedChars);
                 $this->assertRegExp('/^['.$allowedChars.']+$/', $result);
             } else {
-                $result = String::randString($value);
+                $result = Chars::randString($value);
                 $this->assertRegExp('/^[a-zA-Z0-9]+$/', $result);
             }
 
@@ -305,60 +305,60 @@ video {
     }
 
     /**
-     * @covers String::slugify
+     * @covers Chars::slugify
      * @dataProvider providerSlugify
      */
     public function testSlugify($strValue, $bExpected)
     {
-        $this->assertSame($bExpected, String::slugify($strValue));
+        $this->assertSame($bExpected, Chars::slugify($strValue));
     }
 
     /**
-     * @covers String::beautifulise
+     * @covers Chars::beautifulise
      * @dataProvider providerBeautifulise
      */
     public function testBeautifulise($value, $expected)
     {
-        $result = String::beautifulise($value);
+        $result = Chars::beautifulise($value);
         $this->assertSame($expected, $result);
 
         // Re doing it changes nothing
-        $this->assertSame($expected, String::beautifulise($result));
+        $this->assertSame($expected, Chars::beautifulise($result));
     }
 
     /**
-     * @covers String::minify
+     * @covers Chars::minify
      * @dataProvider providerMinify
      */
     public function testMinify($value, $expected)
     {
-        $this->assertSame($expected, String::minify($value));
+        $this->assertSame($expected, Chars::minify($value));
     }
 
     /**
-     * @covers String::getResourceNameInUrl
+     * @covers Chars::getResourceNameInUrl
      * @dataProvider providerGetResourceNameInUrl
      */
     public function testGetResourceNameInUrl($value, $expected)
     {
-        $this->assertSame($expected, String::getResourceNameInUrl($value));
+        $this->assertSame($expected, Chars::getResourceNameInUrl($value));
     }
 
     /**
-     * @covers String::alphaToId
+     * @covers Chars::alphaToId
      * @dataProvider providerAlphaToId
      */
     public function testAlphaToId($values, $expected)
     {
-        $this->assertSame($expected, String::alphaToId($values[0], $values[1]));
+        $this->assertSame($expected, Chars::alphaToId($values[0], $values[1]));
     }
 
     /**
-     * @covers String::idToAplpha
+     * @covers Chars::idToAplpha
      * @dataProvider providerIdToAlpha
      */
     public function testIdToAplpha($values, $expected)
     {
-        $this->assertSame($expected, String::IdToAlpha($values[0], $values[1]));
+        $this->assertSame($expected, Chars::IdToAlpha($values[0], $values[1]));
     }
 }
