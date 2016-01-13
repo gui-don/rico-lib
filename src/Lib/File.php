@@ -18,7 +18,7 @@ abstract class File
      * @param int $option
      * @return string[]
      */
-    public static function listDirectory($path, $option = self::LIST_DIRECTORY_BOTH)
+    public static function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH)
     {
         if(!file_exists($path) || !is_dir($path)) {
             return false;
@@ -65,7 +65,7 @@ abstract class File
      * @param string $path
      * @return bool True if path has been created, false otherwise
      */
-    public static function createPath($path)
+    public static function createPath(string $path)
     {
         if (!is_string($path)) {
             return false;
@@ -85,7 +85,7 @@ abstract class File
      * @param string $file
      * @return bool True if symbolic link has been created, false otherwise
      */
-    public static function createSymlink($link, $file)
+    public static function createSymlink(string $link, string $file)
     {
         if (!is_string($file) || !is_string($link)) {
             return false;
@@ -108,7 +108,7 @@ abstract class File
      * @param bool $countEmpty Determine wheter empty lines are counted or not
      * @return int Number of line in a file or false if an error occured
      */
-    public static function count($file, $countEmpty = false)
+    public static function count(string $file, bool $countEmpty = false)
     {
         if (!is_string($file) || !file_exists($file)) {
             return false;
@@ -143,9 +143,9 @@ abstract class File
      * @param string $line Line to add
      * @return bool True if the line has been added, false otherwise, null if an error occured
      */
-    public static function addLine($file, $line)
+    public static function addLine(string $file, string $line)
     {
-        if (!is_string($file) || !is_string($line) || !file_exists($file)) {
+        if (!file_exists($file)) {
             return null;
         }
 

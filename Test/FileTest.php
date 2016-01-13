@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Rico\Test\FileTest;
 
@@ -26,9 +27,9 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         $str = '';
         for ($i = 1; $i <= 1000; $i++, $str .= mt_rand(0,9));
         file_put_contents(self::TEST_DIR.self::$strFile1, $str);
-        file_put_contents(self::TEST_DIR.self::$strFile2, str_repeat(mt_rand(0,9), 5000));
-        file_put_contents(self::TEST_DIR.self::$strFile3, str_repeat(mt_rand(0,9), 2048576));
-        file_put_contents(self::TEST_DIR.self::$strDir2.'/'.self::$strFile4, str_repeat(mt_rand(0,9), 288576));
+        file_put_contents(self::TEST_DIR.self::$strFile2, str_repeat((string) mt_rand(0,9), 5000));
+        file_put_contents(self::TEST_DIR.self::$strFile3, str_repeat((string) mt_rand(0,9), 2048576));
+        file_put_contents(self::TEST_DIR.self::$strDir2.'/'.self::$strFile4, str_repeat((string) mt_rand(0,9), 288576));
     }
 
     public static function tearDownAfterClass()
@@ -127,22 +128,46 @@ class FileTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers File::addLine
-     * @
      */
     public function testAddLineErrors()
     {
         // Null tests
         $this->assertSame(null, File::addLine('nonexistingfile.txt', 'test'));
-        $this->assertSame(null, File::addLine(new \stdClass(), 'test'));
-        $this->assertSame(null, File::addLine(-4.32, 600));
-        $this->assertSame(null, File::addLine(324.64, 'test'));
         $this->assertSame(null, File::addLine('nonfile', '23432'));
-        $this->assertSame(null, File::addLine(true, '23432'));
-        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', false));
-        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', true));
-        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', 32432));
-        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', 3.3));
-        $this->assertSame(null, File::addLine(__DIR__.'/testFiles/empty.list', new \stdClass()));
+    }
+
+    /**
+     * 
+
+     */
+    public function providerAddLineTypeErrors()
+    {
+        return array(
+            array(new \stdClass(), 'test'),
+            array(-4.45, 'test'),
+            array(3465, 'test'),
+            array(false, 'test'),
+            array(null, 'test'),
+            array(array('ok'), 'test'),
+            array(__DIR__.'/testFiles/empty.list', false),
+            array(__DIR__.'/testFiles/empty.list', true),
+            array(__DIR__.'/testFiles/empty.list', 32432),
+            array(__DIR__.'/testFiles/empty.list', 3.3),
+            array(__DIR__.'/testFiles/empty.list', new \stdClass()),
+            array(__DIR__.'/testFiles/empty.list', array('test')),
+            array(73.4, false),
+            array(true, null),
+        );
+    }
+
+    /**
+     * @covers File::addLine
+     * @dataProvider providerAddLineTypeErrors
+     * @expectedException TypeError
+     */
+    public function testAddLineTypeErrors($file, $line)
+    {
+        File::addLine($file, $line);
     }
 
     /**

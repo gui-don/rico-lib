@@ -1,9 +1,8 @@
 <?php
-
 namespace Rico\Lib;
 
 /**
- * String Library
+ * String library
  */
 abstract class Chars
 {
@@ -12,7 +11,7 @@ abstract class Chars
      * @param string $string
      * @return string
      */
-    public static function removeWhitespace($string)
+    public static function removeWhitespace(string $string)
     {
         /**
          * \0 :  NIL char
@@ -29,7 +28,7 @@ abstract class Chars
      * @param string $string
      * @return string
      */
-    public static function normalizeWhitespace($string)
+    public static function normalizeWhitespace(string $string)
     {
         /**
          * \0 :  NIL char
@@ -46,10 +45,9 @@ abstract class Chars
      * @param string $string
      * @return string
      */
-    public static function removeLine($string)
+    public static function removeLine(string $string)
     {
-        $string = preg_replace('/[\r\n]+/', '', $string);
-        return $string;
+        return preg_replace('/[\r\n]+/', '', $string);
     }
 
     /**
@@ -57,7 +55,7 @@ abstract class Chars
      * @param String $string Chaîne de caractères à traiter
      * @return String Chaîne de caractères traitée
      */
-    public static function normalize($string)
+    public static function normalize(string $string)
     {
         $string = str_replace(array('<br/>', '<br />', '</br>', '<br>', '<br >', '< br >'), ' ', $string);
         $string = html_entity_decode($string, ENT_HTML5, 'UTF-8');
@@ -73,9 +71,9 @@ abstract class Chars
      * @param string $allowedChars Characters allowed
      * @return string Random string of alphanumeric characters
      */
-    public static function randString($length = 10, $allowedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    public static function randString(int $length = 10, string $allowedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
     {
-        if (!is_int($length) || $length <= 0) {
+        if ($length <= 0) {
             return false;
         }
 
@@ -93,12 +91,8 @@ abstract class Chars
      * @param string $string
      * @return string Ascii-only string separated by -
      */
-    public static function slugify($string)
+    public static function slugify(string $string)
     {
-        if (!is_string($string)) {
-            return null;
-        }
-
         setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 
         // replace non letter or digits by -
@@ -124,12 +118,8 @@ abstract class Chars
      * @param string $string String to be beautiful-ised
      * @return string Beautiful-ised string
      */
-    public static function beautifulise($string)
+    public static function beautifulise(string $string)
     {
-        if (!is_string($string)) {
-            return false;
-        }
-
         // Be careful, there are non secable spaces here
         $string = self::normalizeWhitespace($string);
         $string = str_replace(array('\'\'',' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'), array('"' ,' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'), $string);
@@ -153,7 +143,7 @@ abstract class Chars
      * @param string $string
      * @return string Minified string
      */
-    public static function minify($string)
+    public static function minify(string $string)
     {
         $string = preg_replace('#\/\*.*\*\/#s', '', $string);
         $string = self::removeLine($string);
@@ -167,12 +157,8 @@ abstract class Chars
      * @param string $url
      * @return string Name of the resource
      */
-    public static function getResourceNameInUrl($url)
+    public static function getResourceNameInUrl(string $url)
     {
-        if (!is_string($url)) {
-            return false;
-        }
-
         preg_match("/\/([^\/\?]+)(?:[\?\#].*)?$/", $url, $matches);
 
         return !empty($matches[1]) ? $matches[1] : '';
@@ -184,12 +170,8 @@ abstract class Chars
      * @param string $secret Password to decode the alphabetic string
      * @return int
      */
-    public static function alphaToId($string, $secret = '')
+    public static function alphaToId(string $string, string $secret = '')
     {
-        if (!is_string($secret) || !is_string($string)) {
-            return false;
-        }
-
         $out =  '';
         $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $base = strlen($index);
@@ -217,12 +199,8 @@ abstract class Chars
      * @param string $secret Password to encode the integer
      * @return string
      */
-    public static function IdToAlpha($identifier, $secret = '')
+    public static function IdToAlpha(int $identifier, string $secret = '')
     {
-        if (!is_string($secret) || !is_numeric($identifier)) {
-            return false;
-        }
-
         $out =  '';
         $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $base = strlen($index);

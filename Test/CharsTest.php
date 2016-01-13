@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Rico\Test\StringTest;
 
@@ -9,7 +10,12 @@ class CharsTest extends \PHPUnit_Framework_TestCase
     public function providerRemoveWhitespace()
     {
         return array(
-            array("   &nbsp;", '&nbsp;'), // 0
+            array(false, null), // 0
+            array(null, null),
+            array(-47.12, null),
+            array(7484, null),
+            array(new \stdClass(), null),
+            array("   &nbsp;", '&nbsp;'), // 5
             array('666  ', '666'),
             array('107, quai du docteur Dervaux,92600  ', '107,quaidudocteurDervaux,92600'),
             array('Espace  demerde', 'Espacedemerde'),
@@ -25,7 +31,12 @@ lignemaispaslesespaces")
     public function providerNormalizeWhitespace()
     {
         return array(
-            array("   &nbsp;", '&nbsp;'), // 0
+            array(false, null), // 0
+            array(null, null),
+            array(-47.12, null),
+            array(7484, null),
+            array(new \stdClass(), null),
+            array("   &nbsp;", '&nbsp;'), // 5
             array('666', '666'),
             array('107, quai du docteur Dervaux,92600  ', '107, quai du docteur Dervaux,92600'),
             array('Espace  demerde', 'Espace de merde'),
@@ -41,8 +52,13 @@ lignemaispaslesespaces")
     public function providerRemoveLine()
     {
         return array(
+            array(false, null), // 0
+            array(null, null),
+            array(-47.12, null),
+            array(7484, null),
+            array(new \stdClass(), null),
             array("Ceci <br /> avec un saut
- à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci <br /> avec un saut à la   ligne   et des espaces  en trop 	!  '), // 0
+ à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci <br /> avec un saut à la   ligne   et des espaces  en trop 	!  '), // 5
             array(" Multiples
  sauts
  à
@@ -65,8 +81,13 @@ Pompidou
     public function providerNormalize()
     {
         return array(
+            array(false, null), // 0
+            array(null, null),
+            array(-47.12, null),
+            array(7484, null),
+            array(new \stdClass(), null),
             array("Ceci <br /> avec un saut
-                à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci avec un saut à la ligne et des espaces en trop !'), // 0
+                à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci avec un saut à la ligne et des espaces en trop !'), // 5
             array('\";alert(\'XSS escaping vulnerability\');//', '\";alert(\'XSS escaping vulnerability\');//'),
             array("   &nbsp;", ''),
             array(" Multiples
@@ -75,7 +96,7 @@ Pompidou
                 la
                 ligne.", 'Multiples sauts à la ligne.'),
             array('<h1>La pêche aux moules</h1><p>La pêche des moules etc.</p><br /><p>C\'est plus facile en <a href="#">hivers</a> etc.</p>', 'La pêche aux moulesLa pêche des moules etc. C\'est plus facile en hivers etc.'),
-            array('666', '666'), // 5
+            array('666', '666'), // 10
             array('¿Puede seguir funcionando sin una  red  social corporativa?', '¿Puede seguir funcionando sin una red social corporativa?'),
             array('<div>IS THAT A <br/></div>', 'IS THAT A'),
             array('&nbsp;&lt;ok&gt;&nbsp;&nbsp; TAG OK ? zc"  ', 'TAG OK ? zc"'),
@@ -95,19 +116,22 @@ Pompidou
     public function providerRandString()
     {
         return array (
-            array('', true, ''), // 0
-            array(true, true, ''),
-            array('test', true, ''),
-            array(2.5, true, ''),
-            array(-4, true, ''),
-            array(2, false, ''), // 5
-            array(12, false, ''),
-            array(15, false, ''),
-            array(15, false, '0123456789'),
-            array(30, false, 'abc'),
-            array(20, false, '012345çàé'), // 10
-            array(7, false, 'ù%3~'),
-            array(50, false, 'aBcDeFgHiJkLmNoPqRsTuVwXyZ')
+            array('', null, ''), // 0
+            array(true, null, 'ok'),
+            array('test', null, ''),
+            array(2.5, null, ''),
+            array(-4, false, 'abcde'),
+            array(15, null, new \stdClass()), // 5
+            array(15, null, 45),
+            array(0, false, ''),
+            array(2, true, ''),
+            array(12, true, ''),
+            array(15, true, ''), // 10
+            array(15, true, '0123456789'),
+            array(30, true, 'abc'),
+            array(20, true, '012345çàé'),
+            array(7, true, 'ù%3~'),
+            array(50, true, 'aBcDeFgHiJkLmNoPqRsTuVwXyZ') // 15
         );
     }
 
@@ -132,12 +156,12 @@ Pompidou
     public function providerBeautifulise()
     {
         return array(
-            array(12, false), // 0
-            array(array('ok'), false),
-            array(null, false),
-            array(true, false),
-            array(false, false),
-            array(new \stdClass(), false), // 5
+            array(12, null), // 0
+            array(array('ok'), null),
+            array(null, null),
+            array(true, null),
+            array(false, null),
+            array(new \stdClass(), null), // 5
             array('OK', 'OK'),
             array(' No normalize   !', 'No normalize !'),
             array('Ceci est faux : Oops !', 'Ceci est faux : Oops !'),
@@ -163,12 +187,14 @@ Pompidou
     public function providerMinify()
     {
         return array(
+            array(false, null), // 0
+            array(null, null),
+            array(-47.12, null),
+            array(7484, null),
+            array(new \stdClass(), null),
             array('ceci est un
-                test', 'ceci est un test'),
+                test', 'ceci est un test'), // 5
             array('ok$"é', 'ok$"é'),
-            array(null, ''),
-            array(false, ''),
-            array(0, '0'),
             array('a:focus {
   outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
@@ -199,10 +225,10 @@ video {
     {
         return array(
             array('nope', ''), // 0
-            array(null, false),
-            array(false, false),
-            array(0, false),
-            array(new \stdClass(), false),
+            array(null, null),
+            array(false, null),
+            array(0, null),
+            array(new \stdClass(), null),
             array('https://www.gog.com/game/prince_of_persia_warrior_within', 'prince_of_persia_warrior_within'), // 5
             array('http://i3.kym-cdn.com/photos/images/original/000/976/353/cca.png', 'cca.png'),
             array('https://en.wikipedia.org/wiki/Portable_Document_Format', 'Portable_Document_Format'),
@@ -214,11 +240,11 @@ video {
     public function providerAlphaToId()
     {
         return array(
-            array(array(null, ''), false), // 0
-            array(array(false, ''), false),
-            array(array(0, ''), false),
-            array(array(new \stdClass(), ''), false),
-            array(array('test', new \stdClass()), false),
+            array(array(null, ''), null), // 0
+            array(array(false, ''), null),
+            array(array(0, ''), null),
+            array(array(new \stdClass(), ''), null),
+            array(array('test', new \stdClass()), null),
             array(array('abraCADABRA', ''), 17251060315943390), // 5
             array(array('phpcode', ''), 858638639286),
             array(array('phpcode', 'secret'), 1193128009855),
@@ -232,12 +258,13 @@ video {
     public function providerIdToAlpha()
     {
         return array(
-            array(array(null, ''), false), // 0
-            array(array(false, ''), false),
+            array(array(null, ''), null), // 0
+            array(array(false, ''), null),
             array(array(0, ''), 'a'),
-            array(array(new \stdClass(), ''), false),
-            array(array('test', new \stdClass()), false),
-            array(array('abraCADABRA', ''), false), // 5
+            array(array(new \stdClass(), ''), null),
+            array(array('test', new \stdClass()), null),
+            array(array('abraCADABRA', ''), null), // 5
+            array(array(3432, 345), null),
             array(array(858638639286, ''), 'phpcode'),
             array(array(1193128009855, 'secret'), 'phpcode'),
             array(array(0, 'secret'), 'h'),
@@ -253,7 +280,12 @@ video {
      */
     public function testRemoveWhitespace($value, $expected)
     {
-        $this->assertSame($expected, Chars::removeWhitespace($value));
+        if ($expected !== null) {
+            $this->assertSame($expected, Chars::removeWhitespace($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::removeWhitespace($value);
+        }
     }
 
     /**
@@ -262,7 +294,12 @@ video {
      */
     public function testNormalizeWhitespace($value, $expected)
     {
-        $this->assertSame($expected, Chars::normalizeWhitespace($value));
+        if ($expected !== null) {
+            $this->assertSame($expected, Chars::normalizeWhitespace($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::normalizeWhitespace($value);
+        }
     }
 
     /**
@@ -271,7 +308,12 @@ video {
      */
     public function testRemoveLine($value, $expected)
     {
-        $this->assertSame($expected, Chars::removeLine($value));
+        if ($expected !== null) {
+            $this->assertSame($expected, Chars::removeLine($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::removeLine($value);
+        }
     }
 
     /**
@@ -280,27 +322,37 @@ video {
      */
     public function testNormalize($value, $expected)
     {
-        $this->assertSame($expected, Chars::normalize($value));
+        if ($expected !== null) {
+            $this->assertSame($expected, Chars::normalize($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::normalize($value);
+        }
     }
 
     /**
      * @covers Chars::randString
      * @dataProvider providerRandString
      */
-    public function testRandString($value, $expectingFalse, $allowedChars)
+    public function testRandString($value, $bExpected, $allowedChars)
     {
-        if ($expectingFalse) {
-            $this->assertFalse(Chars::randString($value));
-        } else {
-            if ($allowedChars) {
-                $result = Chars::randString($value, $allowedChars);
-                $this->assertRegExp('/^['.$allowedChars.']+$/', $result);
+        if ($bExpected !== null) {
+            if ($value <= 0) {
+                $this->assertFalse(Chars::randString($value, $allowedChars));
             } else {
-                $result = Chars::randString($value);
-                $this->assertRegExp('/^[a-zA-Z0-9]+$/', $result);
-            }
+                if (strlen($allowedChars) > 0) {
+                    $result = Chars::randString($value, $allowedChars);
+                    $this->assertRegExp('/^['.$allowedChars.']+$/', $result);
+                } else {
+                    $result = Chars::randString($value);
+                    $this->assertRegExp('/^[a-zA-Z0-9]+$/', $result);
+                }
 
-            $this->assertEquals($value, mb_strlen($result, 'utf8'));
+                $this->assertEquals($value, mb_strlen($result, 'utf8'));
+            }
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::randString($value, $allowedChars);
         }
     }
 
@@ -308,9 +360,14 @@ video {
      * @covers Chars::slugify
      * @dataProvider providerSlugify
      */
-    public function testSlugify($strValue, $bExpected)
+    public function testSlugify($value, $bExpected)
     {
-        $this->assertSame($bExpected, Chars::slugify($strValue));
+        if ($bExpected !== null) {
+            $this->assertSame($bExpected, Chars::slugify($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::slugify($value);
+        }
     }
 
     /**
@@ -319,11 +376,17 @@ video {
      */
     public function testBeautifulise($value, $expected)
     {
-        $result = Chars::beautifulise($value);
-        $this->assertSame($expected, $result);
+        if ($expected !== null) {
+            $result = Chars::beautifulise($value);
+            $this->assertSame($expected, $result);
 
-        // Re doing it changes nothing
-        $this->assertSame($expected, Chars::beautifulise($result));
+            // Doing it again changes nothing
+            $this->assertSame($expected, Chars::beautifulise($result));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::beautifulise($value);
+        }
+
     }
 
     /**
@@ -332,7 +395,12 @@ video {
      */
     public function testMinify($value, $expected)
     {
-        $this->assertSame($expected, Chars::minify($value));
+        if ($expected !== null) {
+            $this->assertSame($expected, Chars::minify($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::minify($value);
+        }
     }
 
     /**
@@ -341,7 +409,12 @@ video {
      */
     public function testGetResourceNameInUrl($value, $expected)
     {
-        $this->assertSame($expected, Chars::getResourceNameInUrl($value));
+        if ($expected !== null) {
+            $this->assertSame($expected, Chars::getResourceNameInUrl($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::getResourceNameInUrl($value);
+        }
     }
 
     /**
@@ -350,7 +423,12 @@ video {
      */
     public function testAlphaToId($values, $expected)
     {
-        $this->assertSame($expected, Chars::alphaToId($values[0], $values[1]));
+        if ($expected !== null) {
+            $this->assertSame($expected, Chars::alphaToId($values[0], $values[1]));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::alphaToId($values[0], $values[1]);
+        }
     }
 
     /**
@@ -359,6 +437,11 @@ video {
      */
     public function testIdToAplpha($values, $expected)
     {
-        $this->assertSame($expected, Chars::IdToAlpha($values[0], $values[1]));
+        if ($expected !== null) {
+            $this->assertSame($expected, Chars::IdToAlpha($values[0], $values[1]));
+        } else {
+            $this->setExpectedException('TypeError');
+            Chars::IdToAlpha($values[0], $values[1]);
+        }
     }
 }
