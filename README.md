@@ -9,7 +9,7 @@
 
 ### What does this library need to work? ###
 
-Nothing. Just a recent version of PHP.
+PHP7 or superior. It also needs the `php-iconv` extension to be enabled.
 
 ---
 
