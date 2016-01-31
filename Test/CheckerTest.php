@@ -54,6 +54,51 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function providerIsIp()
+    {
+        return array(
+            array(-4.5, null), // 0
+            array(22, null),
+            array(array(5), null),
+            array(new \stdClass(), null),
+            array(true, null),
+            array('97/:google.com', false), // 5
+            array('les-marchands.fr', false),
+            array('3.3.3.', false),
+            array('10.0.0.a', false),
+            array('random', false),
+            array('22.2222.22.2', false), // 10
+            array('4.5.6.7.8', false),
+            array('5..6.123', false),
+            array('5.12.34', false),
+            array('260.0.0.0', false),
+            array('192.168.23.15/24', false), // 15
+            array('2001:db8:3:4:5::192.0.2.33', false),
+            array('1:2:3:4:5:6:7:8::', false),
+            array(':1:2:3:4:5:6:7:8', false),
+            array('1:2:3:4:5:6:7:8:', false),
+            array('1:2:3:4:5:6:7:8:9', false), // 20
+            array('::_', false),
+            array('0.0.0.0', false),
+            array('0.42.42.42', false),
+            array('000.30.23.56', false),
+            array('127.0.0.1', true), // 25
+            array('127.000.00.001', true),
+            array('192.168.255.255', true),
+            array('10.0.0.1', true),
+            array('75.253.133.52', true),
+            array('21DA:D3:0:2F3B:2AA:FF:FE28:9C5A', true), // 30
+            array('21DA:00D3:0000:2F3B:02AA:00FF:FE28:9C5A', true),
+            array('ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff', true),
+            array('1:2:3:4:5:6:7:8', true),
+            array('1::5:6:7:8', true),
+            array('fe80::7:8%eth0', true), // 35
+            array('::ffff:255.255.255.255', true),
+            array('255.255.255.255', true),
+            array('050.000.001.200', true),
+        );
+    }
+
     public function providerIsURL()
     {
         return array(
@@ -157,6 +202,15 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
     public function testIsHexadecimal($value, $expected)
     {
         $this->assertSame($expected, Checker::isHexadecimal($value));
+    }
+
+    /**
+     * @covers Checker::isIp
+     * @dataProvider providerIsIp
+     */
+    public function testIsIp($value, $expected)
+    {
+        $this->assertSame($expected, Checker::isIp($value));
     }
 
     /**

@@ -59,6 +59,8 @@ PHP7 or superior. It also needs the `php-iconv` extension to be enabled.
 
 - **isURL($string)** : Check a string to be an URL
 
+- **isIp($string)** : Check a string to be an IP (v4 or v6)
+
 - **isEmail($string)** : Check a string to be an email
 
 - **isPhoneNumber($string)** : Check a string to be a phone number
