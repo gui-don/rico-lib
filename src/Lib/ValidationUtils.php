@@ -2,10 +2,7 @@
 
 namespace Rico\Lib;
 
-/**
- * Checker Library.
- */
-abstract class Checker
+abstract class ValidationUtils
 {
     /**
      * Checks a variable to be a positive integer (primary key).

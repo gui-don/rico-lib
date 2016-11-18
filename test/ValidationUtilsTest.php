@@ -2,9 +2,9 @@
 
 namespace Rico\Test\CheckerTest;
 
-use Rico\Lib\Checker;
+use Rico\Lib\ValidationUtils;
 
-class CheckerTest extends \PHPUnit_Framework_TestCase
+class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
 {
     public function providerIsPositiveInt()
     {
@@ -178,65 +178,65 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Checker::isPositiveInt
+     * @covers ValidationUtils::isPositiveInt
      * @dataProvider providerIsPositiveInt
      */
     public function testIsPositiveInt($value, $expected)
     {
-        $this->assertSame($expected, Checker::isPositiveInt($value));
+        $this->assertSame($expected, ValidationUtils::isPositiveInt($value));
     }
 
     /**
-     * @covers Checker::isNumber
+     * @covers ValidationUtils::isNumber
      * @dataProvider providerIsNumber
      */
     public function testIsNumber($strValue, $expected)
     {
-        $this->assertSame($expected, Checker::isNumber($strValue));
+        $this->assertSame($expected, ValidationUtils::isNumber($strValue));
     }
 
     /**
-     * @covers Checker::isHexadecimal
+     * @covers ValidationUtils::isHexadecimal
      * @dataProvider providerIsHexadecimal
      */
     public function testIsHexadecimal($value, $expected)
     {
-        $this->assertSame($expected, Checker::isHexadecimal($value));
+        $this->assertSame($expected, ValidationUtils::isHexadecimal($value));
     }
 
     /**
-     * @covers Checker::isIp
+     * @covers ValidationUtils::isIp
      * @dataProvider providerIsIp
      */
     public function testIsIp($value, $expected)
     {
-        $this->assertSame($expected, Checker::isIp($value));
+        $this->assertSame($expected, ValidationUtils::isIp($value));
     }
 
     /**
-     * @covers Checker::isUrl
+     * @covers ValidationUtils::isUrl
      * @dataProvider providerIsURL
      */
     public function testIsURL($value, $expected)
     {
-        $this->assertSame($expected, Checker::isURL($value));
+        $this->assertSame($expected, ValidationUtils::isURL($value));
     }
 
     /**
-     * @covers Checker::isEmail
+     * @covers ValidationUtils::isEmail
      * @dataProvider providerIsEmail
      */
     public function testIsEmail($value, $expected)
     {
-        $this->assertSame($expected, Checker::isEmail($value));
+        $this->assertSame($expected, ValidationUtils::isEmail($value));
     }
 
     /**
-     * @covers Checker::isPhoneNumber
+     * @covers ValidationUtils::isPhoneNumber
      * @dataProvider providerIsPhoneNumber
      */
     public function testIsPhoneNumber($value, $expected)
     {
-        $this->assertSame($expected, Checker::isPhoneNumber($value));
+        $this->assertSame($expected, ValidationUtils::isPhoneNumber($value));
     }
 }
