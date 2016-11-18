@@ -2,10 +2,7 @@
 
 namespace Rico\Lib;
 
-/**
- * Tools to handle files & folders.
- */
-abstract class File
+abstract class FileUtils
 {
     const LIST_DIRECTORY_FILE_ONLY = 1;
     const LIST_DIRECTORY_DIR_ONLY = 2;
