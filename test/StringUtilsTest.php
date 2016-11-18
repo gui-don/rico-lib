@@ -339,7 +339,7 @@ video {
     {
         if ($bExpected !== null) {
             if ($value <= 0) {
-                $this->assertFalse(StringUtils::randString($value, $allowedChars));
+                $this->assertEmpty(StringUtils::randString($value, $allowedChars));
             } else {
                 if (strlen($allowedChars) > 0) {
                     $result = StringUtils::randString($value, $allowedChars);

@@ -5,13 +5,13 @@ namespace Rico\Lib;
 abstract class StringUtils
 {
     /**
-     * Remove all sort of spaces from a string.
+     * Removes all sort of spaces from a $string.
      *
      * @param string $string
      *
      * @return string
      */
-    public static function removeWhitespace(string $string)
+    public static function removeWhitespace(string $string): string
     {
         /*
          * \0 :  NIL char
@@ -24,13 +24,13 @@ abstract class StringUtils
     }
 
     /**
-     * Replace all sort of spaces by a simple space.
+     * Replaces all sort of spaces in a $string by a simple space.
      *
      * @param string $string
      *
      * @return string
      */
-    public static function normalizeWhitespace(string $string)
+    public static function normalizeWhitespace(string $string): string
     {
         /*
          * \0 :  NIL char
@@ -43,25 +43,25 @@ abstract class StringUtils
     }
 
     /**
-     * Remove all sort of line breaks.
+     * Removes all sort of line breaks inside a $string.
      *
      * @param string $string
      *
      * @return string
      */
-    public static function removeLine(string $string)
+    public static function removeLine(string $string): string
     {
         return preg_replace('/[\r\n]+/', '', $string);
     }
 
     /**
-     * Clean a string by removing multi-spaces, line breaks, indents and HTML tags.
+     * Cleans a $string by removing multi-spaces, line breaks, indents and HTML tags.
      *
-     * @param string $string Chaîne de caractères à traiter
+     * @param string $string
      *
-     * @return string Chaîne de caractères traitée
+     * @return string
      */
-    public static function normalize(string $string)
+    public static function normalize(string $string): string
     {
         $string = str_replace(['<br/>', '<br />', '</br>', '<br>', '<br >', '< br >'], ' ', $string);
         $string = html_entity_decode($string, ENT_HTML5, 'UTF-8');
@@ -73,17 +73,17 @@ abstract class StringUtils
     }
 
     /**
-     * Generates a random string of alphanumeric characters.
+     * Generates a random string of $length $allowedChars.
      *
-     * @param int    $length       Desired chain length
-     * @param string $allowedChars Characters allowed
+     * @param int    $length
+     * @param string $allowedChars
      *
-     * @return string Random string of alphanumeric characters
+     * @return string
      */
-    public static function randString(int $length = 10, string $allowedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    public static function randString(int $length = 10, string $allowedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'): string
     {
         if ($length <= 0) {
-            return false;
+            return '';
         }
 
         $randString = '';
@@ -96,13 +96,13 @@ abstract class StringUtils
     }
 
     /**
-     * Transform a random string into a ascii-only string.
+     * Transforms a $string into a ascii-only string separated by -.
      *
      * @param string $string
      *
-     * @return string Ascii-only string separated by -
+     * @return string
      */
-    public static function slugify(string $string)
+    public static function slugify(string $string): string
     {
         setlocale(LC_CTYPE, 'fr_FR.UTF-8');
 
@@ -112,29 +112,27 @@ abstract class StringUtils
         // Transliterate
         $string = \iconv('utf-8', 'us-ascii//TRANSLIT', $string);
 
-        // Lowercase
         $string = strtolower($string);
 
         // Remove unwanted characters
         $string = preg_replace('~[^-\w]+~', '', $string);
 
-        // Trim
         $string = trim($string, '-');
 
         return $string;
     }
 
     /**
-     * Transform an ugly string (with incorrect ponctuation) into beautiful string (with correct ponctuation).
+     * Transforms an ugly $string (with incorrect ponctuation) into beautiful string (with correct ponctuation).
      *
-     * @param string $string String to be beautiful-ised
+     * @param string $string
      *
-     * @return string Beautiful-ised string
+     * @return string
      */
-    public static function beautifulise(string $string)
+    public static function beautifulise(string $string): string
     {
-        // Be careful, there are non secable spaces here
         $string = self::normalizeWhitespace($string);
+        // Be careful, there are non secable spaces here
         $string = str_replace(['\'\'', ' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'], ['"', ' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'], $string);
         $string = preg_replace('#(\d)\s?([$€£¥])#u', '$1 $2', $string);
         $string = preg_replace_callback('#\d{4,}#u', function ($matches) {
@@ -154,13 +152,13 @@ abstract class StringUtils
     }
 
     /**
-     * REmove whitespaces, line breaks and comment out of a string.
+     * Removes whitespaces, line breaks and comment out of a $string.
      *
      * @param string $string
      *
-     * @return string Minified string
+     * @return string
      */
-    public static function minify(string $string)
+    public static function minify(string $string): string
     {
         $string = preg_replace('#\/\*.*\*\/#s', '', $string);
         $string = self::removeLine($string);
@@ -171,26 +169,26 @@ abstract class StringUtils
     }
 
     /**
-     * Get the name of a resource (image, pdf, ...) out of an URL.
+     * Gets the name of a resource (image, pdf, ...) out of an $url.
      *
      * @param string $url
      *
-     * @return string Name of the resource
+     * @return string
      */
-    public static function getResourceNameInUrl(string $url)
+    public static function getResourceNameInUrl(string $url): string
     {
         preg_match("/\/([^\/\?]+)(?:[\?\#].*)?$/", $url, $matches);
 
-        return !empty($matches[1]) ? $matches[1] : '';
+        return $matches[1] ?? '';
     }
 
     /**
-     * Convert an alphabetic string into an identifier (an integer).
+     * Converts an alphabetic $string into an identifier (an integer).
      *
-     * @param string $string Alphanumeric string to be converted
-     * @param string $secret Password to decode the alphabetic string
+     * @param string $string
+     * @param string $secret to decode the alphabetic string
      *
-     * @return int
+     * @return int|string
      */
     public static function alphaToId(string $string, string $secret = '')
     {
@@ -216,14 +214,14 @@ abstract class StringUtils
     }
 
     /**
-     * Convert a integer into an alphanumeric string.
+     * Converts a $identifier into an alphanumeric string.
      *
-     * @param int    $identifier Identifier to be converted
-     * @param string $secret     Password to encode the integer
+     * @param int    $identifier 
+     * @param string $secret     to encode the integer
      *
      * @return string
      */
-    public static function IdToAlpha(int $identifier, string $secret = '')
+    public static function IdToAlpha(int $identifier, string $secret = ''): string
     {
         $out = '';
         $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
