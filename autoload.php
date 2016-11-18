@@ -4,7 +4,7 @@ if (version_compare(PHP_VERSION, '5.5.0', '<')) {
     throw new Exception('This library require PHP 5.5 minimum');
 }
 
-/**
+/*
  * Register the autoloader.
  * Based off the official PSR-4 autoloader example found here:
  * https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader-examples.md
@@ -17,7 +17,7 @@ spl_autoload_register(function ($class) {
     $prefix = 'Rico\\Lib\\';
 
     // base directory for the namespace prefix
-    $base_dir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__ . '/src/Lib/';
+    $base_dir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/src/Lib/';
 
     // does the class use the namespace prefix?
     $len = strlen($prefix);
@@ -32,12 +32,10 @@ spl_autoload_register(function ($class) {
     // replace the namespace prefix with the base directory, replace namespace
     // separators with directory separators in the relative class name, append
     // with .php
-    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-
+    $file = $base_dir.str_replace('\\', '/', $relative_class).'.php';
 
     // if the file exists, require it
     if (file_exists($file)) {
         require $file;
     }
 });
-

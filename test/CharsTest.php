@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Rico\Test\StringTest;
 
-use \Rico\Lib\Chars;
+use Rico\Lib\Chars;
 
 class CharsTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,16 +16,16 @@ class CharsTest extends \PHPUnit_Framework_TestCase
             array(-47.12, null),
             array(7484, null),
             array(new \stdClass(), null),
-            array("   &nbsp;", '&nbsp;'), // 5
+            array('   &nbsp;', '&nbsp;'), // 5
             array('666  ', '666'),
             array('107, quai du docteur Dervaux,92600  ', '107,quaidudocteurDervaux,92600'),
             array('Espace  demerde', 'Espacedemerde'),
-            array("On veut	garder les
+            array('On veut	garder les
                 retours à la
-                ligne mais pas les  espaces",
-                "Onveutgarderles
+                ligne mais pas les  espaces',
+                'Onveutgarderles
 retoursàla
-lignemaispaslesespaces")
+lignemaispaslesespaces', ),
         );
     }
 
@@ -36,16 +37,16 @@ lignemaispaslesespaces")
             array(-47.12, null),
             array(7484, null),
             array(new \stdClass(), null),
-            array("   &nbsp;", '&nbsp;'), // 5
+            array('   &nbsp;', '&nbsp;'), // 5
             array('666', '666'),
             array('107, quai du docteur Dervaux,92600  ', '107, quai du docteur Dervaux,92600'),
             array('Espace  demerde', 'Espace de merde'),
-            array("On veut	garder les
+            array('On veut	garder les
                 retours à la
-                ligne mais pas les  espaces",
-                "On veut garder les
+                ligne mais pas les  espaces',
+                'On veut garder les
  retours à la
- ligne mais pas les espaces")
+ ligne mais pas les espaces', ),
         );
     }
 
@@ -59,11 +60,11 @@ lignemaispaslesespaces")
             array(new \stdClass(), null),
             array("Ceci <br /> avec un saut
  à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci <br /> avec un saut à la   ligne   et des espaces  en trop 	!  '), // 5
-            array(" Multiples
+            array(' Multiples
  sauts
  à
  la
- ligne.", ' Multiples sauts à la ligne.'),
+ ligne.', ' Multiples sauts à la ligne.'),
             array('666', '666'),
             array('
     Chaos
@@ -74,7 +75,7 @@ Pompidou
 
 
 
-   ', '    ChaosPompidou   ')
+   ', '    ChaosPompidou   '),
         );
     }
 
@@ -89,12 +90,12 @@ Pompidou
             array("Ceci <br /> avec un saut
                 à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci avec un saut à la ligne et des espaces en trop !'), // 5
             array('\";alert(\'XSS escaping vulnerability\');//', '\";alert(\'XSS escaping vulnerability\');//'),
-            array("   &nbsp;", ''),
-            array(" Multiples
+            array('   &nbsp;', ''),
+            array(' Multiples
                 sauts
                 à
                 la
-                ligne.", 'Multiples sauts à la ligne.'),
+                ligne.', 'Multiples sauts à la ligne.'),
             array('<h1>La pêche aux moules</h1><p>La pêche des moules etc.</p><br /><p>C\'est plus facile en <a href="#">hivers</a> etc.</p>', 'La pêche aux moulesLa pêche des moules etc. C\'est plus facile en hivers etc.'),
             array('666', '666'), // 10
             array('¿Puede seguir funcionando sin una  red  social corporativa?', '¿Puede seguir funcionando sin una red social corporativa?'),
@@ -109,13 +110,13 @@ Pompidou
 
 
 
-   ', 'Exemplo #1 Creating a Document')
+   ', 'Exemplo #1 Creating a Document'),
         );
     }
 
     public function providerRandString()
     {
-        return array (
+        return array(
             array('', null, ''), // 0
             array(true, null, 'ok'),
             array('test', null, ''),
@@ -131,7 +132,7 @@ Pompidou
             array(30, true, 'abc'),
             array(20, true, '012345çàé'),
             array(7, true, 'ù%3~'),
-            array(50, true, 'aBcDeFgHiJkLmNoPqRsTuVwXyZ') // 15
+            array(50, true, 'aBcDeFgHiJkLmNoPqRsTuVwXyZ'), // 15
         );
     }
 
@@ -180,7 +181,7 @@ Pompidou
             array('Il m\'a dit :
     "oui" ! Ou plutôt, "Moui" !', 'Il m’a dit :
  “oui” ! Ou plutôt, “Moui” !'),
-            array('a "mystery voice" suddenly speaks to them: "A game has now started. In order to escape the room, Keisuke is the "unlocker" and one heroine the "keyhole". With an assigned act, he must "use the key"."', 'a “mystery voice” suddenly speaks to them: “A game has now started. In order to escape the room, Keisuke is the “unlocker” and one heroine the “keyhole”. With an assigned act, he must “use the key”.”')
+            array('a "mystery voice" suddenly speaks to them: "A game has now started. In order to escape the room, Keisuke is the "unlocker" and one heroine the "keyhole". With an assigned act, he must "use the key"."', 'a “mystery voice” suddenly speaks to them: “A game has now started. In order to escape the room, Keisuke is the “unlocker” and one heroine the “keyhole”. With an assigned act, he must “use the key”.”'),
         );
     }
 
@@ -217,7 +218,7 @@ video {
   display: inline-block;
   *display: inline;
   *zoom: 1;
-}', 'audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}')
+}', 'audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}'),
         );
     }
 
@@ -233,7 +234,7 @@ video {
             array('http://i3.kym-cdn.com/photos/images/original/000/976/353/cca.png', 'cca.png'),
             array('https://en.wikipedia.org/wiki/Portable_Document_Format', 'Portable_Document_Format'),
             array('http://docs.sfr.fr/guide/Vos_chaines_TV_box_de_SFR.pdf?#zoom=81&statusbar=0&navpanes=0&messages=0', 'Vos_chaines_TV_box_de_SFR.pdf'),
-            array('/home/test/Vidéos/Best_vid_ever.mp4', 'Best_vid_ever.mp4')
+            array('/home/test/Vidéos/Best_vid_ever.mp4', 'Best_vid_ever.mp4'),
         );
     }
 
@@ -251,7 +252,7 @@ video {
             array(array('', ''), ''),
             array(array('', 'secret'), ''),
             array(array('777', ''), 128931), // 10
-            array(array('/home/', ''), 106817320)
+            array(array('/home/', ''), 106817320),
         );
     }
 
@@ -386,7 +387,6 @@ video {
             $this->setExpectedException('TypeError');
             Chars::beautifulise($value);
         }
-
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Rico\Test\CheckerTest;
 
-use \Rico\Lib\Checker;
+use Rico\Lib\Checker;
 
 class CheckerTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
             array('471845', true),
             array(7484, true),
             array(899, true),
-            array(125, true)
+            array(125, true),
         );
     }
 
@@ -50,7 +50,7 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
             array('eAf0e656', false),
             array('AGCDEA', false), // 5
             array('EEE654', true),
-            array(222222, false)
+            array(222222, false),
         );
     }
 
@@ -150,7 +150,7 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
             array('jmb@link4lead.com', true),
             array('Marc.Pol@plm.com', true),
             array('MARC.POL@PLM.COM', false),
-            array('jojo_admin@augure.com', true)
+            array('jojo_admin@augure.com', true),
         );
     }
 
@@ -173,7 +173,7 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
             array('+212 640568132', true),
             array('+86.145.899.1024', true),
             array('(+ 33)0598745123', true), // 15
-            array('(+3300)0598745123', true)
+            array('(+3300)0598745123', true),
         );
     }
 

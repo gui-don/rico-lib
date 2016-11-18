@@ -1,19 +1,22 @@
 <?php
+
 namespace Rico\Lib;
 
 /**
- * String library
+ * String library.
  */
 abstract class Chars
 {
     /**
-     * Remove all sort of spaces from a string
+     * Remove all sort of spaces from a string.
+     *
      * @param string $string
+     *
      * @return string
      */
     public static function removeWhitespace(string $string)
     {
-        /**
+        /*
          * \0 :  NIL char
          * \xC2 : non-breaking space
          * \xA0 : non-breaking space
@@ -24,13 +27,15 @@ abstract class Chars
     }
 
     /**
-     * Replace all sort of spaces by a simple space
+     * Replace all sort of spaces by a simple space.
+     *
      * @param string $string
+     *
      * @return string
      */
     public static function normalizeWhitespace(string $string)
     {
-        /**
+        /*
          * \0 :  NIL char
          * \xC2 : non-breaking space
          * \xA0 : non-breaking space
@@ -41,8 +46,10 @@ abstract class Chars
     }
 
     /**
-     * Remove all sort of line breaks
+     * Remove all sort of line breaks.
+     *
      * @param string $string
+     *
      * @return string
      */
     public static function removeLine(string $string)
@@ -51,9 +58,11 @@ abstract class Chars
     }
 
     /**
-     * Clean a string by removing multi-spaces, line breaks, indents and HTML tags
-     * @param String $string Chaîne de caractères à traiter
-     * @return String Chaîne de caractères traitée
+     * Clean a string by removing multi-spaces, line breaks, indents and HTML tags.
+     *
+     * @param string $string Chaîne de caractères à traiter
+     *
+     * @return string Chaîne de caractères traitée
      */
     public static function normalize(string $string)
     {
@@ -62,13 +71,16 @@ abstract class Chars
         $string = strip_tags($string);
         $string = self::removeLine($string);
         $string = self::normalizeWhitespace($string);
+
         return $string;
     }
 
     /**
-     * Generates a random string of alphanumeric characters
-     * @param int $length Desired chain length
+     * Generates a random string of alphanumeric characters.
+     *
+     * @param int    $length       Desired chain length
      * @param string $allowedChars Characters allowed
+     *
      * @return string Random string of alphanumeric characters
      */
     public static function randString(int $length = 10, string $allowedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
@@ -79,7 +91,7 @@ abstract class Chars
 
         $randString = '';
         $allowedCharsLength = mb_strlen($allowedChars, 'UTF-8');
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             $randString .= mb_substr($allowedChars, mt_rand(0, ($allowedCharsLength - 1)), 1, 'UTF-8');
         }
 
@@ -87,8 +99,10 @@ abstract class Chars
     }
 
     /**
-     * Transform a random string into a ascii-only string
+     * Transform a random string into a ascii-only string.
+     *
      * @param string $string
+     *
      * @return string Ascii-only string separated by -
      */
     public static function slugify(string $string)
@@ -114,17 +128,21 @@ abstract class Chars
     }
 
     /**
-     * Transform an ugly string (with incorrect ponctuation) into beautiful string (with correct ponctuation)
+     * Transform an ugly string (with incorrect ponctuation) into beautiful string (with correct ponctuation).
+     *
      * @param string $string String to be beautiful-ised
+     *
      * @return string Beautiful-ised string
      */
     public static function beautifulise(string $string)
     {
         // Be careful, there are non secable spaces here
         $string = self::normalizeWhitespace($string);
-        $string = str_replace(array('\'\'',' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'), array('"' ,' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'), $string);
+        $string = str_replace(array('\'\'', ' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'), array('"', ' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'), $string);
         $string = preg_replace('#(\d)\s?([$€£¥])#u', '$1 $2', $string);
-        $string = preg_replace_callback('#\d{4,}#u', function($matches) { return number_format($matches[0], 0, ',', ' '); }, $string);
+        $string = preg_replace_callback('#\d{4,}#u', function ($matches) {
+            return number_format($matches[0], 0, ',', ' ');
+        }, $string);
 
         // Count quotes
         $QuotesCount = strlen($string) - strlen(str_replace('"', '', $string));
@@ -139,8 +157,10 @@ abstract class Chars
     }
 
     /**
-     * REmove whitespaces, line breaks and comment out of a string
+     * REmove whitespaces, line breaks and comment out of a string.
+     *
      * @param string $string
+     *
      * @return string Minified string
      */
     public static function minify(string $string)
@@ -149,12 +169,15 @@ abstract class Chars
         $string = self::removeLine($string);
         $string = self::normalizeWhitespace($string);
         $string = preg_replace('# ?([\;\:\{\}\,]) ?#', '$1', $string);
+
         return $string;
     }
 
     /**
-     * Get the name of a resource (image, pdf, ...) out of an URL
+     * Get the name of a resource (image, pdf, ...) out of an URL.
+     *
      * @param string $url
+     *
      * @return string Name of the resource
      */
     public static function getResourceNameInUrl(string $url)
@@ -165,14 +188,16 @@ abstract class Chars
     }
 
     /**
-     * Convert an alphabetic string into an identifier (an integer)
+     * Convert an alphabetic string into an identifier (an integer).
+     *
      * @param string $string Alphanumeric string to be converted
      * @param string $secret Password to decode the alphabetic string
+     *
      * @return int
      */
     public static function alphaToId(string $string, string $secret = '')
     {
-        $out =  '';
+        $out = '';
         $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $base = strlen($index);
         $stringLength = strlen($string) - 1;
@@ -185,7 +210,7 @@ abstract class Chars
             $index = implode($splitIndex);
         }
 
-        for ($t = $stringLength; $t >= 0; $t--) {
+        for ($t = $stringLength; $t >= 0; --$t) {
             $bcp = $base ** ($stringLength - $t);
             $out += strpos($index, substr($string, $t, 1)) * $bcp;
         }
@@ -194,14 +219,16 @@ abstract class Chars
     }
 
     /**
-     * Convert a integer into an alphanumeric string
-     * @param int $identifier Identifier to be converted
-     * @param string $secret Password to encode the integer
+     * Convert a integer into an alphanumeric string.
+     *
+     * @param int    $identifier Identifier to be converted
+     * @param string $secret     Password to encode the integer
+     *
      * @return string
      */
     public static function IdToAlpha(int $identifier, string $secret = '')
     {
-        $out =  '';
+        $out = '';
         $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $base = strlen($index);
 
@@ -213,7 +240,7 @@ abstract class Chars
             $index = implode($splitIndex);
         }
 
-        for ($t = ($identifier != 0 ? floor(log($identifier, $base)) : 0); $t >= 0; $t--) {
+        for ($t = ($identifier != 0 ? floor(log($identifier, $base)) : 0); $t >= 0; --$t) {
             $bcp = $base ** $t;
             $a = floor($identifier / $bcp) % $base;
             $out .= substr($index, $a, 1);

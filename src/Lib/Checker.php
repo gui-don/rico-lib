@@ -3,14 +3,16 @@
 namespace Rico\Lib;
 
 /**
- * Checker Library
+ * Checker Library.
  */
 abstract class Checker
 {
     /**
-     * Checks a variable to be a positive integer (primary key)
+     * Checks a variable to be a positive integer (primary key).
+     *
      * @param mixed $mixed Variable to test
-     * @return boolean True if positive integer, false otherwise
+     *
+     * @return bool True if positive integer, false otherwise
      */
     public static function isPositiveInt($mixed)
     {
@@ -22,9 +24,11 @@ abstract class Checker
     }
 
     /**
-     * Check a value to be a decimal number (float or integer)
+     * Check a value to be a decimal number (float or integer).
+     *
      * @param mixed $mixed
-     * @return boolean True if value is a decimal number, false otherwise
+     *
+     * @return bool True if value is a decimal number, false otherwise
      */
     public static function isNumber($mixed)
     {
@@ -32,9 +36,11 @@ abstract class Checker
     }
 
     /**
-     * Check a value to be a hexadecimal value
+     * Check a value to be a hexadecimal value.
+     *
      * @param mixed $mixed
-     * @return boolean True if hexadecimal, false otherwise
+     *
+     * @return bool True if hexadecimal, false otherwise
      */
     public static function isHexadecimal($mixed)
     {
@@ -50,9 +56,11 @@ abstract class Checker
     }
 
     /**
-     * Check a string to be an URL
+     * Check a string to be an URL.
+     *
      * @param string $string String to test
-     * @return boolean True if the string is an URL, false otherwise
+     *
+     * @return bool True if the string is an URL, false otherwise
      */
     public static function isURL($string)
     {
@@ -64,9 +72,11 @@ abstract class Checker
     }
 
     /**
-     * Check a string to be an IP (v4 or v6)
+     * Check a string to be an IP (v4 or v6).
+     *
      * @param string $string
-     * @return boolean
+     *
+     * @return bool
      */
     public static function isIp($string)
     {
@@ -82,9 +92,11 @@ abstract class Checker
     }
 
     /**
-     * Check a string to be an email
+     * Check a string to be an email.
+     *
      * @param string $string
-     * @return boolean True if string is an email, false otherwise
+     *
+     * @return bool True if string is an email, false otherwise
      */
     public static function isEmail($string)
     {
@@ -97,9 +109,11 @@ abstract class Checker
     }
 
     /**
-     * Check a string to be a phone number
+     * Check a string to be a phone number.
+     *
      * @param string $string Chaîne de caractères à tester
-     * @return boolean True if string is a phone number, false otherwise
+     *
+     * @return bool True if string is a phone number, false otherwise
      */
     public static function isPhoneNumber($string)
     {
