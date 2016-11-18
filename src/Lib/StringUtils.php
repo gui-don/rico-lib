@@ -24,7 +24,7 @@ abstract class StringUtils
     }
 
     /**
-     * Replaces all sort of spaces in a $string by a simple space.
+     * Replaces all sort of spaces (tab, nil, non-breaking…) in a $string by a simple space.
      *
      * @param string $string
      *
@@ -169,7 +169,7 @@ abstract class StringUtils
     }
 
     /**
-     * Gets the name of a resource (image, pdf, ...) out of an $url.
+     * Gets the name of a resource (image, pdf, …) out of an $url.
      *
      * @param string $url
      *

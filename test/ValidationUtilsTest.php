@@ -57,11 +57,11 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
     public function providerIsIp()
     {
         return [
-            [-4.5, null], // 0
-            [22, null],
-            [[5], null],
-            [new \stdClass(), null],
-            [true, null],
+            [-4.5, false], // 0
+            [22, false],
+            [[5], false],
+            [new \stdClass(), false],
+            [true, false],
             ['97/:google.com', false], // 5
             ['les-marchands.fr', false],
             ['3.3.3.', false],
@@ -151,6 +151,8 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
             ['Marc.Pol@plm.com', true],
             ['MARC.POL@PLM.COM', false],
             ['jojo_admin@augure.com', true],
+            [23, false], // 15
+            [new \stdClass(), false],
         ];
     }
 
