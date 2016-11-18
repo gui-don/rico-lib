@@ -9,14 +9,14 @@ abstract class FileUtils
     const LIST_DIRECTORY_BOTH = 3;
 
     /**
-     * Get filenames and folders names inside a directory.
+     * Gets filenames and folders names (according to $option) inside a $path.
      *
      * @param string $path
      * @param int    $option
      *
      * @return string[]
      */
-    public static function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH)
+    public static function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH): array
     {
         if (!file_exists($path) || !is_dir($path)) {
             return false;
@@ -59,13 +59,13 @@ abstract class FileUtils
     }
 
     /**
-     * Create all missing directories from a path.
+     * Creates the completer $path with all missing intermediates directories.
      *
      * @param string $path
      *
-     * @return bool True if path has been created, false otherwise
+     * @return bool
      */
-    public static function createPath(string $path)
+    public static function createPath(string $path): bool
     {
         if (!is_string($path)) {
             return false;
@@ -81,14 +81,14 @@ abstract class FileUtils
     }
 
     /**
-     * Create a symbolic link.
+     * Creates a symbolic $link pointing to $file.
      *
-     * @param string $link Absolute or relative symbolic link
+     * @param string $link
      * @param string $file
      *
-     * @return bool True if symbolic link has been created, false otherwise
+     * @return bool
      */
-    public static function createSymlink(string $link, string $file)
+    public static function createSymlink(string $link, string $file): bool
     {
         if (!is_string($file) || !is_string($link)) {
             return false;
@@ -106,12 +106,12 @@ abstract class FileUtils
     }
 
     /**
-     * Count the number of lines in a file.
+     * Counts the number of lines in a $file.
      *
-     * @param string $file       Absolute or relative URL of the file
-     * @param bool   $countEmpty Determine wheter empty lines are counted or not
+     * @param string $file
+     * @param bool   $countEmpty
      *
-     * @return int Number of line in a file or false if an error occured
+     * @return int|bool
      */
     public static function count(string $file, bool $countEmpty = false)
     {
@@ -143,12 +143,12 @@ abstract class FileUtils
     }
 
     /**
-     * Add a new line at the end of a file without duplication.
+     * Adds a new $line at the end of a $file without duplication.
      *
-     * @param string $file File path and name
-     * @param string $line Line to add
+     * @param string $file
+     * @param string $line
      *
-     * @return bool True if the line has been added, false otherwise, null if an error occured
+     * @return bool|null
      */
     public static function addLine(string $file, string $line)
     {
