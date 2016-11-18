@@ -39,7 +39,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Vector::pluck
+     * @covers ArrayUtils::pluck
      * @dataProvider providerPluck
      */
     public function testPluck($array, $property, $expected)
@@ -48,7 +48,7 @@ class VectorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Vector::transpose
+     * @covers ArrayUtils::transpose
      * @dataProvider providerTranspose
      */
     public function testTranspose($array, $expected)
