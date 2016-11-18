@@ -25,11 +25,11 @@ abstract class File
             return false;
         }
 
-        $aResult = array();
+        $aResult = [];
 
         $resourceDir = @opendir($path);
         while (false !== ($strFile = readdir($resourceDir))) {
-            if (in_array($strFile, array('.', '..'))) {
+            if (in_array($strFile, ['.', '..'])) {
                 continue;
             }
 

@@ -8,173 +8,173 @@ class CheckerTest extends \PHPUnit_Framework_TestCase
 {
     public function providerIsPositiveInt()
     {
-        return array(
-            array('test', false), // 0
-            array(true, false),
-            array('2e4', false),
-            array(-47.12, false),
-            array(0, false),
-            array(12.5, false), // 5
-            array('471845', true),
-            array(7484, true),
-            array(899, true),
-            array(125, true),
-        );
+        return [
+            ['test', false], // 0
+            [true, false],
+            ['2e4', false],
+            [-47.12, false],
+            [0, false],
+            [12.5, false], // 5
+            ['471845', true],
+            [7484, true],
+            [899, true],
+            [125, true],
+        ];
     }
 
     public function providerIsNumber()
     {
-        return array(
-            array('test', false), // 0
-            array(false, false),
-            array(null, false),
-            array('2e4', false),
-            array('a35', false),
-            array('-187417840', true), // 5
-            array('471845', true),
-            array(-47.12, true),
-            array(7484, true),
-            array(0, true),
-            array(0.1818, true), // 10
-            array('0.14.3', false),
-        );
+        return [
+            ['test', false], // 0
+            [false, false],
+            [null, false],
+            ['2e4', false],
+            ['a35', false],
+            ['-187417840', true], // 5
+            ['471845', true],
+            [-47.12, true],
+            [7484, true],
+            [0, true],
+            [0.1818, true], // 10
+            ['0.14.3', false],
+        ];
     }
 
     public function providerIsHexadecimal()
     {
-        return array(
-            array('000000', true), // 0
-            array(000000, false),
-            array('111111', true),
-            array('eAf0e6', true),
-            array('eAf0e656', false),
-            array('AGCDEA', false), // 5
-            array('EEE654', true),
-            array(222222, false),
-        );
+        return [
+            ['000000', true], // 0
+            [000000, false],
+            ['111111', true],
+            ['eAf0e6', true],
+            ['eAf0e656', false],
+            ['AGCDEA', false], // 5
+            ['EEE654', true],
+            [222222, false],
+        ];
     }
 
     public function providerIsIp()
     {
-        return array(
-            array(-4.5, null), // 0
-            array(22, null),
-            array(array(5), null),
-            array(new \stdClass(), null),
-            array(true, null),
-            array('97/:google.com', false), // 5
-            array('les-marchands.fr', false),
-            array('3.3.3.', false),
-            array('10.0.0.a', false),
-            array('random', false),
-            array('22.2222.22.2', false), // 10
-            array('4.5.6.7.8', false),
-            array('5..6.123', false),
-            array('5.12.34', false),
-            array('260.0.0.0', false),
-            array('192.168.23.15/24', false), // 15
-            array('2001:db8:3:4:5::192.0.2.33', false),
-            array('1:2:3:4:5:6:7:8::', false),
-            array(':1:2:3:4:5:6:7:8', false),
-            array('1:2:3:4:5:6:7:8:', false),
-            array('1:2:3:4:5:6:7:8:9', false), // 20
-            array('::_', false),
-            array('0.0.0.0', false),
-            array('0.42.42.42', false),
-            array('000.30.23.56', false),
-            array('127.0.0.1', true), // 25
-            array('127.000.00.001', true),
-            array('192.168.255.255', true),
-            array('10.0.0.1', true),
-            array('75.253.133.52', true),
-            array('21DA:D3:0:2F3B:2AA:FF:FE28:9C5A', true), // 30
-            array('21DA:00D3:0000:2F3B:02AA:00FF:FE28:9C5A', true),
-            array('ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff', true),
-            array('1:2:3:4:5:6:7:8', true),
-            array('1::5:6:7:8', true),
-            array('fe80::7:8%eth0', true), // 35
-            array('::ffff:255.255.255.255', true),
-            array('255.255.255.255', true),
-            array('050.000.001.200', true),
-        );
+        return [
+            [-4.5, null], // 0
+            [22, null],
+            [[5], null],
+            [new \stdClass(), null],
+            [true, null],
+            ['97/:google.com', false], // 5
+            ['les-marchands.fr', false],
+            ['3.3.3.', false],
+            ['10.0.0.a', false],
+            ['random', false],
+            ['22.2222.22.2', false], // 10
+            ['4.5.6.7.8', false],
+            ['5..6.123', false],
+            ['5.12.34', false],
+            ['260.0.0.0', false],
+            ['192.168.23.15/24', false], // 15
+            ['2001:db8:3:4:5::192.0.2.33', false],
+            ['1:2:3:4:5:6:7:8::', false],
+            [':1:2:3:4:5:6:7:8', false],
+            ['1:2:3:4:5:6:7:8:', false],
+            ['1:2:3:4:5:6:7:8:9', false], // 20
+            ['::_', false],
+            ['0.0.0.0', false],
+            ['0.42.42.42', false],
+            ['000.30.23.56', false],
+            ['127.0.0.1', true], // 25
+            ['127.000.00.001', true],
+            ['192.168.255.255', true],
+            ['10.0.0.1', true],
+            ['75.253.133.52', true],
+            ['21DA:D3:0:2F3B:2AA:FF:FE28:9C5A', true], // 30
+            ['21DA:00D3:0000:2F3B:02AA:00FF:FE28:9C5A', true],
+            ['ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff', true],
+            ['1:2:3:4:5:6:7:8', true],
+            ['1::5:6:7:8', true],
+            ['fe80::7:8%eth0', true], // 35
+            ['::ffff:255.255.255.255', true],
+            ['255.255.255.255', true],
+            ['050.000.001.200', true],
+        ];
     }
 
     public function providerIsURL()
     {
-        return array(
-            array('', false), // 0
-            array('work', false),
-            array('array(5)', false),
-            array('326a', false),
-            array('http://google.com', true),
-            array('97/:google.com', false), // 5
-            array('les-marchands.fr', false),
-            array('www.yahoo.co.jp', false),
-            array('http://fr.wikipedia.org/', true),
-            array('https://fr.wikipedia.org/wiki/Uniform_Resource_Locator', true),
-            array('https://www.youtube.com/watch?v=TjkVXzmsP78&feature=related', true), // 10
-            array('http://bit.ly/xZolh7', true),
-            array('ftp://ftp.rfc-editor.org/in-notes/rfc2396.txt', true),
-            array('http://local.mysmartaudit.net/vokto/815/secretaire-delegue-general-etes-vous-satisfait-de-vos-outils-numeriques-dans-l-exercice-de-vos-fonctions/?cpid=test&reset=2', true),
-            array('http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true),
-            array('http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true), // 15
-            array('http://local.mysmartaudit.net/dell-sonicwall/888/ファイアウォールに不満ですか/', true),
-            array('http://local.mysmartaudit.net/ファイアウ/888/ォールに不満ですか/', true),
-            array('http://test.comune url?', false),
-            array('http://उदाहरण.परीक्षा', true),
-            array('///a', false), // 20
-            array('http://foo.bar?q=Spaces should be encoded', false),
-            array('http://foo.com/blah_blah_(wikipedia)_(again)', true),
-            array('http://10.1.1.255/', false),
-            array('http://.www.foo.bar/', false),
-            array('http://a.b-c.club', true), // 25
-            array('http://127.0.0.1/server.php', true),
-            array('https://phpunit.de/manual/current/en/test-doubles.html', true),
-        );
+        return [
+            ['', false], // 0
+            ['work', false],
+            ['array(5)', false],
+            ['326a', false],
+            ['http://google.com', true],
+            ['97/:google.com', false], // 5
+            ['les-marchands.fr', false],
+            ['www.yahoo.co.jp', false],
+            ['http://fr.wikipedia.org/', true],
+            ['https://fr.wikipedia.org/wiki/Uniform_Resource_Locator', true],
+            ['https://www.youtube.com/watch?v=TjkVXzmsP78&feature=related', true], // 10
+            ['http://bit.ly/xZolh7', true],
+            ['ftp://ftp.rfc-editor.org/in-notes/rfc2396.txt', true],
+            ['http://local.mysmartaudit.net/vokto/815/secretaire-delegue-general-etes-vous-satisfait-de-vos-outils-numeriques-dans-l-exercice-de-vos-fonctions/?cpid=test&reset=2', true],
+            ['http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true],
+            ['http://mysmartaudit.net/link4lead/316/que-vaut-votre-generation-de-leads/', true], // 15
+            ['http://local.mysmartaudit.net/dell-sonicwall/888/ファイアウォールに不満ですか/', true],
+            ['http://local.mysmartaudit.net/ファイアウ/888/ォールに不満ですか/', true],
+            ['http://test.comune url?', false],
+            ['http://उदाहरण.परीक्षा', true],
+            ['///a', false], // 20
+            ['http://foo.bar?q=Spaces should be encoded', false],
+            ['http://foo.com/blah_blah_(wikipedia)_(again)', true],
+            ['http://10.1.1.255/', false],
+            ['http://.www.foo.bar/', false],
+            ['http://a.b-c.club', true], // 25
+            ['http://127.0.0.1/server.php', true],
+            ['https://phpunit.de/manual/current/en/test-doubles.html', true],
+        ];
     }
 
     public function providerIsEmail()
     {
-        return array(
-            array('', false), // 0
-            array('notok', false),
-            array('test@con', false),
-            array('abc.@example.com', false),
-            array('A@b@c@example.com', false),
-            array('john.doe@example.bullshit', false), // 5
-            array('john.doe@truc.fr', true),
-            array('niceandsimple@example.com', true),
-            array('simplewith+symbol@example.info', true),
-            array('less.common@www.example.net', true),
-            array('a.little.more.unusual@dept.example.pro', true), // 10
-            array('jmb@link4lead.com', true),
-            array('Marc.Pol@plm.com', true),
-            array('MARC.POL@PLM.COM', false),
-            array('jojo_admin@augure.com', true),
-        );
+        return [
+            ['', false], // 0
+            ['notok', false],
+            ['test@con', false],
+            ['abc.@example.com', false],
+            ['A@b@c@example.com', false],
+            ['john.doe@example.bullshit', false], // 5
+            ['john.doe@truc.fr', true],
+            ['niceandsimple@example.com', true],
+            ['simplewith+symbol@example.info', true],
+            ['less.common@www.example.net', true],
+            ['a.little.more.unusual@dept.example.pro', true], // 10
+            ['jmb@link4lead.com', true],
+            ['Marc.Pol@plm.com', true],
+            ['MARC.POL@PLM.COM', false],
+            ['jojo_admin@augure.com', true],
+        ];
     }
 
     public function providerIsPhoneNumber()
     {
-        return array(
-            array('', false), // 0
-            array('0125', false),
-            array('12458', false),
-            array('work', false),
-            array('+ 33 06 14 03 77 35', true),
-            array('+ 33 0614037735', true), // 5
-            array('+ 330614037735', true),
-            array('+212 (64)) 0568132', false),
-            array('+33 2 45 60 12 46', true),
-            array('1-510-495-1428', true),
-            array('0415487631', true), // 10
-            array('(11)1234-5678', true),
-            array('01.46.70.89.12', true),
-            array('+212 640568132', true),
-            array('+86.145.899.1024', true),
-            array('(+ 33)0598745123', true), // 15
-            array('(+3300)0598745123', true),
-        );
+        return [
+            ['', false], // 0
+            ['0125', false],
+            ['12458', false],
+            ['work', false],
+            ['+ 33 06 14 03 77 35', true],
+            ['+ 33 0614037735', true], // 5
+            ['+ 330614037735', true],
+            ['+212 (64)) 0568132', false],
+            ['+33 2 45 60 12 46', true],
+            ['1-510-495-1428', true],
+            ['0415487631', true], // 10
+            ['(11)1234-5678', true],
+            ['01.46.70.89.12', true],
+            ['+212 640568132', true],
+            ['+86.145.899.1024', true],
+            ['(+ 33)0598745123', true], // 15
+            ['(+3300)0598745123', true],
+        ];
     }
 
     /**

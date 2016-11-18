@@ -66,7 +66,7 @@ abstract class Chars
      */
     public static function normalize(string $string)
     {
-        $string = str_replace(array('<br/>', '<br />', '</br>', '<br>', '<br >', '< br >'), ' ', $string);
+        $string = str_replace(['<br/>', '<br />', '</br>', '<br>', '<br >', '< br >'], ' ', $string);
         $string = html_entity_decode($string, ENT_HTML5, 'UTF-8');
         $string = strip_tags($string);
         $string = self::removeLine($string);
@@ -138,7 +138,7 @@ abstract class Chars
     {
         // Be careful, there are non secable spaces here
         $string = self::normalizeWhitespace($string);
-        $string = str_replace(array('\'\'', ' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'), array('"', ' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'), $string);
+        $string = str_replace(['\'\'', ' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'], ['"', ' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'], $string);
         $string = preg_replace('#(\d)\s?([$€£¥])#u', '$1 $2', $string);
         $string = preg_replace_callback('#\d{4,}#u', function ($matches) {
             return number_format($matches[0], 0, ',', ' ');

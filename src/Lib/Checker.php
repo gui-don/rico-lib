@@ -20,7 +20,7 @@ abstract class Checker
             return false;
         }
 
-        return filter_var($mixed, FILTER_VALIDATE_INT, array('options' => array('min_range' => 0))) ? true : false;
+        return filter_var($mixed, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]]) ? true : false;
     }
 
     /**

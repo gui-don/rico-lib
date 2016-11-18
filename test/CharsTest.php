@@ -10,63 +10,63 @@ class CharsTest extends \PHPUnit_Framework_TestCase
 {
     public function providerRemoveWhitespace()
     {
-        return array(
-            array(false, null), // 0
-            array(null, null),
-            array(-47.12, null),
-            array(7484, null),
-            array(new \stdClass(), null),
-            array('   &nbsp;', '&nbsp;'), // 5
-            array('666  ', '666'),
-            array('107, quai du docteur Dervaux,92600  ', '107,quaidudocteurDervaux,92600'),
-            array('Espace  demerde', 'Espacedemerde'),
-            array('On veut	garder les
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ['   &nbsp;', '&nbsp;'], // 5
+            ['666  ', '666'],
+            ['107, quai du docteur Dervaux,92600  ', '107,quaidudocteurDervaux,92600'],
+            ['Espace  demerde', 'Espacedemerde'],
+            ['On veut	garder les
                 retours à la
                 ligne mais pas les  espaces',
                 'Onveutgarderles
 retoursàla
-lignemaispaslesespaces', ),
-        );
+lignemaispaslesespaces', ],
+        ];
     }
 
     public function providerNormalizeWhitespace()
     {
-        return array(
-            array(false, null), // 0
-            array(null, null),
-            array(-47.12, null),
-            array(7484, null),
-            array(new \stdClass(), null),
-            array('   &nbsp;', '&nbsp;'), // 5
-            array('666', '666'),
-            array('107, quai du docteur Dervaux,92600  ', '107, quai du docteur Dervaux,92600'),
-            array('Espace  demerde', 'Espace de merde'),
-            array('On veut	garder les
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ['   &nbsp;', '&nbsp;'], // 5
+            ['666', '666'],
+            ['107, quai du docteur Dervaux,92600  ', '107, quai du docteur Dervaux,92600'],
+            ['Espace  demerde', 'Espace de merde'],
+            ['On veut	garder les
                 retours à la
                 ligne mais pas les  espaces',
                 'On veut garder les
  retours à la
- ligne mais pas les espaces', ),
-        );
+ ligne mais pas les espaces', ],
+        ];
     }
 
     public function providerRemoveLine()
     {
-        return array(
-            array(false, null), // 0
-            array(null, null),
-            array(-47.12, null),
-            array(7484, null),
-            array(new \stdClass(), null),
-            array("Ceci <br /> avec un saut
- à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci <br /> avec un saut à la   ligne   et des espaces  en trop 	!  '), // 5
-            array(' Multiples
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ["Ceci <br /> avec un saut
+ à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci <br /> avec un saut à la   ligne   et des espaces  en trop 	!  '], // 5
+            [' Multiples
  sauts
  à
  la
- ligne.', ' Multiples sauts à la ligne.'),
-            array('666', '666'),
-            array('
+ ligne.', ' Multiples sauts à la ligne.'],
+            ['666', '666'],
+            ['
     Chaos
 
 
@@ -75,33 +75,33 @@ Pompidou
 
 
 
-   ', '    ChaosPompidou   '),
-        );
+   ', '    ChaosPompidou   '],
+        ];
     }
 
     public function providerNormalize()
     {
-        return array(
-            array(false, null), // 0
-            array(null, null),
-            array(-47.12, null),
-            array(7484, null),
-            array(new \stdClass(), null),
-            array("Ceci <br /> avec un saut
-                à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci avec un saut à la ligne et des espaces en trop !'), // 5
-            array('\";alert(\'XSS escaping vulnerability\');//', '\";alert(\'XSS escaping vulnerability\');//'),
-            array('   &nbsp;', ''),
-            array(' Multiples
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ["Ceci <br /> avec un saut
+                à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci avec un saut à la ligne et des espaces en trop !'], // 5
+            ['\";alert(\'XSS escaping vulnerability\');//', '\";alert(\'XSS escaping vulnerability\');//'],
+            ['   &nbsp;', ''],
+            [' Multiples
                 sauts
                 à
                 la
-                ligne.', 'Multiples sauts à la ligne.'),
-            array('<h1>La pêche aux moules</h1><p>La pêche des moules etc.</p><br /><p>C\'est plus facile en <a href="#">hivers</a> etc.</p>', 'La pêche aux moulesLa pêche des moules etc. C\'est plus facile en hivers etc.'),
-            array('666', '666'), // 10
-            array('¿Puede seguir funcionando sin una  red  social corporativa?', '¿Puede seguir funcionando sin una red social corporativa?'),
-            array('<div>IS THAT A <br/></div>', 'IS THAT A'),
-            array('&nbsp;&lt;ok&gt;&nbsp;&nbsp; TAG OK ? zc"  ', 'TAG OK ? zc"'),
-            array('
+                ligne.', 'Multiples sauts à la ligne.'],
+            ['<h1>La pêche aux moules</h1><p>La pêche des moules etc.</p><br /><p>C\'est plus facile en <a href="#">hivers</a> etc.</p>', 'La pêche aux moulesLa pêche des moules etc. C\'est plus facile en hivers etc.'],
+            ['666', '666'], // 10
+            ['¿Puede seguir funcionando sin una  red  social corporativa?', '¿Puede seguir funcionando sin una red social corporativa?'],
+            ['<div>IS THAT A <br/></div>', 'IS THAT A'],
+            ['&nbsp;&lt;ok&gt;&nbsp;&nbsp; TAG OK ? zc"  ', 'TAG OK ? zc"'],
+            ['
     Exemplo #1 Creating a Document
 
 
@@ -110,169 +110,169 @@ Pompidou
 
 
 
-   ', 'Exemplo #1 Creating a Document'),
-        );
+   ', 'Exemplo #1 Creating a Document'],
+        ];
     }
 
     public function providerRandString()
     {
-        return array(
-            array('', null, ''), // 0
-            array(true, null, 'ok'),
-            array('test', null, ''),
-            array(2.5, null, ''),
-            array(-4, false, 'abcde'),
-            array(15, null, new \stdClass()), // 5
-            array(15, null, 45),
-            array(0, false, ''),
-            array(2, true, ''),
-            array(12, true, ''),
-            array(15, true, ''), // 10
-            array(15, true, '0123456789'),
-            array(30, true, 'abc'),
-            array(20, true, '012345çàé'),
-            array(7, true, 'ù%3~'),
-            array(50, true, 'aBcDeFgHiJkLmNoPqRsTuVwXyZ'), // 15
-        );
+        return [
+            ['', null, ''], // 0
+            [true, null, 'ok'],
+            ['test', null, ''],
+            [2.5, null, ''],
+            [-4, false, 'abcde'],
+            [15, null, new \stdClass()], // 5
+            [15, null, 45],
+            [0, false, ''],
+            [2, true, ''],
+            [12, true, ''],
+            [15, true, ''], // 10
+            [15, true, '0123456789'],
+            [30, true, 'abc'],
+            [20, true, '012345çàé'],
+            [7, true, 'ù%3~'],
+            [50, true, 'aBcDeFgHiJkLmNoPqRsTuVwXyZ'], // 15
+        ];
     }
 
     public function providerSlugify()
     {
-        return array(
-            array(false, null), // 0
-            array(null, null),
-            array(-47.12, null),
-            array(7484, null),
-            array(new \stdClass(), null),
-            array('test', 'test'), // 5
-            array('Êtes-vous fait pour être le prochain développeur de notre agence ?', 'etes-vous-fait-pour-etre-le-prochain-developpeur-de-notre-agence'),
-            array('0123456789', '0123456789'),
-            array('	927 • Entidad aseguradora, ¿estás preparada para combatir el fraude?', '927-entidad-aseguradora-estas-preparada-para-combatir-el-fraude'),
-            array('     PMI : Qué vale su Gestión de Producción
-                (GPAO) ?', 'pmi-que-vale-su-gestion-de-produccion-gpao'),
-            array('', ''),
-        );
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ['test', 'test'], // 5
+            ['Êtes-vous fait pour être le prochain développeur de notre agence ?', 'etes-vous-fait-pour-etre-le-prochain-developpeur-de-notre-agence'],
+            ['0123456789', '0123456789'],
+            ['	927 • Entidad aseguradora, ¿estás preparada para combatir el fraude?', '927-entidad-aseguradora-estas-preparada-para-combatir-el-fraude'],
+            ['     PMI : Qué vale su Gestión de Producción
+                (GPAO) ?', 'pmi-que-vale-su-gestion-de-produccion-gpao'],
+            ['', ''],
+        ];
     }
 
     public function providerBeautifulise()
     {
-        return array(
-            array(12, null), // 0
-            array(array('ok'), null),
-            array(null, null),
-            array(true, null),
-            array(false, null),
-            array(new \stdClass(), null), // 5
-            array('OK', 'OK'),
-            array(' No normalize   !', 'No normalize !'),
-            array('Ceci est faux : Oops !', 'Ceci est faux : Oops !'),
-            array('C\'est bien ici la soirée moule-frites ?', 'C’est bien ici la soirée moule-frites ?'),
-            array('"Fénéant" qu\'il disent ! C\'est présomptueux !', '“Fénéant” qu’il disent ! C’est présomptueux !'), // 10
-            array('Wrong spaces are " wrong ".', 'Wrong spaces are “ wrong ”.'),
-            array('400000$, 1000000€, 345243£, 12000¥', '400 000 $, 1 000 000 €, 345 243 £, 12 000 ¥'),
-            array('In cash: $3000', 'In cash: $3 000'),
-            array('Then he cries "Bastard"!', 'Then he cries “Bastard”!'),
-            array('"No!" "No!" "No!", "No!" and "No"...', '“No!” “No!” “No!”, “No!” and “No”…'), // 15
-            array('Gandhi nous enseigne ; « Je pense. »', 'Gandhi nous enseigne ; « Je pense. »'),
-            array('\'\'Camion!\'\'', '“Camion!”'),
-            array('Le fameux " " " est trompeur disait "Renouard".', 'Le fameux " " " est trompeur disait "Renouard".'),
-            array('the Tetsumen Tou ("Iron Fist" - a reference to the original Red Baron TV series, "Dragon") doctors', 'the Tetsumen Tou (“Iron Fist” - a reference to the original Red Baron TV series, “Dragon”) doctors'),
-            array('As an expression of gratitude for the heroes of both the    ".hack//Sign" and the     ".hack" game series,', 'As an expression of gratitude for the heroes of both the “.hack//Sign” and the “.hack” game series,'),
-            array('Il m\'a dit :
+        return [
+            [12, null], // 0
+            [['ok'], null],
+            [null, null],
+            [true, null],
+            [false, null],
+            [new \stdClass(), null], // 5
+            ['OK', 'OK'],
+            [' No normalize   !', 'No normalize !'],
+            ['Ceci est faux : Oops !', 'Ceci est faux : Oops !'],
+            ['C\'est bien ici la soirée moule-frites ?', 'C’est bien ici la soirée moule-frites ?'],
+            ['"Fénéant" qu\'il disent ! C\'est présomptueux !', '“Fénéant” qu’il disent ! C’est présomptueux !'], // 10
+            ['Wrong spaces are " wrong ".', 'Wrong spaces are “ wrong ”.'],
+            ['400000$, 1000000€, 345243£, 12000¥', '400 000 $, 1 000 000 €, 345 243 £, 12 000 ¥'],
+            ['In cash: $3000', 'In cash: $3 000'],
+            ['Then he cries "Bastard"!', 'Then he cries “Bastard”!'],
+            ['"No!" "No!" "No!", "No!" and "No"...', '“No!” “No!” “No!”, “No!” and “No”…'], // 15
+            ['Gandhi nous enseigne ; « Je pense. »', 'Gandhi nous enseigne ; « Je pense. »'],
+            ['\'\'Camion!\'\'', '“Camion!”'],
+            ['Le fameux " " " est trompeur disait "Renouard".', 'Le fameux " " " est trompeur disait "Renouard".'],
+            ['the Tetsumen Tou ("Iron Fist" - a reference to the original Red Baron TV series, "Dragon") doctors', 'the Tetsumen Tou (“Iron Fist” - a reference to the original Red Baron TV series, “Dragon”) doctors'],
+            ['As an expression of gratitude for the heroes of both the    ".hack//Sign" and the     ".hack" game series,', 'As an expression of gratitude for the heroes of both the “.hack//Sign” and the “.hack” game series,'],
+            ['Il m\'a dit :
     "oui" ! Ou plutôt, "Moui" !', 'Il m’a dit :
- “oui” ! Ou plutôt, “Moui” !'),
-            array('a "mystery voice" suddenly speaks to them: "A game has now started. In order to escape the room, Keisuke is the "unlocker" and one heroine the "keyhole". With an assigned act, he must "use the key"."', 'a “mystery voice” suddenly speaks to them: “A game has now started. In order to escape the room, Keisuke is the “unlocker” and one heroine the “keyhole”. With an assigned act, he must “use the key”.”'),
-        );
+ “oui” ! Ou plutôt, “Moui” !'],
+            ['a "mystery voice" suddenly speaks to them: "A game has now started. In order to escape the room, Keisuke is the "unlocker" and one heroine the "keyhole". With an assigned act, he must "use the key"."', 'a “mystery voice” suddenly speaks to them: “A game has now started. In order to escape the room, Keisuke is the “unlocker” and one heroine the “keyhole”. With an assigned act, he must “use the key”.”'],
+        ];
     }
 
     public function providerMinify()
     {
-        return array(
-            array(false, null), // 0
-            array(null, null),
-            array(-47.12, null),
-            array(7484, null),
-            array(new \stdClass(), null),
-            array('ceci est un
-                test', 'ceci est un test'), // 5
-            array('ok$"é', 'ok$"é'),
-            array('a:focus {
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ['ceci est un
+                test', 'ceci est un test'], // 5
+            ['ok$"é', 'ok$"é'],
+            ['a:focus {
   outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
   outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
-}', 'a:focus{outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}'),
-            array('/*************
+}', 'a:focus{outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;outline:thin dotted #333;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}'],
+            ['/*************
                         OK OK OK
                    **************/
                    [class*="span" ] {
     float: left;
     min-height: 1px;
     margin-left: 20px;
-  }', '[class*="span" ]{float:left;min-height:1px;margin-left:20px;}'),
-            array('audio,
+  }', '[class*="span" ]{float:left;min-height:1px;margin-left:20px;}'],
+            ['audio,
 canvas,
 video {
   display: inline-block;
   *display: inline;
   *zoom: 1;
-}', 'audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}'),
-        );
+}', 'audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}'],
+        ];
     }
 
     public function providerGetResourceNameInUrl()
     {
-        return array(
-            array('nope', ''), // 0
-            array(null, null),
-            array(false, null),
-            array(0, null),
-            array(new \stdClass(), null),
-            array('https://www.gog.com/game/prince_of_persia_warrior_within', 'prince_of_persia_warrior_within'), // 5
-            array('http://i3.kym-cdn.com/photos/images/original/000/976/353/cca.png', 'cca.png'),
-            array('https://en.wikipedia.org/wiki/Portable_Document_Format', 'Portable_Document_Format'),
-            array('http://docs.sfr.fr/guide/Vos_chaines_TV_box_de_SFR.pdf?#zoom=81&statusbar=0&navpanes=0&messages=0', 'Vos_chaines_TV_box_de_SFR.pdf'),
-            array('/home/test/Vidéos/Best_vid_ever.mp4', 'Best_vid_ever.mp4'),
-        );
+        return [
+            ['nope', ''], // 0
+            [null, null],
+            [false, null],
+            [0, null],
+            [new \stdClass(), null],
+            ['https://www.gog.com/game/prince_of_persia_warrior_within', 'prince_of_persia_warrior_within'], // 5
+            ['http://i3.kym-cdn.com/photos/images/original/000/976/353/cca.png', 'cca.png'],
+            ['https://en.wikipedia.org/wiki/Portable_Document_Format', 'Portable_Document_Format'],
+            ['http://docs.sfr.fr/guide/Vos_chaines_TV_box_de_SFR.pdf?#zoom=81&statusbar=0&navpanes=0&messages=0', 'Vos_chaines_TV_box_de_SFR.pdf'],
+            ['/home/test/Vidéos/Best_vid_ever.mp4', 'Best_vid_ever.mp4'],
+        ];
     }
 
     public function providerAlphaToId()
     {
-        return array(
-            array(array(null, ''), null), // 0
-            array(array(false, ''), null),
-            array(array(0, ''), null),
-            array(array(new \stdClass(), ''), null),
-            array(array('test', new \stdClass()), null),
-            array(array('abraCADABRA', ''), 17251060315943390), // 5
-            array(array('phpcode', ''), 858638639286),
-            array(array('phpcode', 'secret'), 1193128009855),
-            array(array('', ''), ''),
-            array(array('', 'secret'), ''),
-            array(array('777', ''), 128931), // 10
-            array(array('/home/', ''), 106817320),
-        );
+        return [
+            [[null, ''], null], // 0
+            [[false, ''], null],
+            [[0, ''], null],
+            [[new \stdClass(), ''], null],
+            [['test', new \stdClass()], null],
+            [['abraCADABRA', ''], 17251060315943390], // 5
+            [['phpcode', ''], 858638639286],
+            [['phpcode', 'secret'], 1193128009855],
+            [['', ''], ''],
+            [['', 'secret'], ''],
+            [['777', ''], 128931], // 10
+            [['/home/', ''], 106817320],
+        ];
     }
 
     public function providerIdToAlpha()
     {
-        return array(
-            array(array(null, ''), null), // 0
-            array(array(false, ''), null),
-            array(array(0, ''), 'a'),
-            array(array(new \stdClass(), ''), null),
-            array(array('test', new \stdClass()), null),
-            array(array('abraCADABRA', ''), null), // 5
-            array(array(3432, 345), null),
-            array(array(858638639286, ''), 'phpcode'),
-            array(array(1193128009855, 'secret'), 'phpcode'),
-            array(array(0, 'secret'), 'h'),
-            array(array(128931, ''), '777'), // 10
-            array(array(106817320, ''), 'homea'),
-            array(array(92395783831158784, ''), 'gPkLA3jITS'),
-        );
+        return [
+            [[null, ''], null], // 0
+            [[false, ''], null],
+            [[0, ''], 'a'],
+            [[new \stdClass(), ''], null],
+            [['test', new \stdClass()], null],
+            [['abraCADABRA', ''], null], // 5
+            [[3432, 345], null],
+            [[858638639286, ''], 'phpcode'],
+            [[1193128009855, 'secret'], 'phpcode'],
+            [[0, 'secret'], 'h'],
+            [[128931, ''], '777'], // 10
+            [[106817320, ''], 'homea'],
+            [[92395783831158784, ''], 'gPkLA3jITS'],
+        ];
     }
 
     /**

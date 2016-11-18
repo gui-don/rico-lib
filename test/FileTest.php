@@ -91,11 +91,11 @@ class FileTest extends \PHPUnit_Framework_TestCase
      */
     public function testListDirectory()
     {
-        $this->assertEquals(array('directory' => array(self::$strDir, self::$strDir2), 'file' => array(self::$strFile1, self::$strFile2, self::$strFile3)), File::listDirectory(self::TEST_DIR));
-        $this->assertEquals(array('directory' => array(self::$strDir, self::$strDir2), 'file' => array(self::$strFile1, self::$strFile2, self::$strFile3)), File::listDirectory(self::TEST_DIR, File::LIST_DIRECTORY_BOTH));
-        $this->assertEquals(array('file' => array(self::$strFile4)), File::listDirectory(self::TEST_DIR.self::$strDir2));
-        $this->assertEquals(array(self::$strDir, self::$strDir2), File::listDirectory(self::TEST_DIR, File::LIST_DIRECTORY_DIR_ONLY));
-        $this->assertEquals(array(self::$strFile1, self::$strFile2, self::$strFile3), File::listDirectory(self::TEST_DIR, File::LIST_DIRECTORY_FILE_ONLY));
+        $this->assertEquals(['directory' => [self::$strDir, self::$strDir2], 'file' => [self::$strFile1, self::$strFile2, self::$strFile3]], File::listDirectory(self::TEST_DIR));
+        $this->assertEquals(['directory' => [self::$strDir, self::$strDir2], 'file' => [self::$strFile1, self::$strFile2, self::$strFile3]], File::listDirectory(self::TEST_DIR, File::LIST_DIRECTORY_BOTH));
+        $this->assertEquals(['file' => [self::$strFile4]], File::listDirectory(self::TEST_DIR.self::$strDir2));
+        $this->assertEquals([self::$strDir, self::$strDir2], File::listDirectory(self::TEST_DIR, File::LIST_DIRECTORY_DIR_ONLY));
+        $this->assertEquals([self::$strFile1, self::$strFile2, self::$strFile3], File::listDirectory(self::TEST_DIR, File::LIST_DIRECTORY_FILE_ONLY));
     }
 
     /**
@@ -139,22 +139,22 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function providerAddLineTypeErrors()
     {
-        return array(
-            array(new \stdClass(), 'test'),
-            array(-4.45, 'test'),
-            array(3465, 'test'),
-            array(false, 'test'),
-            array(null, 'test'),
-            array(array('ok'), 'test'),
-            array(__DIR__.'/testFiles/empty.list', false),
-            array(__DIR__.'/testFiles/empty.list', true),
-            array(__DIR__.'/testFiles/empty.list', 32432),
-            array(__DIR__.'/testFiles/empty.list', 3.3),
-            array(__DIR__.'/testFiles/empty.list', new \stdClass()),
-            array(__DIR__.'/testFiles/empty.list', array('test')),
-            array(73.4, false),
-            array(true, null),
-        );
+        return [
+            [new \stdClass(), 'test'],
+            [-4.45, 'test'],
+            [3465, 'test'],
+            [false, 'test'],
+            [null, 'test'],
+            [['ok'], 'test'],
+            [__DIR__.'/testFiles/empty.list', false],
+            [__DIR__.'/testFiles/empty.list', true],
+            [__DIR__.'/testFiles/empty.list', 32432],
+            [__DIR__.'/testFiles/empty.list', 3.3],
+            [__DIR__.'/testFiles/empty.list', new \stdClass()],
+            [__DIR__.'/testFiles/empty.list', ['test']],
+            [73.4, false],
+            [true, null],
+        ];
     }
 
     /**
