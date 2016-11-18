@@ -2,10 +2,7 @@
 
 namespace Rico\Lib;
 
-/**
- * String library.
- */
-abstract class Chars
+abstract class StringUtils
 {
     /**
      * Remove all sort of spaces from a string.

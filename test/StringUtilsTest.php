@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rico\Test\StringTest;
 
-use Rico\Lib\Chars;
+use Rico\Lib\StringUtils;
 
 class CharsTest extends \PHPUnit_Framework_TestCase
 {
@@ -276,76 +276,76 @@ video {
     }
 
     /**
-     * @covers Chars::removeWhitespace
+     * @covers StringUtils::removeWhitespace
      * @dataProvider providerRemoveWhitespace
      */
     public function testRemoveWhitespace($value, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, Chars::removeWhitespace($value));
+            $this->assertSame($expected, StringUtils::removeWhitespace($value));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::removeWhitespace($value);
+            StringUtils::removeWhitespace($value);
         }
     }
 
     /**
-     * @covers Chars::normalizeWhitespace
+     * @covers StringUtils::normalizeWhitespace
      * @dataProvider providerNormalizeWhitespace
      */
     public function testNormalizeWhitespace($value, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, Chars::normalizeWhitespace($value));
+            $this->assertSame($expected, StringUtils::normalizeWhitespace($value));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::normalizeWhitespace($value);
+            StringUtils::normalizeWhitespace($value);
         }
     }
 
     /**
-     * @covers Chars::removeLine
+     * @covers StringUtils::removeLine
      * @dataProvider providerRemoveLine
      */
     public function testRemoveLine($value, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, Chars::removeLine($value));
+            $this->assertSame($expected, StringUtils::removeLine($value));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::removeLine($value);
+            StringUtils::removeLine($value);
         }
     }
 
     /**
-     * @covers Chars::normalize
+     * @covers StringUtils::normalize
      * @dataProvider providerNormalize
      */
     public function testNormalize($value, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, Chars::normalize($value));
+            $this->assertSame($expected, StringUtils::normalize($value));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::normalize($value);
+            StringUtils::normalize($value);
         }
     }
 
     /**
-     * @covers Chars::randString
+     * @covers StringUtils::randString
      * @dataProvider providerRandString
      */
     public function testRandString($value, $bExpected, $allowedChars)
     {
         if ($bExpected !== null) {
             if ($value <= 0) {
-                $this->assertFalse(Chars::randString($value, $allowedChars));
+                $this->assertFalse(StringUtils::randString($value, $allowedChars));
             } else {
                 if (strlen($allowedChars) > 0) {
-                    $result = Chars::randString($value, $allowedChars);
+                    $result = StringUtils::randString($value, $allowedChars);
                     $this->assertRegExp('/^['.$allowedChars.']+$/', $result);
                 } else {
-                    $result = Chars::randString($value);
+                    $result = StringUtils::randString($value);
                     $this->assertRegExp('/^[a-zA-Z0-9]+$/', $result);
                 }
 
@@ -353,95 +353,95 @@ video {
             }
         } else {
             $this->setExpectedException('TypeError');
-            Chars::randString($value, $allowedChars);
+            StringUtils::randString($value, $allowedChars);
         }
     }
 
     /**
-     * @covers Chars::slugify
+     * @covers StringUtils::slugify
      * @dataProvider providerSlugify
      */
     public function testSlugify($value, $bExpected)
     {
         if ($bExpected !== null) {
-            $this->assertSame($bExpected, Chars::slugify($value));
+            $this->assertSame($bExpected, StringUtils::slugify($value));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::slugify($value);
+            StringUtils::slugify($value);
         }
     }
 
     /**
-     * @covers Chars::beautifulise
+     * @covers StringUtils::beautifulise
      * @dataProvider providerBeautifulise
      */
     public function testBeautifulise($value, $expected)
     {
         if ($expected !== null) {
-            $result = Chars::beautifulise($value);
+            $result = StringUtils::beautifulise($value);
             $this->assertSame($expected, $result);
 
             // Doing it again changes nothing
-            $this->assertSame($expected, Chars::beautifulise($result));
+            $this->assertSame($expected, StringUtils::beautifulise($result));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::beautifulise($value);
+            StringUtils::beautifulise($value);
         }
     }
 
     /**
-     * @covers Chars::minify
+     * @covers StringUtils::minify
      * @dataProvider providerMinify
      */
     public function testMinify($value, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, Chars::minify($value));
+            $this->assertSame($expected, StringUtils::minify($value));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::minify($value);
+            StringUtils::minify($value);
         }
     }
 
     /**
-     * @covers Chars::getResourceNameInUrl
+     * @covers StringUtils::getResourceNameInUrl
      * @dataProvider providerGetResourceNameInUrl
      */
     public function testGetResourceNameInUrl($value, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, Chars::getResourceNameInUrl($value));
+            $this->assertSame($expected, StringUtils::getResourceNameInUrl($value));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::getResourceNameInUrl($value);
+            StringUtils::getResourceNameInUrl($value);
         }
     }
 
     /**
-     * @covers Chars::alphaToId
+     * @covers StringUtils::alphaToId
      * @dataProvider providerAlphaToId
      */
     public function testAlphaToId($values, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, Chars::alphaToId($values[0], $values[1]));
+            $this->assertSame($expected, StringUtils::alphaToId($values[0], $values[1]));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::alphaToId($values[0], $values[1]);
+            StringUtils::alphaToId($values[0], $values[1]);
         }
     }
 
     /**
-     * @covers Chars::idToAplpha
+     * @covers StringUtils::idToAplpha
      * @dataProvider providerIdToAlpha
      */
     public function testIdToAplpha($values, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, Chars::IdToAlpha($values[0], $values[1]));
+            $this->assertSame($expected, StringUtils::IdToAlpha($values[0], $values[1]));
         } else {
             $this->setExpectedException('TypeError');
-            Chars::IdToAlpha($values[0], $values[1]);
+            StringUtils::IdToAlpha($values[0], $values[1]);
         }
     }
 }
