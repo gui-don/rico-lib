@@ -88,3 +88,7 @@ PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be
 - `pluck($multidimensionalArray, $property)`: Extracts all $property values from a multidimensional $multidimensionalArray.
 
 - `transpose($similarArrays)`: Transforms multiple $similarArrays into key-valued arrays.
+
+#### `MathUtils` lib ####
+
+- `smartRound($number, $idealLength)`: Rounds a $number adding decimal part only when int part of $number < $idealLength.
