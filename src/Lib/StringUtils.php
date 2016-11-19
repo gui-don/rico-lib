@@ -244,4 +244,19 @@ abstract class StringUtils
 
         return $out;
     }
+
+    /**
+     * Gets a human readable string of a size in $bytes.
+     *
+     * @param int $bytes
+     *
+     * @return string
+     */
+    function humanFilesize(int $bytes): string
+    {
+        $size = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        $factor = floor((strlen($bytes) - 1) / 3);
+
+        return MathUtils::smartRound($bytes / pow(1024, $factor)) . @$size[$factor];
+    }
 }

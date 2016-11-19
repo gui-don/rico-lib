@@ -63,6 +63,7 @@ PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be
 
 - `IdToAlpha($integer, $secret)`: Converts a $identifier into an alphanumeric string.
 
+- `humanFilesize($bytes)`: Gets a human readable string of a size in $bytes.
 
 #### `ValidationUtils` lib ####
 

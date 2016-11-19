@@ -275,6 +275,22 @@ video {
         ];
     }
 
+    public function providerHumanFilesize()
+    {
+        return [
+            [null, null], // 0
+            ['test', null],
+            [new \DateTime, null],
+            [3.14, null],
+            [true, null],
+            [0, '0B'], // 5
+            [-243, '-0.24KB'],
+            [2434, '2.38KB'],
+            [23415406323, '21.8GB'],
+            [141540632, '135MB'],
+        ];
+    }
+
     /**
      * @covers StringUtils::removeWhitespace
      * @dataProvider providerRemoveWhitespace
@@ -442,6 +458,20 @@ video {
         } else {
             $this->setExpectedException('TypeError');
             StringUtils::IdToAlpha($values[0], $values[1]);
+        }
+    }
+
+    /**
+     * @covers StringUtils::humanFilesize
+     * @dataProvider providerHumanFilesize
+     */
+    public function testHumanFilesize($value, $expected)
+    {
+        if ($expected !== null) {
+            $this->assertSame($expected, StringUtils::humanFilesize($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            StringUtils::humanFilesize($value);
         }
     }
 }
