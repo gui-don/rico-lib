@@ -4,7 +4,7 @@ namespace Rico\Test\VectorTest;
 
 use Rico\Lib\ArrayUtils;
 
-class VectorTest extends \PHPUnit_Framework_TestCase
+class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
 {
     public function providerFlatten()
     {
