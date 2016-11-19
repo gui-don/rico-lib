@@ -6,6 +6,19 @@ use Rico\Lib\ArrayUtils;
 
 class VectorTest extends \PHPUnit_Framework_TestCase
 {
+    public function providerFlatten()
+    {
+        return [
+            [[], []], // 0
+            [[['666']], ['666']],
+            [['OK' => []], ['OK' => false]],
+            [[['key' => 2]], [2]],
+            [[[1], [2], [3], [4]], [1, 2, 3, 4]],
+            [[[['array1']], [2], [['array2']], [4]], [['array1'], 2, ['array2'], 4]], // 5
+            [[['value' => 1], ['value' => 2, 'ignored' => 4], ['accept' => 3, 'value' => 4]], [1, 2, 3]],
+        ];
+    }
+
     public function providerPluck()
     {
         $data[] = ['categoryId' => 1, 'eventId' => 2, 'eventName' => 3, 'vendorName' => 4];
@@ -36,6 +49,15 @@ class VectorTest extends \PHPUnit_Framework_TestCase
             [[['key' => 2], ['key' => 6, 'other' => 7]], ['key' => [2, 6], 'other' => [1 => 7]]],
             [[['first' => 1, 'second' => 2, 'third' => 3], ['first' => 1], ['first' => 1, 'third' => 3, 'second' => 2]], ['first' => [1, 1, 1], 'second' => [0 => 2, 2 => 2], 'third' => [0 => 3, 2 => 3]]], // 5
         ];
+    }
+
+    /**
+     * @covers ArrayUtils::flatten
+     * @dataProvider providerFlatten
+     */
+    public function testFlatten($array, $expected)
+    {
+        $this->assertSame($expected, ArrayUtils::flatten($array));
     }
 
     /**

@@ -13,16 +13,16 @@ PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be
 
 ### How to ###
 
-        <?php
+    <?php
 
-        require_once('autoload.php');
+    require_once('autoload.php');
 
-        use \Rico\Lib\StringUtils;
+    use \Rico\Lib\StringUtils;
 
-        // […] Some code
+    // […] Some code
+    // $uglyString = $object->getUglyString();
 
-        $uglyString = $object->getUglyString();
-        $beatifuleString = StringUtils::beautifulise($uglyString);
+    $beautifulString = StringUtils::beautifulise($uglyString);
 
 ---
 
@@ -82,6 +82,8 @@ PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be
 
 
 #### `ArrayUtils` lib ####
+
+- `flatten($multidimensionalArray)`: Extracts each element of a $multidimensionalArray in a single list.
 
 - `pluck($multidimensionalArray, $property)`: Extracts all $property values from a multidimensional $multidimensionalArray.
 

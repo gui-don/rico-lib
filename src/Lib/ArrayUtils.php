@@ -5,6 +5,18 @@ namespace Rico\Lib;
 abstract class ArrayUtils
 {
     /**
+     * Extracts each element of a $multidimensionalArray in a single list.
+     *
+     * @param array $multidimensionalArray
+     *
+     * @return array
+     */
+    public static function flatten(array $multidimensionalArray): array
+    {
+        return array_map('current', $multidimensionalArray);
+    }
+
+    /**
      * Extracts all $property values from a multidimensional $multidimensionalArray.
      *
      * @param mixed[] $multidimensionalArray
