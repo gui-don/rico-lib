@@ -252,7 +252,7 @@ abstract class StringUtils
      *
      * @return string
      */
-    function humanFilesize(int $bytes): string
+    public static function humanFilesize(int $bytes): string
     {
         $size = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $factor = floor((strlen($bytes) - 1) / 3);
