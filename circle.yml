@@ -1,0 +1,21 @@
+machine:
+    environment:
+        SYMFONY_ENV: test
+    hosts:
+        test.test.com: 127.0.0.1
+
+dependencies:
+    pre:
+        - sudo apt-get -y purge php.*
+        - ln -s $CIRCLE_ARTIFACTS artifacts
+        - sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+        - sudo apt-get update
+        - sudo apt-get install -y php7.0 php7.0-common php7.0-iconv php7.0-mbstring
+        - sudo phpenmod mbstring iconv
+
+test:
+    override:
+        - composer validate
+        - php bin/php-cs-fixer.phar fix src
+        - php bin/php-cs-fixer.phar fix test
+        - php bin/phpunit.phar
