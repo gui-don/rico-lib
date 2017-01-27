@@ -19,4 +19,18 @@ abstract class UrlUtils
 
         return $matches[1] ?? '';
     }
+
+    /**
+     * Gets the URL without the resource (image, pdf, …).
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    public static function getUrlWithoutResourceName(string $url): string
+    {
+        preg_match("#([^\?]+\/)(?:[^\/\?]*\??.*)$#", $url, $matches);
+
+        return $matches[1] ?? '';
+    }
 }

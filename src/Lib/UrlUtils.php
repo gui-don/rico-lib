@@ -19,4 +19,15 @@ class UrlUtils
     {
         return StaticUrlUtils::getResourceName($url);
     }
+
+    /** Gets the URL without the resource (image, pdf, …).
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    public function getUrlWithoutResourceName(string $url): string
+    {
+        return StaticUrlUtils::getUrlWithoutResourceName($url);
+    }
 }
