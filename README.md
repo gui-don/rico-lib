@@ -1,5 +1,5 @@
 # Rico-lib Project #
-
+[![CircleCI](https://circleci.com/gh/gui-don/Rico-library.svg?style=svg)](https://circleci.com/gh/gui-don/Rico-library)
 ---
 
 <p align="center"><img src="rico.png" /></p>
