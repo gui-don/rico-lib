@@ -52,16 +52,17 @@ You can add this library as a local dependency to your project using [Composer](
 
 #### `FileUtils` lib ####
 
+- `count($file, $countEmpty = false)`: Counts the number of lines in a $file.
+
+- `addLine($file, $line)`: Adds a new $line at the end of a $file without duplication.
+
+#### `FilesystemUtils` lib ####
+
 - `listDirectory($path, $option)`: Gets filenames and folders names (according to $option) inside a $path.
 
 - `createPath($path)`: Creates the completer $path with all missing intermediates directories.
 
 - `createSymlink($link, $path)`: Creates a symbolic $link pointing to $file.
-
-- `count($file, $countEmpty = false)`: Counts the number of lines in a $file.
-
-- `addLine($file, $line)`: Adds a new $line at the end of a $file without duplication.
-
 
 #### `StringUtils` lib ####
 
