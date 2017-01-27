@@ -42,6 +42,12 @@ It also needs the `php-iconv`, `php-mbstring` and `php-dom` extensions to be ena
     $stringUtils = new StringUtils();
     $beautifulString = $stringUtils->beautifulise($uglyString);
 
+### Installation ###
+
+You can add this library as a local dependency to your project using [Composer](https://getcomposer.org/):
+
+    composer require phpunit/php-code-coverage
+
 ---
 
 #### `FileUtils` lib ####
