@@ -56,6 +56,8 @@ You can add this library as a local dependency to your project using [Composer](
 
 - `addLine($file, $line)`: Adds a new $line at the end of a $file without duplication.
 
+- `extractExtension(string $filename)`: Extracts the extension (without the dot) of a filename alone or contained in a path.
+
 #### `FilesystemUtils` lib ####
 
 - `listDirectory($path, $option)`: Gets filenames and folders names (according to $option) inside a $path.

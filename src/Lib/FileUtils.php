@@ -33,4 +33,16 @@ class FileUtils
     {
         return StaticFileUtils::addLine($file, $line);
     }
+
+    /**
+     * Extracts the extension (without the dot) of a filename alone or contained in a path.
+     *
+     * @param string $filename
+     *
+     * @return string
+     */
+    public function extractExtension(string $filename): string
+    {
+        return StaticFileUtils::extractExtension($filename);
+    }
 }

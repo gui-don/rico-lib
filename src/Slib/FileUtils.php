@@ -70,4 +70,18 @@ abstract class FileUtils
 
         return true;
     }
+
+    /**
+     * Extracts the extension (without the dot) of a filename alone or contained in a path.
+     *
+     * @param string $filename
+     *
+     * @return string
+     */
+    public static function extractExtension(string $filename): string
+    {
+        $fileInfo = pathinfo($filename);
+
+        return $fileInfo['extension'] ?? '';
+    }
 }
