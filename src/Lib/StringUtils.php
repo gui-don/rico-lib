@@ -131,7 +131,7 @@ class StringUtils
     /**
      * Converts a $identifier into an alphanumeric string.
      *
-     * @param int    $identifier 
+     * @param int    $identifier
      * @param string $secret     to encode the integer
      *
      * @return string
