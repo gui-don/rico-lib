@@ -13,7 +13,7 @@ It’s useful when you want to access some frenquently used low-level robust fun
 ### What does this library need to work? ###
 
 PHP7 or superior. Not compatible with previous PHP versions.
-It also needs the `php-iconv`, `php-mbstring` extensions to be enabled.
+It also needs the `php-iconv`, `php-mbstring` and `php-dom` extensions to be enabled.
 
 ### How to - Procedural style ###
 

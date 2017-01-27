@@ -10,8 +10,8 @@ dependencies:
         - ln -s $CIRCLE_ARTIFACTS artifacts
         - sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
         - sudo apt-get update
-        - sudo apt-get install -y php7.0 php7.0-common php7.0-iconv php7.0-mbstring
-        - sudo phpenmod mbstring iconv
+        - sudo apt-get install -y php7.0 php7.0-common php7.0-iconv php7.0-mbstring php7.0-dom
+        - sudo phpenmod mbstring iconv dom
 
 test:
     override:
