@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rico\Slib;
 
 abstract class MathUtils
@@ -7,24 +9,24 @@ abstract class MathUtils
     /**
      * Rounds a $number adding decimal part only when int part of $number < $idealLength.
      *
-     * @param float|int $number
+     * @param float $number
      * @param int $idealLength
      *
-     * @return string
+     * @return float
      */
-    public static function smartRound($number, int $idealLength = 3): string
+    public static function smartRound(float $number, int $idealLength = 3): float
     {
         if ($number == 0) {
-            return 0;
+            return 0.0;
         }
 
         $intPart = intval($number);
 
-        $precision = $idealLength - strlen($intPart);
+        $precision = $idealLength - strlen((string) $intPart);
         if ($precision < 0) {
             $precision = 0;
         }
 
-        return sprintf("%.{$precision}f", $number);
+        return (float) sprintf("%.{$precision}f", $number);
     }
 }

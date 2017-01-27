@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rico\Slib;
 
 abstract class FileUtils
@@ -123,7 +125,7 @@ abstract class FileUtils
         $handle = fopen($file, 'r');
         while (!feof($handle)) {
             $line = fgets($handle, 4096);
-            $lastChar = strlen($line) - 1;
+            $lastChar = strlen((string) $line) - 1;
 
             if ($lastChar == 0) {
                 if ($countEmpty) {

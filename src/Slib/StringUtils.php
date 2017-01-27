@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rico\Slib;
 
 abstract class StringUtils
@@ -123,32 +125,32 @@ abstract class StringUtils
     }
 
     /**
-     * Transforms an ugly $string (with incorrect ponctuation) into beautiful string (with correct ponctuation).
+     * Transforms an $uglyString (with incorrect ponctuation) into beautiful string (with correct ponctuation).
      *
-     * @param string $string
+     * @param string $uglyString
      *
      * @return string
      */
-    public static function beautifulise(string $string): string
+    public static function beautifulise(string $uglyString): string
     {
-        $string = self::normalizeWhitespace($string);
+        $uglyString = self::normalizeWhitespace($uglyString);
         // Be careful, there are non secable spaces here
-        $string = str_replace(['\'\'', ' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'], ['"', ' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'], $string);
-        $string = preg_replace('#(\d)\s?([$€£¥])#u', '$1 $2', $string);
-        $string = preg_replace_callback('#\d{4,}#u', function ($matches) {
-            return number_format($matches[0], 0, ',', ' ');
-        }, $string);
+        $uglyString = str_replace(['\'\'', ' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'], ['"', ' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'], $uglyString);
+        $uglyString = preg_replace('#(\d)\s?([$€£¥])#u', '$1 $2', $uglyString);
+        $uglyString = preg_replace_callback('#\d{4,}#u', function ($matches) {
+            return number_format((float) $matches[0], 0, ',', ' ');
+        }, $uglyString);
 
         // Count quotes
-        $QuotesCount = strlen($string) - strlen(str_replace('"', '', $string));
+        $QuotesCount = strlen($uglyString) - strlen(str_replace('"', '', $uglyString));
 
         // Repeat two times is important for quotes inside quotes
         if ($QuotesCount % 2 == 0) {
-            $string = preg_replace('#([\s\r\n\p{P}]|^|)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
-            $string = preg_replace('#([\s\r\n\p{P}]|^|)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
+            $uglyString = preg_replace('#([\s\r\n\p{P}]|^|)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $uglyString);
+            $uglyString = preg_replace('#([\s\r\n\p{P}]|^|)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $uglyString);
         }
 
-        return $string;
+        return $uglyString;
     }
 
     /**
@@ -255,7 +257,7 @@ abstract class StringUtils
     public static function humanFilesize(int $bytes): string
     {
         $size = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        $factor = floor((strlen($bytes) - 1) / 3);
+        $factor = floor((strlen((string) $bytes) - 1) / 3);
 
         return MathUtils::smartRound($bytes / pow(1024, $factor)) . @$size[$factor];
     }

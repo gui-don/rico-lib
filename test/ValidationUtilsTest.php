@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rico\Test;
 
 use Rico\Slib\ValidationUtils;
@@ -176,6 +178,10 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
             ['+86.145.899.1024', true],
             ['(+ 33)0598745123', true], // 15
             ['(+3300)0598745123', true],
+            [435.3, null],
+            [200, null],
+            [new \stdClass(), null],
+            [false, null], //20
         ];
     }
 
@@ -239,6 +245,11 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsPhoneNumber($value, $expected)
     {
-        $this->assertSame($expected, ValidationUtils::isPhoneNumber($value));
+        if ($expected !== null) {
+            $this->assertSame($expected, ValidationUtils::isPhoneNumber($value));
+        } else {
+            $this->setExpectedException('TypeError');
+            ValidationUtils::isPhoneNumber($value);
+        }
     }
 }

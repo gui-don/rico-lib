@@ -6,7 +6,7 @@ namespace Rico\Test;
 
 use Rico\Slib\StringUtils;
 
-class CharsTest extends \PHPUnit_Framework_TestCase
+class StringUtilsTest extends \PHPUnit_Framework_TestCase
 {
     public function providerRemoveWhitespace()
     {

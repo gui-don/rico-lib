@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rico\Lib;
 
 use Rico\Slib\ValidationUtils as StaticValidationUtils;
@@ -79,14 +81,14 @@ class ValidationUtils
     }
 
     /**
-     * Checks that $mixed value is a phone number.
+     * Checks that $string value is a phone number.
      *
-     * @param mixed $mixed
+     * @param string $string
      *
      * @return bool
      */
-    public function isPhoneNumber($mixed): bool
+    public function isPhoneNumber(string $string): bool
     {
-        return StaticValidationUtils::isPhoneNumber($mixed);
+        return StaticValidationUtils::isPhoneNumber($string);
     }
 }

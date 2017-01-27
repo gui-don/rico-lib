@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rico\Slib;
 
 abstract class ValidationUtils
@@ -29,7 +31,11 @@ abstract class ValidationUtils
      */
     public static function isNumber($mixed): bool
     {
-        return (bool) preg_match('/^\-?[0-9]+\.?[0-9]*$/', $mixed);
+        if (!is_numeric($mixed)) {
+            return false;
+        }
+
+        return (bool) preg_match('/^\-?[0-9]+\.?[0-9]*$/', (string) $mixed);
     }
 
     /**
@@ -99,22 +105,18 @@ abstract class ValidationUtils
     }
 
     /**
-     * Checks that $mixed value is a phone number.
+     * Checks that $string value is a phone number.
      *
-     * @param mixed $mixed
+     * @param string $string
      *
      * @return bool
      */
-    public static function isPhoneNumber($mixed): bool
+    public static function isPhoneNumber(string $string): bool
     {
-        if (!is_string($mixed)) {
-            return false;
-        }
-
         // Sanitize string before the test itself
-        $mixed = preg_replace('/(\(([0-9]+)\))+/', '$2', $mixed);
-        $mixed = preg_replace('/([0-9]+)([ \\\–\-\.\/]{1})/', '$1$3', $mixed);
+        $string = preg_replace('/(\(([0-9]+)\))+/', '$2', $string);
+        $string = preg_replace('/([0-9]+)([ \\\–\-\.\/]{1})/', '$1$3', $string);
 
-        return preg_match('/^(\(?\+\ ?[0-9]{1,4}\)?)?\ ?[0-9]{7,15}$/', $mixed);
+        return (bool) preg_match('/^(\(?\+\ ?[0-9]{1,4}\)?)?\ ?[0-9]{7,15}$/', $string);
     }
 }

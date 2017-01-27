@@ -67,7 +67,7 @@ PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be
 
 - `slugify($string)`: Transforms a $string into a ascii-only string separated by -.
 
-- `beautifulise($string)`: Transforms an ugly $string (with incorrect ponctuation) into beautiful string (with correct ponctuation).
+- `beautifulise($uglyString)`: Transforms an $uglyString (with incorrect ponctuation) into beautiful string (with correct ponctuation).
 
 - `minify(string $string)`: Removes whitespaces, line breaks and comment out of a $string.
 
@@ -93,7 +93,7 @@ PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be
 
 - `isEmail($mixed)`: Checks that $mixed value is an email.
 
-- `isPhoneNumber($mixed)`: Checks that $mixed value is a phone number.
+- `isPhoneNumber($string)`: Checks that $string value is a phone number.
 
 
 #### `ArrayUtils` lib ####

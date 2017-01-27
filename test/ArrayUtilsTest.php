@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rico\Test;
 
 use Rico\Slib\ArrayUtils;
@@ -36,7 +38,7 @@ class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
             [$data, 'categoryId', [1, 5, 9, false, 0.0]],
             [$data, 'vendorName', [4, 8, 12, 12, 12, 12]], // 5
             [$data, 'eventId', [2, 6, 10, 10, 10, 10]],
-            [[['text1', 'text2'], ['text3']], 0, ['text1', 'text3']],
+            [[['text1', 'text2'], ['text3']], '0', ['text1', 'text3']],
         ];
     }
 
