@@ -2,7 +2,9 @@
 
 namespace Rico\Lib;
 
-abstract class ArrayUtils
+use \Rico\Slib\ArrayUtils as StaticArrayUtils;
+
+class ArrayUtils
 {
     /**
      * Extracts each element of a $multidimensionalArray in a single list.
@@ -11,9 +13,9 @@ abstract class ArrayUtils
      *
      * @return array
      */
-    public static function flatten(array $multidimensionalArray): array
+    public function flatten(array $multidimensionalArray): array
     {
-        return array_map('current', $multidimensionalArray);
+        return StaticArrayUtils::flatten($multidimensionalArray);
     }
 
     /**
@@ -24,15 +26,9 @@ abstract class ArrayUtils
      *
      * @return mixed[]
      */
-    public static function pluck(array $multidimensionalArray, string $property): array
+    public function pluck(array $multidimensionalArray, string $property): array
     {
-        return array_reduce($multidimensionalArray, function ($result, $currentArray) use ($property) {
-            if (isset($currentArray[$property])) {
-                $result[] = $currentArray[$property];
-            }
-
-            return $result;
-        }, []);
+        return StaticArrayUtils::pluck($multidimensionalArray, $property);
     }
 
     /**
@@ -40,19 +36,8 @@ abstract class ArrayUtils
      *
      * @param mixed[] $similarArrays
      */
-    public static function transpose(array $similarArrays): array
+    public function transpose(array $similarArrays): array
     {
-        $keyValuesArrays = [];
-        foreach ($similarArrays as $globalKey => $currentArray) {
-            if (!is_array($currentArray)) {
-                continue;
-            }
-
-            foreach ($currentArray as $currentKey => $currentValue) {
-                $keyValuesArrays[$currentKey][$globalKey] = $currentValue;
-            }
-        }
-
-        return $keyValuesArrays;
+        return StaticArrayUtils::transpose($similarArrays);
     }
 }

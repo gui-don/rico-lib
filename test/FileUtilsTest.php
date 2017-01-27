@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Rico\Test\FileTest;
+namespace Rico\Test;
 
-use Rico\Lib\FileUtils;
+use Rico\Slib\FileUtils;
 
 class FileUtilsTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Rico\Test\CheckerTest;
+namespace Rico\Test;
 
-use Rico\Lib\ValidationUtils;
+use Rico\Slib\ValidationUtils;
 
 class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
 {

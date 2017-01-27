@@ -1,8 +1,8 @@
 <?php
 
-namespace Rico\Test\VectorTest;
+namespace Rico\Test;
 
-use Rico\Lib\MathUtils;
+use Rico\Slib\MathUtils;
 
 class MathUtilsTest extends \PHPUnit_Framework_TestCase
 {

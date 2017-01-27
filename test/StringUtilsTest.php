@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Rico\Test\StringTest;
+namespace Rico\Test;
 
-use Rico\Lib\StringUtils;
+use Rico\Slib\StringUtils;
 
 class CharsTest extends \PHPUnit_Framework_TestCase
 {
@@ -249,8 +249,8 @@ video {
             [['abraCADABRA', ''], 17251060315943390], // 5
             [['phpcode', ''], 858638639286],
             [['phpcode', 'secret'], 1193128009855],
-            [['', ''], ''],
-            [['', 'secret'], ''],
+            [['', ''], 0],
+            [['', 'secret'], 0],
             [['777', ''], 128931], // 10
             [['/home/', ''], 106817320],
         ];

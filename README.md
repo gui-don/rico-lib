@@ -17,7 +17,7 @@ PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be
 
     require_once('autoload.php');
 
-    use \Rico\Lib\StringUtils;
+    use \Rico\Slib\StringUtils;
 
     // […] Some code
     // $uglyString = $object->getUglyString();

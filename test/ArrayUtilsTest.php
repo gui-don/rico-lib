@@ -1,8 +1,8 @@
 <?php
 
-namespace Rico\Test\VectorTest;
+namespace Rico\Test;
 
-use Rico\Lib\ArrayUtils;
+use Rico\Slib\ArrayUtils;
 
 class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
 {

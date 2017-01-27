@@ -2,7 +2,9 @@
 
 namespace Rico\Lib;
 
-abstract class StringUtils
+use Rico\Slib\StringUtils as StaticStringUtils;
+
+class StringUtils
 {
     /**
      * Removes all sort of spaces from a $string.
@@ -11,16 +13,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function removeWhitespace(string $string): string
+    public function removeWhitespace(string $string): string
     {
-        /*
-         * \0 :  NIL char
-         * \xC2 : non-breaking space
-         * \xA0 : non-breaking space
-         * \x0B : vertical tab
-         * \t : tab
-         */
-        return preg_replace('/[\0\xC2\xA0\x0B\t\ \ \ \]+/u', '', $string);
+        return StaticStringUtils::removeWhitespace($string);
     }
 
     /**
@@ -30,16 +25,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function normalizeWhitespace(string $string): string
+    public function normalizeWhitespace(string $string): string
     {
-        /*
-         * \0 :  NIL char
-         * \xC2 : non-breaking space
-         * \xA0 : non-breaking space
-         * \x0B : vertical tab
-         * \t : tab
-         */
-        return trim(preg_replace('/[\0\xC2\xA0\x0B\t\ \ \ \]+/u', ' ', $string));
+        return StaticStringUtils::normalizeWhitespace($string);
     }
 
     /**
@@ -49,9 +37,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function removeLine(string $string): string
+    public function removeLine(string $string): string
     {
-        return preg_replace('/[\r\n]+/', '', $string);
+        return StaticStringUtils::removeLine($string);
     }
 
     /**
@@ -61,15 +49,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function normalize(string $string): string
+    public function normalize(string $string): string
     {
-        $string = str_replace(['<br/>', '<br />', '</br>', '<br>', '<br >', '< br >'], ' ', $string);
-        $string = html_entity_decode($string, ENT_HTML5, 'UTF-8');
-        $string = strip_tags($string);
-        $string = self::removeLine($string);
-        $string = self::normalizeWhitespace($string);
-
-        return $string;
+        return StaticStringUtils::normalize($string);
     }
 
     /**
@@ -80,19 +62,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function randString(int $length = 10, string $allowedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'): string
+    public function randString(int $length = 10, string $allowedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'): string
     {
-        if ($length <= 0) {
-            return '';
-        }
-
-        $randString = '';
-        $allowedCharsLength = mb_strlen($allowedChars, 'UTF-8');
-        for ($i = 0; $i < $length; ++$i) {
-            $randString .= mb_substr($allowedChars, mt_rand(0, ($allowedCharsLength - 1)), 1, 'UTF-8');
-        }
-
-        return $randString;
+        return StaticStringUtils::randString($length, $allowedChars);
     }
 
     /**
@@ -102,24 +74,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function slugify(string $string): string
+    public function slugify(string $string): string
     {
-        setlocale(LC_CTYPE, 'fr_FR.UTF-8');
-
-        // replace non letter or digits by -
-        $string = preg_replace('#[^\\pL\d]+#u', '-', $string);
-
-        // Transliterate
-        $string = \iconv('utf-8', 'us-ascii//TRANSLIT', $string);
-
-        $string = strtolower($string);
-
-        // Remove unwanted characters
-        $string = preg_replace('~[^-\w]+~', '', $string);
-
-        $string = trim($string, '-');
-
-        return $string;
+        return StaticStringUtils::slugify($string);
     }
 
     /**
@@ -129,26 +86,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function beautifulise(string $string): string
+    public function beautifulise(string $string): string
     {
-        $string = self::normalizeWhitespace($string);
-        // Be careful, there are non secable spaces here
-        $string = str_replace(['\'\'', ' ;', ' ?', ' !', ' :', ' »', '« ', '\'', '...'], ['"', ' ;', ' ?', ' !', ' :', ' »', '« ', '’', '…'], $string);
-        $string = preg_replace('#(\d)\s?([$€£¥])#u', '$1 $2', $string);
-        $string = preg_replace_callback('#\d{4,}#u', function ($matches) {
-            return number_format($matches[0], 0, ',', ' ');
-        }, $string);
-
-        // Count quotes
-        $QuotesCount = strlen($string) - strlen(str_replace('"', '', $string));
-
-        // Repeat two times is important for quotes inside quotes
-        if ($QuotesCount % 2 == 0) {
-            $string = preg_replace('#([\s\r\n\p{P}]|^|)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
-            $string = preg_replace('#([\s\r\n\p{P}]|^|)(\")([^\"]*)(\")([\s\p{P}]|$)#u', '$1“$3”$5', $string);
-        }
-
-        return $string;
+        return StaticStringUtils::beautifulise($string);
     }
 
     /**
@@ -158,14 +98,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function minify(string $string): string
+    public function minify(string $string): string
     {
-        $string = preg_replace('#\/\*.*\*\/#s', '', $string);
-        $string = self::removeLine($string);
-        $string = self::normalizeWhitespace($string);
-        $string = preg_replace('# ?([\;\:\{\}\,]) ?#', '$1', $string);
-
-        return $string;
+        return StaticStringUtils::minify($string);
     }
 
     /**
@@ -175,11 +110,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function getResourceNameInUrl(string $url): string
+    public function getResourceNameInUrl(string $url): string
     {
-        preg_match("/\/([^\/\?]+)(?:[\?\#].*)?$/", $url, $matches);
-
-        return $matches[1] ?? '';
+        return StaticStringUtils::getResourceNameInUrl($url);
     }
 
     /**
@@ -190,27 +123,9 @@ abstract class StringUtils
      *
      * @return int|string
      */
-    public static function alphaToId(string $string, string $secret = '')
+    public function alphaToId(string $string, string $secret = '')
     {
-        $out = '';
-        $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $base = strlen($index);
-        $stringLength = strlen($string) - 1;
-
-        if ($secret) {
-            $splitIndex = str_split($index);
-
-            // Create a new generated secret order based on secret
-            array_multisort(array_slice(str_split(hash('sha512', $secret)), 0, $base), SORT_DESC, $splitIndex);
-            $index = implode($splitIndex);
-        }
-
-        for ($t = $stringLength; $t >= 0; --$t) {
-            $bcp = $base ** ($stringLength - $t);
-            $out += strpos($index, substr($string, $t, 1)) * $bcp;
-        }
-
-        return $out;
+        return StaticStringUtils::alphaToId($string, $secret);
     }
 
     /**
@@ -221,28 +136,9 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function IdToAlpha(int $identifier, string $secret = ''): string
+    public function IdToAlpha(int $identifier, string $secret = ''): string
     {
-        $out = '';
-        $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $base = strlen($index);
-
-        if ($secret) {
-            $splitIndex = str_split($index);
-
-            // Create a new generated secret order based on secret
-            array_multisort(str_split(substr(hash('sha512', $secret), 0, $base)), SORT_DESC, $splitIndex);
-            $index = implode($splitIndex);
-        }
-
-        for ($t = ($identifier != 0 ? floor(log($identifier, $base)) : 0); $t >= 0; --$t) {
-            $bcp = $base ** $t;
-            $a = floor($identifier / $bcp) % $base;
-            $out .= substr($index, $a, 1);
-            $identifier = $identifier - ($a * $bcp);
-        }
-
-        return $out;
+        return StaticStringUtils::IdToAlpha($identifier, $secret);
     }
 
     /**
@@ -252,11 +148,8 @@ abstract class StringUtils
      *
      * @return string
      */
-    public static function humanFilesize(int $bytes): string
+    public function humanFilesize(int $bytes): string
     {
-        $size = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        $factor = floor((strlen($bytes) - 1) / 3);
-
-        return MathUtils::smartRound($bytes / pow(1024, $factor)) . @$size[$factor];
+        return StaticStringUtils::humanFilesize($bytes);
     }
 }

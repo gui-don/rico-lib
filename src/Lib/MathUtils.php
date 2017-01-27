@@ -2,7 +2,9 @@
 
 namespace Rico\Lib;
 
-abstract class MathUtils
+use Rico\Slib\MathUtils as StaticMathUtils;
+
+class MathUtils
 {
     /**
      * Rounds a $number adding decimal part only when int part of $number < $idealLength.
@@ -12,19 +14,8 @@ abstract class MathUtils
      *
      * @return string
      */
-    public static function smartRound($number, int $idealLength = 3): string
+    public function smartRound($number, int $idealLength = 3): string
     {
-        if ($number == 0) {
-            return 0;
-        }
-
-        $intPart = intval($number);
-
-        $precision = $idealLength - strlen($intPart);
-        if ($precision < 0) {
-            $precision = 0;
-        }
-
-        return sprintf("%.{$precision}f", $number);
+        return StaticMathUtils::smartRound($number, $idealLength);
     }
 }

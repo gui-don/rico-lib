@@ -15,7 +15,7 @@
 
     <filter>
         <whitelist>
-            <directory suffix=".php">./Lib</directory>
+            <directory suffix=".php">./Slib</directory>
         </whitelist>
     </filter>
 </phpunit>
