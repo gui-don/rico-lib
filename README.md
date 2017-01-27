@@ -7,9 +7,13 @@
 
 ## A bunch of PHP utility libraries. ##
 
+This project is made of some lightweight and well-tested libraries.
+It’s useful when you want to access some frenquently used low-level robust functions but you don’t want to import tons of dependencies.
+
 ### What does this library need to work? ###
 
-PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be enabled.
+PHP7 or superior. Not compatible with previous PHP versions.
+It also needs the `php-iconv`, `php-mbstring` extensions to be enabled.
 
 ### How to - Procedural style ###
 
