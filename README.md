@@ -81,8 +81,6 @@ You can add this library as a local dependency to your project using [Composer](
 
 - `minify(string $string)`: Removes whitespaces, line breaks and comment out of a $string.
 
-- `getResourceNameInUrl($url)`: Gets the name of a resource (image, pdf, …) out of an $url.
-
 - `alphaToId($string, $secret)`: Converts an alphabetic $string into an identifier (an integer).
 
 - `IdToAlpha($integer, $secret)`: Converts a $identifier into an alphanumeric string.
@@ -117,3 +115,7 @@ You can add this library as a local dependency to your project using [Composer](
 #### `MathUtils` lib ####
 
 - `smartRound($number, $idealLength)`: Rounds a $number adding decimal part only when int part of $number < $idealLength.
+
+#### `UrlUtils` lib ####
+
+- `getResourceName($url)`: Gets the name of a resource (image, pdf, …) out of an $url.
