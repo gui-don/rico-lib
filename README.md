@@ -121,4 +121,4 @@ You can add this library as a local dependency to your project using [Composer](
 
 - `getResourceName($url)`: Gets the name of a resource (image, pdf, …) out of an $url.
 
-- `getUrlWithoutResourceName($url)`: Gets the URL without the resource (image, pdf, …).
+- `stripResourceName($url)`: Gets the URL without the resource (image, pdf, …).

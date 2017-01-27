@@ -26,8 +26,8 @@ class UrlUtils
      *
      * @return string
      */
-    public function getUrlWithoutResourceName(string $url): string
+    public function stripResourceName(string $url): string
     {
-        return StaticUrlUtils::getUrlWithoutResourceName($url);
+        return StaticUrlUtils::stripResourceName($url);
     }
 }

@@ -94,10 +94,10 @@ class UrlUtilsTest extends \PHPUnit_Framework_TestCase
     public function testGetUrlWithoutResourceNameStatic($value, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, StaticUrlUtils::getUrlWithoutResourceName($value));
+            $this->assertSame($expected, StaticUrlUtils::stripResourceName($value));
         } else {
             $this->setExpectedException('TypeError');
-            StaticUrlUtils::getUrlWithoutResourceName($value);
+            StaticUrlUtils::stripResourceName($value);
         }
     }
 
@@ -108,10 +108,10 @@ class UrlUtilsTest extends \PHPUnit_Framework_TestCase
     public function testGetUrlWithoutResourceName($value, $expected)
     {
         if ($expected !== null) {
-            $this->assertSame($expected, $this->urlUtils->getUrlWithoutResourceName($value));
+            $this->assertSame($expected, $this->urlUtils->stripResourceName($value));
         } else {
             $this->setExpectedException('TypeError');
-            $this->urlUtils->getUrlWithoutResourceName($value);
+            $this->urlUtils->stripResourceName($value);
         }
     }
 }

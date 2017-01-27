@@ -27,7 +27,7 @@ abstract class UrlUtils
      *
      * @return string
      */
-    public static function getUrlWithoutResourceName(string $url): string
+    public static function stripResourceName(string $url): string
     {
         preg_match("#([^\?]+\/)(?:[^\/\?]*\??.*)$#", $url, $matches);
 
