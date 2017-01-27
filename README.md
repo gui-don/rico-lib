@@ -11,7 +11,7 @@
 
 PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be enabled.
 
-### How to ###
+### How to - Procedural style ###
 
     <?php
 
@@ -23,6 +23,20 @@ PHP7 or superior. It also needs the `php-iconv`, `php-mbstring` extensions to be
     // $uglyString = $object->getUglyString();
 
     $beautifulString = StringUtils::beautifulise($uglyString);
+
+### How to - OOP style ###
+
+    <?php
+
+    require_once('autoload.php');
+
+    use \Rico\Lib\StringUtils;
+
+    // […] Some code
+    // $uglyString = $object->getUglyString();
+
+    $stringUtils = new StringUtils();
+    $beautifulString = $stringUtils->beautifulise($uglyString);
 
 ---
 
