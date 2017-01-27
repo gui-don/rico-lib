@@ -16,3 +16,6 @@
 
 # Ignore netbeans file
 nbproject/
+
+# PHP CS fixer
+.php_cs.cache
