@@ -24,7 +24,7 @@ It also needs the `php-iconv`, `php-mbstring` and `php-dom` extensions to be ena
     use \Rico\Slib\StringUtils;
 
     // […] Some code
-    // $uglyString = $object->getUglyString();
+    // $uglyString = getUglyString();
 
     $beautifulString = StringUtils::beautifulise($uglyString);
 
