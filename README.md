@@ -50,6 +50,14 @@ You can add this library as a local dependency to your project using [Composer](
 
 ---
 
+#### `ArrayUtils` lib ####
+
+- `flatten($multidimensionalArray)`: Extracts each element of a $multidimensionalArray in a single list.
+
+- `pluck($multidimensionalArray, $property)`: Extracts all $property values from a multidimensional $multidimensionalArray.
+
+- `transpose($similarArrays)`: Transforms multiple $similarArrays into key-valued arrays.
+
 #### `FileUtils` lib ####
 
 - `count($file, $countEmpty = false)`: Counts the number of lines in a $file.
@@ -105,15 +113,6 @@ You can add this library as a local dependency to your project using [Composer](
 - `isEmail($mixed)`: Checks that $mixed value is an email.
 
 - `isPhoneNumber($string)`: Checks that $string value is a phone number.
-
-
-#### `ArrayUtils` lib ####
-
-- `flatten($multidimensionalArray)`: Extracts each element of a $multidimensionalArray in a single list.
-
-- `pluck($multidimensionalArray, $property)`: Extracts all $property values from a multidimensional $multidimensionalArray.
-
-- `transpose($similarArrays)`: Transforms multiple $similarArrays into key-valued arrays.
 
 #### `MathUtils` lib ####
 
