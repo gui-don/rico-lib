@@ -18,6 +18,7 @@ class FileUtilsTest extends \PHPUnit_Framework_TestCase
     {
         $this->fileUtils = new FileUtils();
     }
+
     public function providerAddLineTypeErrors()
     {
         return [

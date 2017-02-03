@@ -4,10 +4,21 @@ declare(strict_types=1);
 
 namespace Rico\Test;
 
-use Rico\Slib\StringUtils;
+use Rico\Slib\StringUtils as StaticStringUtils;
+use Rico\Lib\StringUtils;
 
 class StringUtilsTest extends RicoTestCase
 {
+    /**
+     * @var StringUtils
+     */
+    private $stringUtils;
+
+    public function setUp()
+    {
+        $this->stringUtils = new StringUtils();
+    }
+
     public function providerRemoveWhitespace()
     {
         return [
@@ -300,9 +311,8 @@ video {
      */
     public function testAlphaToId($values, $expected)
     {
-        $this->callbackTest(StringUtils::class, 'alphaToId', $values, $expected, function () use ($values, $expected) {
-            $this->assertSame($expected, StringUtils::alphaToId($values[0], $values[1]));
-        });
+        $this->standardStaticTest(StaticStringUtils::class, 'alphaToId', [$values[0], $values[1]], $expected);
+        $this->standardTest($this->stringUtils, 'alphaToId', [$values[0], $values[1]], $expected);
     }
 
     /**
@@ -311,13 +321,16 @@ video {
      */
     public function testBeautifulise($value, $expected)
     {
-        $this->callbackTest(StringUtils::class, 'beautifulise', [$value], $expected, function () use ($value, $expected) {
-            $result = StringUtils::beautifulise($value);
+        $test = function () use ($value, $expected) {
+            $result = StaticStringUtils::beautifulise($value);
             $this->assertSame($expected, $result);
 
             // Doing it again changes nothing
-            $this->assertSame($expected, StringUtils::beautifulise($result));
-        });
+            $this->assertSame($expected, StaticStringUtils::beautifulise($result));
+        };
+
+        $this->callbackStandardStaticTest(StaticStringUtils::class, 'beautifulise', [$value], $expected, $test);
+        $this->callbackStandardTest($this->stringUtils, 'beautifulise', [$value], $expected, $test);
     }
 
     /**
@@ -326,7 +339,8 @@ video {
      */
     public function testHumanFilesize($value, $expected)
     {
-        $this->standardTest(StringUtils::class, 'humanFilesize', [$value], $expected);
+        $this->standardStaticTest(StaticStringUtils::class, 'humanFilesize', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'humanFilesize', [$value], $expected);
     }
 
     /**
@@ -335,9 +349,8 @@ video {
      */
     public function testIdToAlpha($values, $expected)
     {
-        $this->callbackTest(StringUtils::class, 'idToAlpha', $values, $expected, function () use ($values, $expected) {
-            $this->assertSame($expected, StringUtils::idToAlpha($values[0], $values[1]));
-        });
+        $this->standardStaticTest(StaticStringUtils::class, 'idToAlpha', [$values[0], $values[1]], $expected);
+        $this->standardTest($this->stringUtils, 'idToAlpha', [$values[0], $values[1]], $expected);
     }
 
     /**
@@ -346,7 +359,8 @@ video {
      */
     public function testMinify($value, $expected)
     {
-        $this->standardTest(StringUtils::class, 'minify', [$value], $expected);
+        $this->standardStaticTest(StaticStringUtils::class, 'minify', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'minify', [$value], $expected);
     }
 
     /**
@@ -355,7 +369,8 @@ video {
      */
     public function testNormalize($value, $expected)
     {
-        $this->standardTest(StringUtils::class, 'normalize', [$value], $expected);
+        $this->standardStaticTest(StaticStringUtils::class, 'normalize', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'normalize', [$value], $expected);
     }
 
     /**
@@ -364,21 +379,24 @@ video {
      */
     public function testRandString($value, $expected, $allowedChars)
     {
-        $this->callbackTest(StringUtils::class, 'idToAlpha', [$value, $allowedChars], $expected, function () use ($allowedChars, $value) {
+        $test = function () use ($allowedChars, $value) {
             if ($value <= 0) {
-                $this->assertEmpty(StringUtils::randString($value, $allowedChars));
+                $this->assertEmpty(StaticStringUtils::randString($value, $allowedChars));
             } else {
                 if (strlen($allowedChars) > 0) {
-                    $result = StringUtils::randString($value, $allowedChars);
+                    $result = StaticStringUtils::randString($value, $allowedChars);
                     $this->assertRegExp('/^['.$allowedChars.']+$/', $result);
                 } else {
-                    $result = StringUtils::randString($value);
+                    $result = StaticStringUtils::randString($value);
                     $this->assertRegExp('/^[a-zA-Z0-9]+$/', $result);
                 }
 
                 $this->assertEquals($value, mb_strlen($result, 'utf8'));
             }
-        });
+        };
+
+        $this->callbackStandardStaticTest(StaticStringUtils::class, 'randString', [$value, $allowedChars], $expected, $test);
+        $this->callbackStandardTest($this->stringUtils, 'randString', [$value, $allowedChars], $expected, $test);
     }
 
     /**
@@ -387,7 +405,8 @@ video {
      */
     public function testNormalizeWhitespace($value, $expected)
     {
-        $this->standardTest(StringUtils::class, 'normalizeWhitespace', [$value], $expected);
+        $this->standardStaticTest(StaticStringUtils::class, 'normalizeWhitespace', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'normalizeWhitespace', [$value], $expected);
     }
 
     /**
@@ -396,7 +415,8 @@ video {
      */
     public function testRemoveLine($value, $expected)
     {
-        $this->standardTest(StringUtils::class, 'removeLine', [$value], $expected);
+        $this->standardStaticTest(StaticStringUtils::class, 'removeLine', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'removeLine', [$value], $expected);
     }
 
     /**
@@ -405,7 +425,8 @@ video {
      */
     public function testRemoveWhitespace($value, $expected)
     {
-        $this->standardTest(StringUtils::class, 'removeWhitespace', [$value], $expected);
+        $this->standardStaticTest(StaticStringUtils::class, 'removeWhitespace', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'removeWhitespace', [$value], $expected);
     }
 
     /**
@@ -414,7 +435,8 @@ video {
      */
     public function testSlugify($value, $expected)
     {
-        $this->standardTest(StringUtils::class, 'slugify', [$value], $expected);
+        $this->standardStaticTest(StaticStringUtils::class, 'slugify', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'slugify', [$value], $expected);
     }
 
     /**
@@ -423,6 +445,7 @@ video {
      */
     public function testUnderscoreToSpace($value, $expected)
     {
-        $this->standardTest(StringUtils::class, 'underscoreToSpace', [$value], $expected);
+        $this->standardStaticTest(StaticStringUtils::class, 'underscoreToSpace', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'underscoreToSpace', [$value], $expected);
     }
 }
