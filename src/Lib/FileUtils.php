@@ -9,19 +9,6 @@ use Rico\Slib\FileUtils as StaticFileUtils;
 class FileUtils
 {
     /**
-     * Counts the number of lines in a $file.
-     *
-     * @param string $file
-     * @param bool   $countEmpty
-     *
-     * @return int|bool
-     */
-    public function count(string $file, bool $countEmpty = false)
-    {
-        return StaticFileUtils::count($file, $countEmpty);
-    }
-
-    /**
      * Adds a new $line at the end of a $file without duplication.
      *
      * @param string $file
@@ -32,6 +19,19 @@ class FileUtils
     public function addLine(string $file, string $line)
     {
         return StaticFileUtils::addLine($file, $line);
+    }
+
+    /**
+     * Counts the number of lines in a $file.
+     *
+     * @param string $file
+     * @param bool   $countEmpty
+     *
+     * @return int|bool
+     */
+    public function count(string $file, bool $countEmpty = false)
+    {
+        return StaticFileUtils::count($file, $countEmpty);
     }
 
     /**

@@ -7,6 +7,34 @@ namespace Rico\Slib;
 abstract class FileUtils
 {
     /**
+     * Adds a new $line at the end of a $file without duplication.
+     *
+     * @param string $file
+     * @param string $line
+     *
+     * @return bool|null
+     */
+    public static function addLine(string $file, string $line)
+    {
+        if (!file_exists($file)) {
+            return null;
+        }
+
+        $handle = fopen($file, 'r+');
+        while (($currentLine = fgets($handle)) !== false) {
+            if (trim($currentLine) == $line) {
+                return false;
+            }
+        }
+
+        fwrite($handle, $line.PHP_EOL);
+
+        fclose($handle);
+
+        return true;
+    }
+
+    /**
      * Counts the number of lines in a $file.
      *
      * @param string $file
@@ -41,34 +69,6 @@ abstract class FileUtils
         fclose($handle);
 
         return $lines;
-    }
-
-    /**
-     * Adds a new $line at the end of a $file without duplication.
-     *
-     * @param string $file
-     * @param string $line
-     *
-     * @return bool|null
-     */
-    public static function addLine(string $file, string $line)
-    {
-        if (!file_exists($file)) {
-            return null;
-        }
-
-        $handle = fopen($file, 'r+');
-        while (($currentLine = fgets($handle)) !== false) {
-            if (trim($currentLine) == $line) {
-                return false;
-            }
-        }
-
-        fwrite($handle, $line.PHP_EOL);
-
-        fclose($handle);
-
-        return true;
     }
 
     /**

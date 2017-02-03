@@ -61,20 +61,6 @@ class FileUtilsTest extends RicoTestCase
 
 
     /**
-     * @covers StaticFileUtils::count
-     */
-    public function testCount()
-    {
-        $this->assertSame(false, StaticFileUtils::count('nonexistingfile.txt'));
-        $this->assertSame(0, StaticFileUtils::count(__DIR__.'/testFiles/empty.list'));
-        $this->assertSame(0, StaticFileUtils::count(__DIR__.'/testFiles/empty.list', true));
-        $this->assertSame(48508, StaticFileUtils::count(__DIR__.'/testFiles/long.list'));
-        $this->assertSame(48508, StaticFileUtils::count(__DIR__.'/testFiles/long.list', true));
-        $this->assertSame(84, StaticFileUtils::count(__DIR__.'/testFiles/large.list'));
-        $this->assertSame(87, StaticFileUtils::count(__DIR__.'/testFiles/large.list', true));
-    }
-
-    /**
      * @covers StaticFileUtils::addLine
      */
     public function testAddLineErrors()
@@ -129,6 +115,20 @@ class FileUtilsTest extends RicoTestCase
         $this->assertSame(false, $this->fileUtils->addLine(__DIR__.'/testFiles/short.list', '295837'));
         $this->assertSame(11, StaticFileUtils::count(__DIR__.'/testFiles/short.list'));
         $this->assertSame(11, $this->fileUtils->count(__DIR__.'/testFiles/short.list'));
+    }
+
+    /**
+     * @covers StaticFileUtils::count
+     */
+    public function testCount()
+    {
+        $this->assertSame(false, StaticFileUtils::count('nonexistingfile.txt'));
+        $this->assertSame(0, StaticFileUtils::count(__DIR__.'/testFiles/empty.list'));
+        $this->assertSame(0, StaticFileUtils::count(__DIR__.'/testFiles/empty.list', true));
+        $this->assertSame(48508, StaticFileUtils::count(__DIR__.'/testFiles/long.list'));
+        $this->assertSame(48508, StaticFileUtils::count(__DIR__.'/testFiles/long.list', true));
+        $this->assertSame(84, StaticFileUtils::count(__DIR__.'/testFiles/large.list'));
+        $this->assertSame(87, StaticFileUtils::count(__DIR__.'/testFiles/large.list', true));
     }
 
     /**

@@ -60,9 +60,9 @@ You can add this library as a local dependency to your project using [Composer](
 
 #### `FileUtils` lib ####
 
-- `count($file, $countEmpty = false)`: Counts the number of lines in a $file.
-
 - `addLine($file, $line)`: Adds a new $line at the end of a $file without duplication.
+
+- `count($file, $countEmpty = false)`: Counts the number of lines in a $file.
 
 - `extractExtension(string $filename)`: Extracts the extension (without the dot) of a filename alone or contained in a path.
 
