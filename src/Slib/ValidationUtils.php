@@ -7,35 +7,19 @@ namespace Rico\Slib;
 abstract class ValidationUtils
 {
     /**
-     * Checks that $mixed value is a positive integer (primary key).
+     * Checks that $mixed value is an email.
      *
      * @param mixed $mixed
      *
      * @return bool
      */
-    public static function isPositiveInt($mixed): bool
+    public static function isEmail($mixed): bool
     {
-        if (!isset($mixed) || is_bool($mixed)) {
-            return false;
-        }
-
-        return filter_var($mixed, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]]) ? true : false;
-    }
-
-    /**
-     * Checks that $mixed value is a decimal number (float or integer).
-     *
-     * @param mixed $mixed
-     *
-     * @return bool
-     */
-    public static function isNumber($mixed): bool
-    {
-        if (!is_numeric($mixed)) {
-            return false;
-        }
-
-        return (bool) preg_match('/^\-?[0-9]+\.?[0-9]*$/', (string) $mixed);
+        return
+            is_string($mixed) &&
+            // Use of preg_replace instead of preg_match, as preg_match acts unexpectedly with this regular expression
+            preg_replace('#[a-zA-Z0-9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-]+(?:\.[a-zA-Z0-9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-]+)*\@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+(?:[a-z]{2}|aero|asia|biz|cat|com|coop|info|int|jobs|mobi|museum|name|net|org|pro|tel|travel|xxx|edu|gov|mil)$#', 'ok', $mixed) === 'ok'
+        ;
     }
 
     /**
@@ -50,21 +34,6 @@ abstract class ValidationUtils
         return
             is_string($mixed) &&
             preg_match('/^\b[0-9A-F]{6}\b$/i', $mixed)
-        ;
-    }
-
-    /**
-     * Checks that $mixed value is an URL.
-     *
-     * @param mixed $mixed
-     *
-     * @return bool
-     */
-    public static function isURL($mixed): bool
-    {
-        return
-            is_string($mixed) &&
-            preg_match('_^(https?|ftp)://(\S+(:\S*)?@)?(([1-9]|[1-9]\d|1\d\d|2[0-1]\d|22[0-3])(\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])){2}(\.([1-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-4]))|(([a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(\.([a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(\.([a-z\x{00a1}-\x{ffff}]{2,})))(:\d{2,5})?(/[^\s]*)?$_iuS', $mixed)
         ;
     }
 
@@ -89,19 +58,19 @@ abstract class ValidationUtils
     }
 
     /**
-     * Checks that $mixed value is an email.
+     * Checks that $mixed value is a decimal number (float or integer).
      *
      * @param mixed $mixed
      *
      * @return bool
      */
-    public static function isEmail($mixed): bool
+    public static function isNumber($mixed): bool
     {
-        return
-            is_string($mixed) &&
-            // Use of preg_replace instead of preg_match, as preg_match acts unexpectedly with this regular expression
-            preg_replace('#[a-zA-Z0-9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-]+(?:\.[a-zA-Z0-9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-]+)*\@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+(?:[a-z]{2}|aero|asia|biz|cat|com|coop|info|int|jobs|mobi|museum|name|net|org|pro|tel|travel|xxx|edu|gov|mil)$#', 'ok', $mixed) === 'ok'
-        ;
+        if (!is_numeric($mixed)) {
+            return false;
+        }
+
+        return (bool) preg_match('/^\-?[0-9]+\.?[0-9]*$/', (string) $mixed);
     }
 
     /**
@@ -118,5 +87,36 @@ abstract class ValidationUtils
         $string = preg_replace('/([0-9]+)([ \\\–\-\.\/]{1})/', '$1$3', $string);
 
         return (bool) preg_match('/^(\(?\+\ ?[0-9]{1,4}\)?)?\ ?[0-9]{7,15}$/', $string);
+    }
+
+    /**
+     * Checks that $mixed value is a positive integer (primary key).
+     *
+     * @param mixed $mixed
+     *
+     * @return bool
+     */
+    public static function isPositiveInt($mixed): bool
+    {
+        if (!isset($mixed) || is_bool($mixed)) {
+            return false;
+        }
+
+        return filter_var($mixed, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]]) ? true : false;
+    }
+
+    /**
+     * Checks that $mixed value is an URL.
+     *
+     * @param mixed $mixed
+     *
+     * @return bool
+     */
+    public static function isURL($mixed): bool
+    {
+        return
+            is_string($mixed) &&
+            preg_match('_^(https?|ftp)://(\S+(:\S*)?@)?(([1-9]|[1-9]\d|1\d\d|2[0-1]\d|22[0-3])(\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])){2}(\.([1-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-4]))|(([a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(\.([a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(\.([a-z\x{00a1}-\x{ffff}]{2,})))(:\d{2,5})?(/[^\s]*)?$_iuS', $mixed)
+        ;
     }
 }

@@ -102,19 +102,19 @@ You can add this library as a local dependency to your project using [Composer](
 
 #### `ValidationUtils` lib ####
 
-- `isPositiveInt($mixed)`: Checks that $mixed value is a positive integer (primary key).
-
-- `isNumber($mixed)`: Checks that $mixed value is a decimal number (float or integer).
+- `isEmail($mixed)`: Checks that $mixed value is an email.
 
 - `isHexadecimal($mixed)`: Checks that $mixed value is a hexadecimal value.
 
-- `isURL($mixed)`: Checks that $mixed value is an URL.
-
 - `isIp($mixed)`: Checks that $mixed value is an IP (v4 or v6).
 
-- `isEmail($mixed)`: Checks that $mixed value is an email.
+- `isNumber($mixed)`: Checks that $mixed value is a decimal number (float or integer).
 
 - `isPhoneNumber($string)`: Checks that $string value is a phone number.
+
+- `isPositiveInt($mixed)`: Checks that $mixed value is a positive integer (primary key).
+
+- `isURL($mixed)`: Checks that $mixed value is an URL.
 
 #### `MathUtils` lib ####
 

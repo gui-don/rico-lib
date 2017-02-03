@@ -19,37 +19,26 @@ class ValidationUtilsTest extends RicoTestCase
         $this->validationUtils = new ValidationUtils();
     }
 
-    public function providerIsPositiveInt()
+    public function providerIsEmail()
     {
         return [
-            ['test', false], // 0
-            [true, false],
-            ['2e4', false],
-            [-47.12, false],
-            [0, false],
-            [12.5, false], // 5
-            ['471845', true],
-            [7484, true],
-            [899, true],
-            [125, true],
-        ];
-    }
-
-    public function providerIsNumber()
-    {
-        return [
-            ['test', false], // 0
-            [false, false],
-            [null, false],
-            ['2e4', false],
-            ['a35', false],
-            ['-187417840', true], // 5
-            ['471845', true],
-            [-47.12, true],
-            [7484, true],
-            [0, true],
-            [0.1818, true], // 10
-            ['0.14.3', false],
+            ['', false], // 0
+            ['notok', false],
+            ['test@con', false],
+            ['abc.@example.com', false],
+            ['A@b@c@example.com', false],
+            ['john.doe@example.bullshit', false], // 5
+            ['john.doe@truc.fr', true],
+            ['niceandsimple@example.com', true],
+            ['simplewith+symbol@example.info', true],
+            ['less.common@www.example.net', true],
+            ['a.little.more.unusual@dept.example.pro', true], // 10
+            ['jmb@link4lead.com', true],
+            ['Marc.Pol@plm.com', true],
+            ['MARC.POL@PLM.COM', false],
+            ['jojo_admin@augure.com', true],
+            [23, false], // 15
+            [new \stdClass(), false],
         ];
     }
 
@@ -112,6 +101,67 @@ class ValidationUtilsTest extends RicoTestCase
         ];
     }
 
+    public function providerIsNumber()
+    {
+        return [
+            ['test', false], // 0
+            [false, false],
+            [null, false],
+            ['2e4', false],
+            ['a35', false],
+            ['-187417840', true], // 5
+            ['471845', true],
+            [-47.12, true],
+            [7484, true],
+            [0, true],
+            [0.1818, true], // 10
+            ['0.14.3', false],
+        ];
+    }
+
+    public function providerIsPhoneNumber()
+    {
+        return [
+            ['', false], // 0
+            ['0125', false],
+            ['12458', false],
+            ['work', false],
+            ['+ 33 06 14 03 77 35', true],
+            ['+ 33 0614037735', true], // 5
+            ['+ 330614037735', true],
+            ['+212 (64)) 0568132', false],
+            ['+33 2 45 60 12 46', true],
+            ['1-510-495-1428', true],
+            ['0415487631', true], // 10
+            ['(11)1234-5678', true],
+            ['01.46.70.89.12', true],
+            ['+212 640568132', true],
+            ['+86.145.899.1024', true],
+            ['(+ 33)0598745123', true], // 15
+            ['(+3300)0598745123', true],
+            [435.3, null],
+            [200, null],
+            [new \stdClass(), null],
+            [false, null], //20
+        ];
+    }
+
+    public function providerIsPositiveInt()
+    {
+        return [
+            ['test', false], // 0
+            [true, false],
+            ['2e4', false],
+            [-47.12, false],
+            [0, false],
+            [12.5, false], // 5
+            ['471845', true],
+            [7484, true],
+            [899, true],
+            [125, true],
+        ];
+    }
+
     public function providerIsURL()
     {
         return [
@@ -146,78 +196,18 @@ class ValidationUtilsTest extends RicoTestCase
         ];
     }
 
-    public function providerIsEmail()
-    {
-        return [
-            ['', false], // 0
-            ['notok', false],
-            ['test@con', false],
-            ['abc.@example.com', false],
-            ['A@b@c@example.com', false],
-            ['john.doe@example.bullshit', false], // 5
-            ['john.doe@truc.fr', true],
-            ['niceandsimple@example.com', true],
-            ['simplewith+symbol@example.info', true],
-            ['less.common@www.example.net', true],
-            ['a.little.more.unusual@dept.example.pro', true], // 10
-            ['jmb@link4lead.com', true],
-            ['Marc.Pol@plm.com', true],
-            ['MARC.POL@PLM.COM', false],
-            ['jojo_admin@augure.com', true],
-            [23, false], // 15
-            [new \stdClass(), false],
-        ];
-    }
-
-    public function providerIsPhoneNumber()
-    {
-        return [
-            ['', false], // 0
-            ['0125', false],
-            ['12458', false],
-            ['work', false],
-            ['+ 33 06 14 03 77 35', true],
-            ['+ 33 0614037735', true], // 5
-            ['+ 330614037735', true],
-            ['+212 (64)) 0568132', false],
-            ['+33 2 45 60 12 46', true],
-            ['1-510-495-1428', true],
-            ['0415487631', true], // 10
-            ['(11)1234-5678', true],
-            ['01.46.70.89.12', true],
-            ['+212 640568132', true],
-            ['+86.145.899.1024', true],
-            ['(+ 33)0598745123', true], // 15
-            ['(+3300)0598745123', true],
-            [435.3, null],
-            [200, null],
-            [new \stdClass(), null],
-            [false, null], //20
-        ];
-    }
-
 
     #--- TESTS
 
 
     /**
-     * @covers ValidationUtils::isPositiveInt
-     * @dataProvider providerIsPositiveInt
+     * @covers ValidationUtils::isEmail
+     * @dataProvider providerIsEmail
      */
-    public function testIsPositiveInt($value, $expected)
+    public function testIsEmail($value, $expected)
     {
-        $this->standardStaticTest(StaticValidationUtils::class, 'isPositiveInt', [$value], $expected);
-        $this->standardTest($this->validationUtils, 'isPositiveInt', [$value], $expected);
-    }
-
-    /**
-     * @covers ValidationUtils::isNumber
-     * @dataProvider providerIsNumber
-     */
-    public function testIsNumber($value, $expected)
-    {
-        $this->standardStaticTest(StaticValidationUtils::class, 'isNumber', [$value], $expected);
-        $this->standardTest($this->validationUtils, 'isNumber', [$value], $expected);
+        $this->standardStaticTest(StaticValidationUtils::class, 'isEmail', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isEmail', [$value], $expected);
     }
 
     /**
@@ -241,23 +231,13 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ValidationUtils::isUrl
-     * @dataProvider providerIsURL
+     * @covers ValidationUtils::isNumber
+     * @dataProvider providerIsNumber
      */
-    public function testIsURL($value, $expected)
+    public function testIsNumber($value, $expected)
     {
-        $this->standardStaticTest(StaticValidationUtils::class, 'isUrl', [$value], $expected);
-        $this->standardTest($this->validationUtils, 'isUrl', [$value], $expected);
-    }
-
-    /**
-     * @covers ValidationUtils::isEmail
-     * @dataProvider providerIsEmail
-     */
-    public function testIsEmail($value, $expected)
-    {
-        $this->standardStaticTest(StaticValidationUtils::class, 'isEmail', [$value], $expected);
-        $this->standardTest($this->validationUtils, 'isEmail', [$value], $expected);
+        $this->standardStaticTest(StaticValidationUtils::class, 'isNumber', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isNumber', [$value], $expected);
     }
 
     /**
@@ -268,5 +248,25 @@ class ValidationUtilsTest extends RicoTestCase
     {
         $this->standardStaticTest(StaticValidationUtils::class, 'isPhoneNumber', [$value], $expected);
         $this->standardTest($this->validationUtils, 'isPhoneNumber', [$value], $expected);
+    }
+
+    /**
+     * @covers ValidationUtils::isPositiveInt
+     * @dataProvider providerIsPositiveInt
+     */
+    public function testIsPositiveInt($value, $expected)
+    {
+        $this->standardStaticTest(StaticValidationUtils::class, 'isPositiveInt', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isPositiveInt', [$value], $expected);
+    }
+
+    /**
+     * @covers ValidationUtils::isUrl
+     * @dataProvider providerIsURL
+     */
+    public function testIsURL($value, $expected)
+    {
+        $this->standardStaticTest(StaticValidationUtils::class, 'isUrl', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isUrl', [$value], $expected);
     }
 }
