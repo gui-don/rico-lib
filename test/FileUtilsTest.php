@@ -7,7 +7,7 @@ namespace Rico\Test;
 use Rico\Slib\FileUtils as StaticFileUtils;
 use Rico\Lib\FileUtils;
 
-class FileUtilsTest extends \PHPUnit_Framework_TestCase
+class FileUtilsTest extends RicoTestCase
 {
     /**
      * @var FileUtils
@@ -55,6 +55,10 @@ class FileUtilsTest extends \PHPUnit_Framework_TestCase
             ['https://somesite.com/my_file.pdf', 'pdf'],
         ];
     }
+
+
+    #--- TESTS
+
 
     /**
      * @covers StaticFileUtils::count
@@ -131,27 +135,9 @@ class FileUtilsTest extends \PHPUnit_Framework_TestCase
      * @covers StringUtils::extractExtension
      * @dataProvider providerExtractExtension
      */
-    public function testExtractExtensionStatic($value, $expected)
-    {
-        if ($expected !== null) {
-            $this->assertSame($expected, StaticFileUtils::extractExtension($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StaticFileUtils::extractExtension($value);
-        }
-    }
-
-    /**
-     * @covers StringUtils::extractExtension
-     * @dataProvider providerExtractExtension
-     */
     public function testExtractExtension($value, $expected)
     {
-        if ($expected !== null) {
-            $this->assertSame($expected, $this->fileUtils->extractExtension($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            $this->fileUtils->extractExtension($value);
-        }
+        $this->standardStaticTest(StaticFileUtils::class, 'extractExtension', [$value], $expected);
+        $this->standardTest($this->fileUtils, 'extractExtension', [$value], $expected);
     }
 }

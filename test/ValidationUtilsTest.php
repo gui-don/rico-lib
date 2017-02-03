@@ -4,10 +4,21 @@ declare(strict_types=1);
 
 namespace Rico\Test;
 
-use Rico\Slib\ValidationUtils;
+use Rico\Slib\ValidationUtils as StaticValidationUtils;
+use Rico\Lib\ValidationUtils;
 
-class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
+class ValidationUtilsTest extends RicoTestCase
 {
+    /**
+     * @var ValidationUtils
+     */
+    private $validationUtils;
+
+    public function setUp()
+    {
+        $this->validationUtils = new ValidationUtils();
+    }
+
     public function providerIsPositiveInt()
     {
         return [
@@ -185,22 +196,28 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+
+    #--- TESTS
+
+
     /**
      * @covers ValidationUtils::isPositiveInt
      * @dataProvider providerIsPositiveInt
      */
     public function testIsPositiveInt($value, $expected)
     {
-        $this->assertSame($expected, ValidationUtils::isPositiveInt($value));
+        $this->standardStaticTest(StaticValidationUtils::class, 'isPositiveInt', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isPositiveInt', [$value], $expected);
     }
 
     /**
      * @covers ValidationUtils::isNumber
      * @dataProvider providerIsNumber
      */
-    public function testIsNumber($strValue, $expected)
+    public function testIsNumber($value, $expected)
     {
-        $this->assertSame($expected, ValidationUtils::isNumber($strValue));
+        $this->standardStaticTest(StaticValidationUtils::class, 'isNumber', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isNumber', [$value], $expected);
     }
 
     /**
@@ -209,7 +226,8 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsHexadecimal($value, $expected)
     {
-        $this->assertSame($expected, ValidationUtils::isHexadecimal($value));
+        $this->standardStaticTest(StaticValidationUtils::class, 'isHexadecimal', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isHexadecimal', [$value], $expected);
     }
 
     /**
@@ -218,7 +236,8 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsIp($value, $expected)
     {
-        $this->assertSame($expected, ValidationUtils::isIp($value));
+        $this->standardStaticTest(StaticValidationUtils::class, 'isIp', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isIp', [$value], $expected);
     }
 
     /**
@@ -227,7 +246,8 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsURL($value, $expected)
     {
-        $this->assertSame($expected, ValidationUtils::isURL($value));
+        $this->standardStaticTest(StaticValidationUtils::class, 'isUrl', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isUrl', [$value], $expected);
     }
 
     /**
@@ -236,7 +256,8 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEmail($value, $expected)
     {
-        $this->assertSame($expected, ValidationUtils::isEmail($value));
+        $this->standardStaticTest(StaticValidationUtils::class, 'isEmail', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isEmail', [$value], $expected);
     }
 
     /**
@@ -245,11 +266,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsPhoneNumber($value, $expected)
     {
-        if ($expected !== null) {
-            $this->assertSame($expected, ValidationUtils::isPhoneNumber($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            ValidationUtils::isPhoneNumber($value);
-        }
+        $this->standardStaticTest(StaticValidationUtils::class, 'isPhoneNumber', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isPhoneNumber', [$value], $expected);
     }
 }

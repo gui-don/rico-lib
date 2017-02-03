@@ -6,7 +6,7 @@ namespace Rico\Test;
 
 use Rico\Slib\FilesystemUtils;
 
-class FilesystemUtilsTest extends \PHPUnit_Framework_TestCase
+class FilesystemUtilsTest extends RicoTestCase
 {
     const TEST_DIR = 'current_test/';
     public static $strFile1 = 'file1.test';

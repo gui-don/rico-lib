@@ -7,7 +7,7 @@ namespace Rico\Test;
 use Rico\Slib\UrlUtils as StaticUrlUtils;
 use Rico\Lib\UrlUtils;
 
-class UrlUtilsTest extends \PHPUnit_Framework_TestCase
+class UrlUtilsTest extends RicoTestCase
 {
     /**
      * @var UrlUtils
@@ -59,19 +59,9 @@ class UrlUtilsTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    /**
-     * @covers StaticUrlUtils::getResourceName
-     * @dataProvider providerGetResourceName
-     */
-    public function testGetResourceNameInUrlStatic($value, $expected)
-    {
-        if ($expected !== null) {
-            $this->assertSame($expected, StaticUrlUtils::getResourceName($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StaticUrlUtils::getResourceName($value);
-        }
-    }
+
+    #--- TESTS
+
 
     /**
      * @covers UrlUtils::getResourceName
@@ -79,26 +69,8 @@ class UrlUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResourceNameInUrl($value, $expected)
     {
-        if ($expected !== null) {
-            $this->assertSame($expected, $this->urlUtils->getResourceName($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            $this->urlUtils->getResourceName($value);
-        }
-    }
-
-    /**
-     * @covers StaticUrlUtils::getUrlWithoutResourceName
-     * @dataProvider providerGetUrlWithoutResourceName
-     */
-    public function testGetUrlWithoutResourceNameStatic($value, $expected)
-    {
-        if ($expected !== null) {
-            $this->assertSame($expected, StaticUrlUtils::stripResourceName($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StaticUrlUtils::stripResourceName($value);
-        }
+        $this->standardStaticTest(StaticUrlUtils::class, 'getResourceName', [$value], $expected);
+        $this->standardTest($this->urlUtils, 'getResourceName', [$value], $expected);
     }
 
     /**
@@ -107,11 +79,7 @@ class UrlUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUrlWithoutResourceName($value, $expected)
     {
-        if ($expected !== null) {
-            $this->assertSame($expected, $this->urlUtils->stripResourceName($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            $this->urlUtils->stripResourceName($value);
-        }
+        $this->standardStaticTest(StaticUrlUtils::class, 'stripResourceName', [$value], $expected);
+        $this->standardTest($this->urlUtils, 'stripResourceName', [$value], $expected);
     }
 }

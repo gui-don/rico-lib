@@ -4,10 +4,21 @@ declare(strict_types=1);
 
 namespace Rico\Test;
 
-use Rico\Slib\ArrayUtils;
+use Rico\Slib\ArrayUtils as StaticArrayUtils;
+use Rico\Lib\ArrayUtils;
 
-class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
+class ArrayUtilsTest extends RicoTestCase
 {
+    /**
+     * @var ArrayUtils
+     */
+    private $arrayUtils;
+
+    public function setUp()
+    {
+        $this->arrayUtils = new ArrayUtils();
+    }
+
     public function providerFlatten()
     {
         return [
@@ -53,13 +64,18 @@ class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+
+    #--- TESTS
+
+
     /**
      * @covers ArrayUtils::flatten
      * @dataProvider providerFlatten
      */
     public function testFlatten($array, $expected)
     {
-        $this->assertSame($expected, ArrayUtils::flatten($array));
+        $this->assertSame($expected, StaticArrayUtils::flatten($array));
+        $this->assertSame($expected, $this->arrayUtils->flatten($array));
     }
 
     /**
@@ -68,7 +84,8 @@ class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testPluck($array, $property, $expected)
     {
-        $this->assertSame($expected, ArrayUtils::pluck($array, $property));
+        $this->assertSame($expected, StaticArrayUtils::pluck($array, $property));
+        $this->assertSame($expected, $this->arrayUtils->pluck($array, $property));
     }
 
     /**
@@ -77,6 +94,7 @@ class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
      */
     public function testTranspose($array, $expected)
     {
-        $this->assertSame($expected, ArrayUtils::transpose($array));
+        $this->assertSame($expected, StaticArrayUtils::transpose($array));
+        $this->assertSame($expected, $this->arrayUtils->transpose($array));
     }
 }
