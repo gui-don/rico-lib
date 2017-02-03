@@ -1,7 +1,7 @@
 <?php
 
-if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    throw new Exception('This library require PHP 5.5 minimum');
+if (version_compare(PHP_VERSION, '7.0.0', '<')) {
+    throw new Exception('This library require PHP 7.0 minimum');
 }
 
 /*
@@ -13,28 +13,26 @@ if (version_compare(PHP_VERSION, '5.5.0', '<')) {
  * @return void
  */
 spl_autoload_register(function ($class) {
-    // project-specific namespace prefix
     $prefix = 'Rico\\';
+    $prefixTest = 'Rico\\Test\\';
 
-    // base directory for the namespace prefix
-    $base_dir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/src/';
+    $length = strlen($prefix);
+    $lengthTest = strlen($prefixTest);
+    if (strncmp($prefix, $class, $length) === 0) {
+        $baseDir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/src/';
+        $relativeClass = substr($class, $length);
+    }
+    if (strncmp($prefixTest, $class, $lengthTest) === 0) {
+        $baseDir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/test/';
+        $relativeClass = substr($class, $lengthTest);
+    }
 
-    // does the class use the namespace prefix?
-    $len = strlen($prefix);
-    if (strncmp($prefix, $class, $len) !== 0) {
-        // no, move to the next registered autoloader
+    if (empty($baseDir)) {
         return;
     }
 
-    // get the relative class name
-    $relative_class = substr($class, $len);
+    $file = $baseDir.str_replace('\\', '/', $relativeClass).'.php';
 
-    // replace the namespace prefix with the base directory, replace namespace
-    // separators with directory separators in the relative class name, append
-    // with .php
-    $file = $base_dir.str_replace('\\', '/', $relative_class).'.php';
-
-    // if the file exists, require it
     if (file_exists($file)) {
         require $file;
     }

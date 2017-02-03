@@ -76,27 +76,29 @@ You can add this library as a local dependency to your project using [Composer](
 
 #### `StringUtils` lib ####
 
-- `removeWhitespace($string)`: Removes all sort of spaces from a $string.
-
-- `normalizeWhitespace($string)`: Replaces all sort of spaces (tab, nil, non-breaking…) in a $string by a simple space.
-
-- `removeLine($string)`: Removes all sort of line breaks inside a $string.
-
-- `normalize($string)`: Cleans a $string by removing multi-spaces, line breaks, indents and HTML tags.
-
-- `randString($length, $allowedChars)`: Generates a random string of $length $allowedChars.
-
-- `slugify($string)`: Transforms a $string into a ascii-only string separated by -.
+- `alphaToId($string, $secret)`: Converts an alphabetic $string into an identifier (an integer).
 
 - `beautifulise($uglyString)`: Transforms an $uglyString (with incorrect ponctuation) into beautiful string (with correct ponctuation).
 
+- `humanFilesize($bytes)`: Gets a human readable string of a size in $bytes.
+
+- `idToAlpha($integer, $secret)`: Converts a $identifier into an alphanumeric string.
+
 - `minify(string $string)`: Removes whitespaces, line breaks and comment out of a $string.
 
-- `alphaToId($string, $secret)`: Converts an alphabetic $string into an identifier (an integer).
+- `normalize($string)`: Cleans a $string by removing multi-spaces, line breaks, indents and HTML tags.
 
-- `IdToAlpha($integer, $secret)`: Converts a $identifier into an alphanumeric string.
+- `normalizeWhitespace($string)`: Replaces all sort of spaces (tab, nil, non-breaking…) in a $string by a simple space.
 
-- `humanFilesize($bytes)`: Gets a human readable string of a size in $bytes.
+- `randString($length, $allowedChars)`: Generates a random string of $length $allowedChars.
+
+- `removeLine($string)`: Removes all sort of line breaks inside a $string.
+
+- `removeWhitespace($string)`: Removes all sort of spaces from a $string.
+
+- `slugify($string)`: Transforms a $string into a ascii-only string separated by -.
+
+- `underscoreToSpace($string)`: Replaces underscore in $string by spaces.
 
 #### `ValidationUtils` lib ####
 

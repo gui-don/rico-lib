@@ -9,39 +9,65 @@ use Rico\Slib\StringUtils as StaticStringUtils;
 class StringUtils
 {
     /**
-     * Removes all sort of spaces from a $string.
+     * Converts an alphabetic $string into an identifier (an integer).
      *
      * @param string $string
+     * @param string $secret to decode the alphabetic string
      *
-     * @return string
+     * @return int|string
      */
-    public function removeWhitespace(string $string): string
+    public function alphaToId(string $string, string $secret = '')
     {
-        return StaticStringUtils::removeWhitespace($string);
+        return StaticStringUtils::alphaToId($string, $secret);
     }
 
     /**
-     * Replaces all sort of spaces (tab, nil, non-breaking…) in a $string by a simple space.
+     * Transforms an ugly $string (with incorrect ponctuation) into beautiful string (with correct ponctuation).
      *
      * @param string $string
      *
      * @return string
      */
-    public function normalizeWhitespace(string $string): string
+    public function beautifulise(string $string): string
     {
-        return StaticStringUtils::normalizeWhitespace($string);
+        return StaticStringUtils::beautifulise($string);
     }
 
     /**
-     * Removes all sort of line breaks inside a $string.
+     * Gets a human readable string of a size in $bytes.
+     *
+     * @param int $bytes
+     *
+     * @return string
+     */
+    public function humanFilesize(int $bytes): string
+    {
+        return StaticStringUtils::humanFilesize($bytes);
+    }
+
+    /**
+     * Converts a $identifier into an alphanumeric string.
+     *
+     * @param int    $identifier
+     * @param string $secret     to encode the integer
+     *
+     * @return string
+     */
+    public function idToAlpha(int $identifier, string $secret = ''): string
+    {
+        return StaticStringUtils::idToAlpha($identifier, $secret);
+    }
+
+    /**
+     * Removes whitespaces, line breaks and comment out of a $string.
      *
      * @param string $string
      *
      * @return string
      */
-    public function removeLine(string $string): string
+    public function minify(string $string): string
     {
-        return StaticStringUtils::removeLine($string);
+        return StaticStringUtils::minify($string);
     }
 
     /**
@@ -54,6 +80,18 @@ class StringUtils
     public function normalize(string $string): string
     {
         return StaticStringUtils::normalize($string);
+    }
+
+    /**
+     * Replaces all sort of spaces (tab, nil, non-breaking…) in a $string by a simple space.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public function normalizeWhitespace(string $string): string
+    {
+        return StaticStringUtils::normalizeWhitespace($string);
     }
 
     /**
@@ -70,6 +108,30 @@ class StringUtils
     }
 
     /**
+     * Removes all sort of line breaks inside a $string.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public function removeLine(string $string): string
+    {
+        return StaticStringUtils::removeLine($string);
+    }
+
+    /**
+     * Removes all sort of spaces from a $string.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public function removeWhitespace(string $string): string
+    {
+        return StaticStringUtils::removeWhitespace($string);
+    }
+
+    /**
      * Transforms a $string into a ascii-only string separated by -.
      *
      * @param string $string
@@ -82,76 +144,14 @@ class StringUtils
     }
 
     /**
-     * Transforms an ugly $string (with incorrect ponctuation) into beautiful string (with correct ponctuation).
+     * Replaces underscore in $string by spaces.
      *
      * @param string $string
      *
      * @return string
      */
-    public function beautifulise(string $string): string
+    public function underscoreToSpace(string $string): string
     {
-        return StaticStringUtils::beautifulise($string);
-    }
-
-    /**
-     * Removes whitespaces, line breaks and comment out of a $string.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
-    public function minify(string $string): string
-    {
-        return StaticStringUtils::minify($string);
-    }
-
-    /**
-     * Gets the name of a resource (image, pdf, …) out of an $url.
-     *
-     * @param string $url
-     *
-     * @return string
-     */
-    public function getResourceNameInUrl(string $url): string
-    {
-        return StaticStringUtils::getResourceNameInUrl($url);
-    }
-
-    /**
-     * Converts an alphabetic $string into an identifier (an integer).
-     *
-     * @param string $string
-     * @param string $secret to decode the alphabetic string
-     *
-     * @return int|string
-     */
-    public function alphaToId(string $string, string $secret = '')
-    {
-        return StaticStringUtils::alphaToId($string, $secret);
-    }
-
-    /**
-     * Converts a $identifier into an alphanumeric string.
-     *
-     * @param int    $identifier
-     * @param string $secret     to encode the integer
-     *
-     * @return string
-     */
-    public function IdToAlpha(int $identifier, string $secret = ''): string
-    {
-        return StaticStringUtils::IdToAlpha($identifier, $secret);
-    }
-
-    /**
-     * Gets a human readable string of a size in $bytes.
-     *
-     * @param int $bytes
-     *
-     * @return string
-     */
-    public function humanFilesize(int $bytes): string
-    {
-        return StaticStringUtils::humanFilesize($bytes);
+        return StaticStringUtils::underscoreToSpace($string);
     }
 }

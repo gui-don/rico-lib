@@ -6,7 +6,7 @@ namespace Rico\Test;
 
 use Rico\Slib\StringUtils;
 
-class StringUtilsTest extends \PHPUnit_Framework_TestCase
+class StringUtilsTest extends RicoTestCase
 {
     public function providerRemoveWhitespace()
     {
@@ -222,22 +222,6 @@ video {
         ];
     }
 
-    public function providerGetResourceNameInUrl()
-    {
-        return [
-            ['nope', ''], // 0
-            [null, null],
-            [false, null],
-            [0, null],
-            [new \stdClass(), null],
-            ['https://www.gog.com/game/prince_of_persia_warrior_within', 'prince_of_persia_warrior_within'], // 5
-            ['http://i3.kym-cdn.com/photos/images/original/000/976/353/cca.png', 'cca.png'],
-            ['https://en.wikipedia.org/wiki/Portable_Document_Format', 'Portable_Document_Format'],
-            ['http://docs.sfr.fr/guide/Vos_chaines_TV_box_de_SFR.pdf?#zoom=81&statusbar=0&navpanes=0&messages=0', 'Vos_chaines_TV_box_de_SFR.pdf'],
-            ['/home/test/Vidéos/Best_vid_ever.mp4', 'Best_vid_ever.mp4'],
-        ];
-    }
-
     public function providerAlphaToId()
     {
         return [
@@ -291,46 +275,78 @@ video {
         ];
     }
 
-    /**
-     * @covers StringUtils::removeWhitespace
-     * @dataProvider providerRemoveWhitespace
-     */
-    public function testRemoveWhitespace($value, $expected)
+    public function providerUnderscoreToSpace()
     {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::removeWhitespace($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::removeWhitespace($value);
-        }
+        return [
+            [null, null], // 0
+            [true, null],
+            [new \DateTime, null],
+            [3.14, null],
+            [-234, null],
+            ['test', 'test'], // 5
+            ['[Hey]_The_BIG_Move_-_A\'s_(1920x1080_Blu-ray_FLAC)_[245D1BDA].mkv', '[Hey] The BIG Move - A\'s (1920x1080 Blu-ray FLAC) [245D1BDA].mkv'],
+            ['Inside a sentence this_might_be more _ tricky_', 'Inside a sentence this might be more tricky'],
+            ['When__multiple__underscore’s___occurs', 'When multiple underscore’s occurs'],
+        ];
+    }
+
+
+    #--- TESTS
+
+
+    /**
+     * @covers StringUtils::alphaToId
+     * @dataProvider providerAlphaToId
+     */
+    public function testAlphaToId($values, $expected)
+    {
+        $this->callbackTest(StringUtils::class, 'alphaToId', $values, $expected, function () use ($values, $expected) {
+            $this->assertSame($expected, StringUtils::alphaToId($values[0], $values[1]));
+        });
     }
 
     /**
-     * @covers StringUtils::normalizeWhitespace
-     * @dataProvider providerNormalizeWhitespace
+     * @covers StringUtils::beautifulise
+     * @dataProvider providerBeautifulise
      */
-    public function testNormalizeWhitespace($value, $expected)
+    public function testBeautifulise($value, $expected)
     {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::normalizeWhitespace($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::normalizeWhitespace($value);
-        }
+        $this->callbackTest(StringUtils::class, 'beautifulise', [$value], $expected, function () use ($value, $expected) {
+            $result = StringUtils::beautifulise($value);
+            $this->assertSame($expected, $result);
+
+            // Doing it again changes nothing
+            $this->assertSame($expected, StringUtils::beautifulise($result));
+        });
     }
 
     /**
-     * @covers StringUtils::removeLine
-     * @dataProvider providerRemoveLine
+     * @covers StringUtils::humanFilesize
+     * @dataProvider providerHumanFilesize
      */
-    public function testRemoveLine($value, $expected)
+    public function testHumanFilesize($value, $expected)
     {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::removeLine($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::removeLine($value);
-        }
+        $this->standardTest(StringUtils::class, 'humanFilesize', [$value], $expected);
+    }
+
+    /**
+     * @covers StringUtils::idToAlpha
+     * @dataProvider providerIdToAlpha
+     */
+    public function testIdToAlpha($values, $expected)
+    {
+        $this->callbackTest(StringUtils::class, 'idToAlpha', $values, $expected, function () use ($values, $expected) {
+            $this->assertSame($expected, StringUtils::idToAlpha($values[0], $values[1]));
+        });
+    }
+
+    /**
+     * @covers StringUtils::minify
+     * @dataProvider providerMinify
+     */
+    public function testMinify($value, $expected)
+    {
+        $this->standardTest(StringUtils::class, 'minify', [$value], $expected);
     }
 
     /**
@@ -339,21 +355,16 @@ video {
      */
     public function testNormalize($value, $expected)
     {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::normalize($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::normalize($value);
-        }
+        $this->standardTest(StringUtils::class, 'normalize', [$value], $expected);
     }
 
     /**
      * @covers StringUtils::randString
      * @dataProvider providerRandString
      */
-    public function testRandString($value, $bExpected, $allowedChars)
+    public function testRandString($value, $expected, $allowedChars)
     {
-        if ($bExpected !== null) {
+        $this->callbackTest(StringUtils::class, 'idToAlpha', [$value, $allowedChars], $expected, function () use ($allowedChars, $value) {
             if ($value <= 0) {
                 $this->assertEmpty(StringUtils::randString($value, $allowedChars));
             } else {
@@ -367,111 +378,51 @@ video {
 
                 $this->assertEquals($value, mb_strlen($result, 'utf8'));
             }
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::randString($value, $allowedChars);
-        }
+        });
+    }
+
+    /**
+     * @covers StringUtils::normalizeWhitespace
+     * @dataProvider providerNormalizeWhitespace
+     */
+    public function testNormalizeWhitespace($value, $expected)
+    {
+        $this->standardTest(StringUtils::class, 'normalizeWhitespace', [$value], $expected);
+    }
+
+    /**
+     * @covers StringUtils::removeLine
+     * @dataProvider providerRemoveLine
+     */
+    public function testRemoveLine($value, $expected)
+    {
+        $this->standardTest(StringUtils::class, 'removeLine', [$value], $expected);
+    }
+
+    /**
+     * @covers StringUtils::removeWhitespace
+     * @dataProvider providerRemoveWhitespace
+     */
+    public function testRemoveWhitespace($value, $expected)
+    {
+        $this->standardTest(StringUtils::class, 'removeWhitespace', [$value], $expected);
     }
 
     /**
      * @covers StringUtils::slugify
      * @dataProvider providerSlugify
      */
-    public function testSlugify($value, $bExpected)
+    public function testSlugify($value, $expected)
     {
-        if ($bExpected !== null) {
-            $this->assertSame($bExpected, StringUtils::slugify($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::slugify($value);
-        }
+        $this->standardTest(StringUtils::class, 'slugify', [$value], $expected);
     }
 
     /**
-     * @covers StringUtils::beautifulise
-     * @dataProvider providerBeautifulise
+     * @covers StringUtils::underscoreToSpace
+     * @dataProvider providerUnderscoreToSpace
      */
-    public function testBeautifulise($value, $expected)
+    public function testUnderscoreToSpace($value, $expected)
     {
-        if ($expected !== null) {
-            $result = StringUtils::beautifulise($value);
-            $this->assertSame($expected, $result);
-
-            // Doing it again changes nothing
-            $this->assertSame($expected, StringUtils::beautifulise($result));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::beautifulise($value);
-        }
-    }
-
-    /**
-     * @covers StringUtils::minify
-     * @dataProvider providerMinify
-     */
-    public function testMinify($value, $expected)
-    {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::minify($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::minify($value);
-        }
-    }
-
-    /**
-     * @covers StringUtils::getResourceNameInUrl
-     * @dataProvider providerGetResourceNameInUrl
-     */
-    public function testGetResourceNameInUrl($value, $expected)
-    {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::getResourceNameInUrl($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::getResourceNameInUrl($value);
-        }
-    }
-
-    /**
-     * @covers StringUtils::alphaToId
-     * @dataProvider providerAlphaToId
-     */
-    public function testAlphaToId($values, $expected)
-    {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::alphaToId($values[0], $values[1]));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::alphaToId($values[0], $values[1]);
-        }
-    }
-
-    /**
-     * @covers StringUtils::idToAplpha
-     * @dataProvider providerIdToAlpha
-     */
-    public function testIdToAplpha($values, $expected)
-    {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::IdToAlpha($values[0], $values[1]));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::IdToAlpha($values[0], $values[1]);
-        }
-    }
-
-    /**
-     * @covers StringUtils::humanFilesize
-     * @dataProvider providerHumanFilesize
-     */
-    public function testHumanFilesize($value, $expected)
-    {
-        if ($expected !== null) {
-            $this->assertSame($expected, StringUtils::humanFilesize($value));
-        } else {
-            $this->setExpectedException('TypeError');
-            StringUtils::humanFilesize($value);
-        }
+        $this->standardTest(StringUtils::class, 'underscoreToSpace', [$value], $expected);
     }
 }
