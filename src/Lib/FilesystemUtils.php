@@ -13,19 +13,6 @@ class FilesystemUtils
     const LIST_DIRECTORY_BOTH = 3;
 
     /**
-     * Gets filenames and folders names (according to $option) inside a $path.
-     *
-     * @param string $path
-     * @param int    $option
-     *
-     * @return string[]
-     */
-    public function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH): array
-    {
-        return StaticFileUtils::listDirectory($path, $option);
-    }
-
-    /**
      * Creates the completer $path with all missing intermediates directories.
      *
      * @param string $path
@@ -48,5 +35,18 @@ class FilesystemUtils
     public function createSymlink(string $link, string $file): bool
     {
         return StaticFileUtils::createSymlink($link, $file);
+    }
+
+    /**
+     * Gets filenames and folders names (according to $option) inside a $path.
+     *
+     * @param string $path
+     * @param int    $option
+     *
+     * @return string[]
+     */
+    public function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH): array
+    {
+        return StaticFileUtils::listDirectory($path, $option);
     }
 }

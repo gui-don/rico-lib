@@ -11,6 +11,53 @@ abstract class FilesystemUtils
     const LIST_DIRECTORY_BOTH = 3;
 
     /**
+     * Creates the completer $path with all missing intermediates directories.
+     *
+     * @param string $path
+     *
+     * @return bool
+     */
+    public static function createPath(string $path): bool
+    {
+        if (!is_string($path)) {
+            return false;
+        }
+
+        if (file_exists($path)) {
+            return false;
+        }
+
+        mkdir($path, 0755, true);
+
+        return true;
+    }
+
+    /**
+     * Creates a symbolic $link pointing to $file.
+     *
+     * @param string $link
+     * @param string $file
+     *
+     * @return bool
+     */
+    public static function createSymlink(string $link, string $file): bool
+    {
+        if (!is_string($file) || !is_string($link)) {
+            return false;
+        }
+
+        if (!file_exists($link) && !file_exists(dirname($file).'/'.$link)) {
+            return false;
+        }
+
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        return symlink($link, $file);
+    }
+
+    /**
      * Gets filenames and folders names (according to $option) inside a $path.
      *
      * @param string $path
@@ -58,52 +105,5 @@ abstract class FilesystemUtils
         closedir($resourceDir);
 
         return $aResult;
-    }
-
-    /**
-     * Creates the completer $path with all missing intermediates directories.
-     *
-     * @param string $path
-     *
-     * @return bool
-     */
-    public static function createPath(string $path): bool
-    {
-        if (!is_string($path)) {
-            return false;
-        }
-
-        if (file_exists($path)) {
-            return false;
-        }
-
-        mkdir($path, 0755, true);
-
-        return true;
-    }
-
-    /**
-     * Creates a symbolic $link pointing to $file.
-     *
-     * @param string $link
-     * @param string $file
-     *
-     * @return bool
-     */
-    public static function createSymlink(string $link, string $file): bool
-    {
-        if (!is_string($file) || !is_string($link)) {
-            return false;
-        }
-
-        if (!file_exists($link) && !file_exists(dirname($file).'/'.$link)) {
-            return false;
-        }
-
-        if (file_exists($file)) {
-            unlink($file);
-        }
-
-        return symlink($link, $file);
     }
 }
