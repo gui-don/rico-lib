@@ -17,30 +17,34 @@ It also needs the `php-iconv`, `php-mbstring` and `php-dom` extensions to be ena
 
 ### How to - Procedural style ###
 
-    <?php
+```php
+<?php
 
-    require_once('autoload.php');
+require_once('autoload.php');
 
-    use \Rico\Slib\StringUtils;
+use \Rico\Slib\StringUtils;
 
-    // […] Some code
-    // $uglyString = getUglyString();
+// […] Some code
+// $uglyString = getUglyString();
 
-    $beautifulString = StringUtils::beautifulise($uglyString);
+$beautifulString = StringUtils::beautifulise($uglyString);
+```
 
 ### How to - OOP style ###
 
-    <?php
+```php
+<?php
 
-    require_once('autoload.php');
+require_once('autoload.php');
 
-    use \Rico\Lib\StringUtils;
+use \Rico\Lib\StringUtils;
 
-    // […] Some code
-    // $uglyString = $object->getUglyString();
+// […] Some code
+// $uglyString = $object->getUglyString();
 
-    $stringUtils = new StringUtils();
-    $beautifulString = $stringUtils->beautifulise($uglyString);
+$stringUtils = new StringUtils();
+$beautifulString = $stringUtils->beautifulise($uglyString);
+```
 
 ### Installation ###
 
