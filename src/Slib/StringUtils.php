@@ -191,6 +191,18 @@ abstract class StringUtils
     }
 
     /**
+     * Removes brackets and its content from a $string.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public function removeBracketContent(string $string): string
+    {
+        return trim(preg_replace("#\s*\[[^)]+\]\s*#", '', $string));
+    }
+
+    /**
      * Removes all sort of line breaks inside a $string.
      *
      * @param string $string

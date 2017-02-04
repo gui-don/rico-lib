@@ -19,149 +19,21 @@ class StringUtilsTest extends RicoTestCase
         $this->stringUtils = new StringUtils();
     }
 
-    public function providerRemoveWhitespace()
+    public function providerAlphaToId()
     {
         return [
-            [false, null], // 0
-            [null, null],
-            [-47.12, null],
-            [7484, null],
-            [new \stdClass(), null],
-            ['   &nbsp;', '&nbsp;'], // 5
-            ['666  ', '666'],
-            ['107, quai du docteur Dervaux,92600  ', '107,quaidudocteurDervaux,92600'],
-            ['Espace  demerde', 'Espacedemerde'],
-            ['On veut	garder les
-                retours à la
-                ligne mais pas les  espaces',
-                'Onveutgarderles
-retoursàla
-lignemaispaslesespaces', ],
-        ];
-    }
-
-    public function providerNormalizeWhitespace()
-    {
-        return [
-            [false, null], // 0
-            [null, null],
-            [-47.12, null],
-            [7484, null],
-            [new \stdClass(), null],
-            ['   &nbsp;', '&nbsp;'], // 5
-            ['666', '666'],
-            ['107, quai du docteur Dervaux,92600  ', '107, quai du docteur Dervaux,92600'],
-            ['Espace  demerde', 'Espace de merde'],
-            ['On veut	garder les
-                retours à la
-                ligne mais pas les  espaces',
-                'On veut garder les
- retours à la
- ligne mais pas les espaces', ],
-        ];
-    }
-
-    public function providerRemoveLine()
-    {
-        return [
-            [false, null], // 0
-            [null, null],
-            [-47.12, null],
-            [7484, null],
-            [new \stdClass(), null],
-            ["Ceci <br /> avec un saut
- à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci <br /> avec un saut à la   ligne   et des espaces  en trop 	!  '], // 5
-            [' Multiples
- sauts
- à
- la
- ligne.', ' Multiples sauts à la ligne.'],
-            ['666', '666'],
-            ['
-    Chaos
-
-
-Pompidou
-
-
-
-
-   ', '    ChaosPompidou   '],
-        ];
-    }
-
-    public function providerNormalize()
-    {
-        return [
-            [false, null], // 0
-            [null, null],
-            [-47.12, null],
-            [7484, null],
-            [new \stdClass(), null],
-            ["Ceci <br /> avec un saut
-                à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci avec un saut à la ligne et des espaces en trop !'], // 5
-            ['\";alert(\'XSS escaping vulnerability\');//', '\";alert(\'XSS escaping vulnerability\');//'],
-            ['   &nbsp;', ''],
-            [' Multiples
-                sauts
-                à
-                la
-                ligne.', 'Multiples sauts à la ligne.'],
-            ['<h1>La pêche aux moules</h1><p>La pêche des moules etc.</p><br /><p>C\'est plus facile en <a href="#">hivers</a> etc.</p>', 'La pêche aux moulesLa pêche des moules etc. C\'est plus facile en hivers etc.'],
-            ['666', '666'], // 10
-            ['¿Puede seguir funcionando sin una  red  social corporativa?', '¿Puede seguir funcionando sin una red social corporativa?'],
-            ['<div>IS THAT A <br/></div>', 'IS THAT A'],
-            ['&nbsp;&lt;ok&gt;&nbsp;&nbsp; TAG OK ? zc"  ', 'TAG OK ? zc"'],
-            ['
-    Exemplo #1 Creating a Document
-
-
-<?php$doc = new DOMDocument();$doc->loadHTMLFile("filename.html");echo $doc->saveHTML();?>
-
-
-
-
-   ', 'Exemplo #1 Creating a Document'],
-        ];
-    }
-
-    public function providerRandString()
-    {
-        return [
-            ['', null, ''], // 0
-            [true, null, 'ok'],
-            ['test', null, ''],
-            [2.5, null, ''],
-            [-4, false, 'abcde'],
-            [15, null, new \stdClass()], // 5
-            [15, null, 45],
-            [0, false, ''],
-            [2, true, ''],
-            [12, true, ''],
-            [15, true, ''], // 10
-            [15, true, '0123456789'],
-            [30, true, 'abc'],
-            [20, true, '012345çàé'],
-            [7, true, 'ù%3~'],
-            [50, true, 'aBcDeFgHiJkLmNoPqRsTuVwXyZ'], // 15
-        ];
-    }
-
-    public function providerSlugify()
-    {
-        return [
-            [false, null], // 0
-            [null, null],
-            [-47.12, null],
-            [7484, null],
-            [new \stdClass(), null],
-            ['test', 'test'], // 5
-            ['Êtes-vous fait pour être le prochain développeur de notre agence ?', 'etes-vous-fait-pour-etre-le-prochain-developpeur-de-notre-agence'],
-            ['0123456789', '0123456789'],
-            ['	927 • Entidad aseguradora, ¿estás preparada para combatir el fraude?', '927-entidad-aseguradora-estas-preparada-para-combatir-el-fraude'],
-            ['     PMI : Qué vale su Gestión de Producción
-                (GPAO) ?', 'pmi-que-vale-su-gestion-de-produccion-gpao'],
-            ['', ''],
+            [[null, ''], null], // 0
+            [[false, ''], null],
+            [[0, ''], null],
+            [[new \stdClass(), ''], null],
+            [['test', new \stdClass()], null],
+            [['abraCADABRA', ''], 17251060315943390], // 5
+            [['phpcode', ''], 858638639286],
+            [['phpcode', 'secret'], 1193128009855],
+            [['', ''], 0],
+            [['', 'secret'], 0],
+            [['777', ''], 128931], // 10
+            [['/home/', ''], 106817320],
         ];
     }
 
@@ -193,6 +65,41 @@ Pompidou
     "oui" ! Ou plutôt, "Moui" !', 'Il m’a dit :
  “oui” ! Ou plutôt, “Moui” !'],
             ['a "mystery voice" suddenly speaks to them: "A game has now started. In order to escape the room, Keisuke is the "unlocker" and one heroine the "keyhole". With an assigned act, he must "use the key"."', 'a “mystery voice” suddenly speaks to them: “A game has now started. In order to escape the room, Keisuke is the “unlocker” and one heroine the “keyhole”. With an assigned act, he must “use the key”.”'],
+        ];
+    }
+
+    public function providerHumanFilesize()
+    {
+        return [
+            [null, null], // 0
+            ['test', null],
+            [new \DateTime, null],
+            [3.14, null],
+            [true, null],
+            [0, '0B'], // 5
+            [-243, '-0.24KB'],
+            [2434, '2.38KB'],
+            [23415406323, '21.8GB'],
+            [141540632, '135MB'],
+        ];
+    }
+
+    public function providerIdToAlpha()
+    {
+        return [
+            [[null, ''], null], // 0
+            [[false, ''], null],
+            [[0, ''], 'a'],
+            [[new \stdClass(), ''], null],
+            [['test', new \stdClass()], null],
+            [['abraCADABRA', ''], null], // 5
+            [[3432, 345], null],
+            [[858638639286, ''], 'phpcode'],
+            [[1193128009855, 'secret'], 'phpcode'],
+            [[0, 'secret'], 'h'],
+            [[128931, ''], '777'], // 10
+            [[106817320, ''], 'homea'],
+            [[92395783831158784, ''], 'gPkLA3jITS'],
         ];
     }
 
@@ -233,56 +140,165 @@ video {
         ];
     }
 
-    public function providerAlphaToId()
+    public function providerNormalize()
     {
         return [
-            [[null, ''], null], // 0
-            [[false, ''], null],
-            [[0, ''], null],
-            [[new \stdClass(), ''], null],
-            [['test', new \stdClass()], null],
-            [['abraCADABRA', ''], 17251060315943390], // 5
-            [['phpcode', ''], 858638639286],
-            [['phpcode', 'secret'], 1193128009855],
-            [['', ''], 0],
-            [['', 'secret'], 0],
-            [['777', ''], 128931], // 10
-            [['/home/', ''], 106817320],
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ["Ceci <br /> avec un saut
+                à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci avec un saut à la ligne et des espaces en trop !'], // 5
+            ['\";alert(\'XSS escaping vulnerability\');//', '\";alert(\'XSS escaping vulnerability\');//'],
+            ['   &nbsp;', ''],
+            [' Multiples
+                sauts
+                à
+                la
+                ligne.', 'Multiples sauts à la ligne.'],
+            ['<h1>La pêche aux moules</h1><p>La pêche des moules etc.</p><br /><p>C\'est plus facile en <a href="#">hivers</a> etc.</p>', 'La pêche aux moulesLa pêche des moules etc. C\'est plus facile en hivers etc.'],
+            ['666', '666'], // 10
+            ['¿Puede seguir funcionando sin una  red  social corporativa?', '¿Puede seguir funcionando sin una red social corporativa?'],
+            ['<div>IS THAT A <br/></div>', 'IS THAT A'],
+            ['&nbsp;&lt;ok&gt;&nbsp;&nbsp; TAG OK ? zc"  ', 'TAG OK ? zc"'],
+            ['
+    Exemplo #1 Creating a Document
+
+
+<?php$doc = new DOMDocument();$doc->loadHTMLFile("filename.html");echo $doc->saveHTML();?>
+
+
+
+
+   ', 'Exemplo #1 Creating a Document'],
         ];
     }
 
-    public function providerIdToAlpha()
+    public function providerNormalizeWhitespace()
     {
         return [
-            [[null, ''], null], // 0
-            [[false, ''], null],
-            [[0, ''], 'a'],
-            [[new \stdClass(), ''], null],
-            [['test', new \stdClass()], null],
-            [['abraCADABRA', ''], null], // 5
-            [[3432, 345], null],
-            [[858638639286, ''], 'phpcode'],
-            [[1193128009855, 'secret'], 'phpcode'],
-            [[0, 'secret'], 'h'],
-            [[128931, ''], '777'], // 10
-            [[106817320, ''], 'homea'],
-            [[92395783831158784, ''], 'gPkLA3jITS'],
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ['   &nbsp;', '&nbsp;'], // 5
+            ['666', '666'],
+            ['107, quai du docteur Dervaux,92600  ', '107, quai du docteur Dervaux,92600'],
+            ['Espace  demerde', 'Espace de merde'],
+            ['On veut	garder les
+                retours à la
+                ligne mais pas les  espaces',
+                'On veut garder les
+ retours à la
+ ligne mais pas les espaces', ],
         ];
     }
 
-    public function providerHumanFilesize()
+    public function providerRemoveBracketContent()
     {
         return [
             [null, null], // 0
-            ['test', null],
+            [true, null],
             [new \DateTime, null],
             [3.14, null],
-            [true, null],
-            [0, '0B'], // 5
-            [-243, '-0.24KB'],
-            [2434, '2.38KB'],
-            [23415406323, '21.8GB'],
-            [141540632, '135MB'],
+            [-234, null],
+            ['test', 'test'], // 5
+            ['[Hey]_The_BIG_Move_-_A\'s_(1920x1080_Blu-ray_FLAC)_[245D1BDA].mkv', '_The_BIG_Move_-_A\'s_(1920x1080_Blu-ray_FLAC)_.mkv'],
+            ['Multiple [imbricated[stuff[]] ]  ', 'Multiple'],
+            ['Openened [but not ended[', 'Openened [but not ended['],
+            ['start][OK] @éàù¥ - ][€nd;', 'start][€nd;'],
+        ];
+    }
+
+    public function providerRemoveLine()
+    {
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ["Ceci <br /> avec un saut
+ à la   ligne   et \ndes es\r\npac\n\res  en trop \t!  ", 'Ceci <br /> avec un saut à la   ligne   et des espaces  en trop 	!  '], // 5
+            [' Multiples
+ sauts
+ à
+ la
+ ligne.', ' Multiples sauts à la ligne.'],
+            ['666', '666'],
+            ['
+    Chaos
+
+
+Pompidou
+
+
+
+
+   ', '    ChaosPompidou   '],
+        ];
+    }
+
+    public function providerRemoveWhitespace()
+    {
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ['   &nbsp;', '&nbsp;'], // 5
+            ['666  ', '666'],
+            ['107, quai du docteur Dervaux,92600  ', '107,quaidudocteurDervaux,92600'],
+            ['Espace  demerde', 'Espacedemerde'],
+            ['On veut	garder les
+                retours à la
+                ligne mais pas les  espaces',
+                'Onveutgarderles
+retoursàla
+lignemaispaslesespaces', ],
+        ];
+    }
+
+    public function providerRandString()
+    {
+        return [
+            ['', null, ''], // 0
+            [true, null, 'ok'],
+            ['test', null, ''],
+            [2.5, null, ''],
+            [-4, false, 'abcde'],
+            [15, null, new \stdClass()], // 5
+            [15, null, 45],
+            [0, false, ''],
+            [2, true, ''],
+            [12, true, ''],
+            [15, true, ''], // 10
+            [15, true, '0123456789'],
+            [30, true, 'abc'],
+            [20, true, '012345çàé'],
+            [7, true, 'ù%3~'],
+            [50, true, 'aBcDeFgHiJkLmNoPqRsTuVwXyZ'], // 15
+        ];
+    }
+
+    public function providerSlugify()
+    {
+        return [
+            [false, null], // 0
+            [null, null],
+            [-47.12, null],
+            [7484, null],
+            [new \stdClass(), null],
+            ['test', 'test'], // 5
+            ['Êtes-vous fait pour être le prochain développeur de notre agence ?', 'etes-vous-fait-pour-etre-le-prochain-developpeur-de-notre-agence'],
+            ['0123456789', '0123456789'],
+            ['	927 • Entidad aseguradora, ¿estás preparada para combatir el fraude?', '927-entidad-aseguradora-estas-preparada-para-combatir-el-fraude'],
+            ['     PMI : Qué vale su Gestión de Producción
+                (GPAO) ?', 'pmi-que-vale-su-gestion-de-produccion-gpao'],
+            ['', ''],
         ];
     }
 
@@ -407,6 +423,16 @@ video {
     {
         $this->standardStaticTest(StaticStringUtils::class, 'normalizeWhitespace', [$value], $expected);
         $this->standardTest($this->stringUtils, 'normalizeWhitespace', [$value], $expected);
+    }
+
+    /**
+     * @covers StringUtils::removeBracketContent
+     * @dataProvider providerRemoveBracketContent
+     */
+    public function testRemoveBracketContent($value, $expected)
+    {
+        $this->standardStaticTest(StaticStringUtils::class, 'removeBracketContent', [$value], $expected);
+        $this->standardTest($this->stringUtils, 'removeBracketContent', [$value], $expected);
     }
 
     /**

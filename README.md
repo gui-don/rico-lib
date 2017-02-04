@@ -92,6 +92,8 @@ You can add this library as a local dependency to your project using [Composer](
 
 - `randString($length, $allowedChars)`: Generates a random string of $length $allowedChars.
 
+- `removeBracketContent($string)`: Removes brackets and its content from a $string.
+
 - `removeLine($string)`: Removes all sort of line breaks inside a $string.
 
 - `removeWhitespace($string)`: Removes all sort of spaces from a $string.
