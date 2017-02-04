@@ -197,7 +197,7 @@ abstract class StringUtils
      *
      * @return string
      */
-    public function removeBracketContent(string $string): string
+    public static function removeBracketContent(string $string): string
     {
         return trim(preg_replace("#\s*\[[^)]+\]\s*#", '', $string));
     }
