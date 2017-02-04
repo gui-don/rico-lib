@@ -48,6 +48,8 @@ You can add this library as a local dependency to your project using [Composer](
 
     composer require gui-don/rico-library
 
+Missing a function? Make a pull request or simply extends the following classes.
+
 ---
 
 #### `ArrayUtils` lib ####
