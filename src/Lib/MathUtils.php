@@ -12,7 +12,7 @@ class MathUtils
      * Rounds a $number adding decimal part only when int part of $number < $idealLength.
      *
      * @param float $number
-     * @param int $idealLength
+     * @param int   $idealLength
      *
      * @return float
      */

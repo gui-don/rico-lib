@@ -21,7 +21,6 @@ class UrlUtils
     }
 
     /** Gets the URL without the resource (image, pdf, …).
-     *
      * @param string $url
      *
      * @return string

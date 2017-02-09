@@ -196,12 +196,10 @@ class ValidationUtilsTest extends RicoTestCase
         ];
     }
 
-
-    #--- TESTS
-
+    //--- TESTS
 
     /**
-     * @covers ValidationUtils::isEmail
+     * @covers \ValidationUtils::isEmail
      * @dataProvider providerIsEmail
      */
     public function testIsEmail($value, $expected)
@@ -211,7 +209,7 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ValidationUtils::isHexadecimal
+     * @covers \ValidationUtils::isHexadecimal
      * @dataProvider providerIsHexadecimal
      */
     public function testIsHexadecimal($value, $expected)
@@ -221,7 +219,7 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ValidationUtils::isIp
+     * @covers \ValidationUtils::isIp
      * @dataProvider providerIsIp
      */
     public function testIsIp($value, $expected)
@@ -231,7 +229,7 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ValidationUtils::isNumber
+     * @covers \ValidationUtils::isNumber
      * @dataProvider providerIsNumber
      */
     public function testIsNumber($value, $expected)
@@ -241,7 +239,7 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ValidationUtils::isPhoneNumber
+     * @covers \ValidationUtils::isPhoneNumber
      * @dataProvider providerIsPhoneNumber
      */
     public function testIsPhoneNumber($value, $expected)
@@ -251,7 +249,7 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ValidationUtils::isPositiveInt
+     * @covers \ValidationUtils::isPositiveInt
      * @dataProvider providerIsPositiveInt
      */
     public function testIsPositiveInt($value, $expected)
@@ -261,7 +259,7 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ValidationUtils::isUrl
+     * @covers \ValidationUtils::isUrl
      * @dataProvider providerIsURL
      */
     public function testIsURL($value, $expected)

@@ -10,7 +10,7 @@ abstract class MathUtils
      * Rounds a $number adding decimal part only when int part of $number < $idealLength.
      *
      * @param float $number
-     * @param int $idealLength
+     * @param int   $idealLength
      *
      * @return float
      */
@@ -22,7 +22,7 @@ abstract class MathUtils
 
         $intPart = intval($number);
 
-        $precision = $idealLength - strlen((string) $intPart);
+        $precision = $idealLength - mb_strlen((string) $intPart);
         if ($precision < 0) {
             $precision = 0;
         }

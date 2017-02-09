@@ -11,8 +11,8 @@ class RicoTestCase extends \PHPUnit_Framework_TestCase
      *
      * @param string $utilFile
      * @param string $functionToTest
-     * @param array $argsValue
-     * @param mixed $expected
+     * @param array  $argsValue
+     * @param mixed  $expected
      */
     protected function standardStaticTest(string $utilFile, string $functionToTest, array $argsValue, $expected)
     {
@@ -24,10 +24,10 @@ class RicoTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Do a $function test on $utilFile:$functionToTest with $value and $expected. Handles the TypeError exception automatically.
      *
-     * @param string $utilFile
-     * @param string $functionToTest
-     * @param array $argsValue
-     * @param mixed $expected
+     * @param string   $utilFile
+     * @param string   $functionToTest
+     * @param array    $argsValue
+     * @param mixed    $expected
      * @param \Closure $function
      */
     protected function callbackStandardStaticTest(string $utilFile, string $functionToTest, array $argsValue, $expected, \Closure $function)
@@ -43,10 +43,10 @@ class RicoTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Do a standard test on $utilFile:$functionToTest with $value and $expected. Handles the TypeError exception automatically.
      *
-     * @param mixed $utilObject
+     * @param mixed  $utilObject
      * @param string $functionToTest
-     * @param array $argsValue
-     * @param mixed $expected
+     * @param array  $argsValue
+     * @param mixed  $expected
      */
     protected function standardTest($utilObject, string $functionToTest, array $argsValue, $expected)
     {
@@ -58,10 +58,10 @@ class RicoTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Do a $function test on $utilFile:$functionToTest with $value and $expected. Handles the TypeError exception automatically.
      *
-     * @param mixed $utilObject
-     * @param string $functionToTest
-     * @param array $argsValue
-     * @param mixed $expected
+     * @param mixed    $utilObject
+     * @param string   $functionToTest
+     * @param array    $argsValue
+     * @param mixed    $expected
      * @param \Closure $function
      */
     protected function callbackStandardTest($utilObject, string $functionToTest, array $argsValue, $expected, \Closure $function)

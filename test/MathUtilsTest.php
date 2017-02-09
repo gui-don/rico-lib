@@ -39,12 +39,10 @@ class MathUtilsTest extends RicoTestCase
         ];
     }
 
-
-    #--- TESTS
-
+    //--- TESTS
 
     /**
-     * @covers MathUtils::smartRound
+     * @covers \MathUtils::smartRound
      * @dataProvider providerSmartRound
      */
     public function testSmartRound($value, $idealLength, $expected)

@@ -64,12 +64,10 @@ class ArrayUtilsTest extends RicoTestCase
         ];
     }
 
-
-    #--- TESTS
-
+    //--- TESTS
 
     /**
-     * @covers ArrayUtils::flatten
+     * @covers \ArrayUtils::flatten
      * @dataProvider providerFlatten
      */
     public function testFlatten($array, $expected)
@@ -79,7 +77,7 @@ class ArrayUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ArrayUtils::pluck
+     * @covers \ArrayUtils::pluck
      * @dataProvider providerPluck
      */
     public function testPluck($array, $property, $expected)
@@ -89,7 +87,7 @@ class ArrayUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers ArrayUtils::transpose
+     * @covers \ArrayUtils::transpose
      * @dataProvider providerTranspose
      */
     public function testTranspose($array, $expected)

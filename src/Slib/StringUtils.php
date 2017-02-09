@@ -18,8 +18,8 @@ abstract class StringUtils
     {
         $out = 0;
         $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $base = strlen($index);
-        $stringLength = strlen($string) - 1;
+        $base = mb_strlen($index);
+        $stringLength = mb_strlen($string) - 1;
 
         if ($secret) {
             $splitIndex = str_split($index);
@@ -31,7 +31,7 @@ abstract class StringUtils
 
         for ($t = $stringLength; $t >= 0; --$t) {
             $bcp = $base ** ($stringLength - $t);
-            $out += strpos($index, substr($string, $t, 1)) * $bcp;
+            $out += mb_strpos($index, mb_substr($string, $t, 1)) * $bcp;
         }
 
         return $out;
@@ -55,7 +55,7 @@ abstract class StringUtils
         }, $uglyString);
 
         // Count quotes
-        $QuotesCount = strlen($uglyString) - strlen(str_replace('"', '', $uglyString));
+        $QuotesCount = mb_strlen($uglyString) - mb_strlen(str_replace('"', '', $uglyString));
 
         // Repeat two times is important for quotes inside quotes
         if ($QuotesCount % 2 == 0) {
@@ -76,9 +76,9 @@ abstract class StringUtils
     public static function humanFilesize(int $bytes): string
     {
         $size = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        $factor = floor((strlen((string) $bytes) - 1) / 3);
+        $factor = floor((mb_strlen((string) $bytes) - 1) / 3);
 
-        return MathUtils::smartRound($bytes / pow(1024, $factor)) . @$size[$factor];
+        return MathUtils::smartRound($bytes / pow(1024, $factor)).@$size[$factor];
     }
 
     /**
@@ -93,20 +93,20 @@ abstract class StringUtils
     {
         $out = '';
         $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $base = strlen($index);
+        $base = mb_strlen($index);
 
         if ($secret) {
             $splitIndex = str_split($index);
 
             // Create a new generated secret order based on secret
-            array_multisort(str_split(substr(hash('sha512', $secret), 0, $base)), SORT_DESC, $splitIndex);
+            array_multisort(str_split(mb_substr(hash('sha512', $secret), 0, $base)), SORT_DESC, $splitIndex);
             $index = implode($splitIndex);
         }
 
         for ($t = ($identifier != 0 ? floor(log($identifier, $base)) : 0); $t >= 0; --$t) {
             $bcp = $base ** $t;
             $a = floor($identifier / $bcp) % $base;
-            $out .= substr($index, $a, 1);
+            $out .= mb_substr($index, $a, 1);
             $identifier = $identifier - ($a * $bcp);
         }
 
@@ -250,7 +250,7 @@ abstract class StringUtils
         // Transliterate
         $string = \iconv('UTF-8', 'US-ASCII//TRANSLIT', $string);
 
-        $string = strtolower($string);
+        $string = mb_strtolower($string);
 
         // Remove unwanted characters
         $string = preg_replace('~[^-\w]+~', '', $string);

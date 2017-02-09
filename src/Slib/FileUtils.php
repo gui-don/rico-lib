@@ -52,7 +52,7 @@ abstract class FileUtils
         $handle = fopen($file, 'r');
         while (!feof($handle)) {
             $line = fgets($handle, 4096);
-            $lastChar = strlen((string) $line) - 1;
+            $lastChar = mb_strlen((string) $line) - 1;
 
             if ($lastChar == 0) {
                 if ($countEmpty) {
