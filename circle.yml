@@ -16,8 +16,6 @@ dependencies:
 test:
     override:
         - composer validate
-        - php bin/php-cs-fixer.phar fix --dry-run --allow-risky=yes 
---rules=@Symfony,linebreak_after_opening_tag,mb_str_functions,no_php4_constructor,phpdoc_order,declare_strict_types src
-	- php bin/php-cs-fixer.phar fix --dry-run --allow-risky=yes 
---rules=@Symfony,linebreak_after_opening_tag,mb_str_functions,no_php4_constructor,phpdoc_order,declare_strict_types test
+        - php bin/php-cs-fixer.phar fix --dry-run --allow-risky=yes --rules=@Symfony,linebreak_after_opening_tag,mb_str_functions,no_php4_constructor,phpdoc_order,declare_strict_types src
+	    - php bin/php-cs-fixer.phar fix --dry-run --allow-risky=yes --rules=@Symfony,linebreak_after_opening_tag,mb_str_functions,no_php4_constructor,phpdoc_order,declare_strict_types test
         - php bin/phpunit.phar
