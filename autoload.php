@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 if (version_compare(PHP_VERSION, '7.0.0', '<')) {
     throw new Exception('This library require PHP 7.0 minimum');

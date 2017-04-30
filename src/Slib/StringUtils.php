@@ -78,7 +78,7 @@ abstract class StringUtils
         $size = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $factor = floor((mb_strlen((string) $bytes) - 1) / 3);
 
-        return MathUtils::smartRound($bytes / pow(1024, $factor)).@$size[$factor];
+        return MathUtils::smartRound($bytes / pow(1000, $factor)).@$size[$factor];
     }
 
     /**
