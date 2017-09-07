@@ -123,7 +123,7 @@ Missing a function? Make a pull request or simply extends the following classes.
 
 - `isURL($mixed)`: Checks that $mixed value is an URL.
 
-- `isURL($mixed)`: Checks that $mixed value is a magnet URL.
+- `isURLMagnet($mixed)`: Checks that $mixed value is a magnet URL.
 
 #### `MathUtils` lib ####
 
