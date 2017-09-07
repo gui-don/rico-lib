@@ -91,4 +91,16 @@ class ValidationUtils
     {
         return StaticValidationUtils::isURL($mixed);
     }
+
+    /**
+     * Checks that $mixed value is magnet URL.
+     *
+     * @param mixed $mixed
+     *
+     * @return bool
+     */
+    public function isURLMagnet($mixed): bool
+    {
+        return StaticValidationUtils::isURLMagnet($mixed);
+    }
 }

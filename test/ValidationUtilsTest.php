@@ -196,6 +196,21 @@ class ValidationUtilsTest extends RicoTestCase
         ];
     }
 
+    public function providerIsURLMagnet()
+    {
+        return [
+            ['test', false], // 0
+            [true, false],
+            ['2e4', false],
+            [-47.12, false],
+            [0, false],
+            ['jojo_admin@augure.com', false], // 5
+            ['http://fr.wikipedia.org/', false],
+            ['magnet:?xt=urn:btih:331c7fac2e13c251d77521d2dc61976b6fc4a033&dn=archlinux-2015.06.01-x86_64.iso&tr=udp://tracker.archlinux.org:6969&tr=http://tracker.archlinux.org:6969/announce', true],
+            ['magnet:?xt=urn:ed2k:31D6CFE0D16AE931B73C59D7E0C089C0&xl=0&dn=zero_len.fil', true],
+        ];
+    }
+
     //--- TESTS
 
     /**
@@ -266,5 +281,15 @@ class ValidationUtilsTest extends RicoTestCase
     {
         $this->standardStaticTest(StaticValidationUtils::class, 'isUrl', [$value], $expected);
         $this->standardTest($this->validationUtils, 'isUrl', [$value], $expected);
+    }
+
+    /**
+     * @covers \ValidationUtils::isUrlMagnet
+     * @dataProvider providerIsURLMagnet
+     */
+    public function testIsURLMagnet($value, $expected)
+    {
+        $this->standardStaticTest(StaticValidationUtils::class, 'isURLMagnet', [$value], $expected);
+        $this->standardTest($this->validationUtils, 'isURLMagnet', [$value], $expected);
     }
 }

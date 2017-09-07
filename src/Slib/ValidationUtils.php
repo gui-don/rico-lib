@@ -119,4 +119,19 @@ abstract class ValidationUtils
             preg_match('_^(https?|ftp)://(\S+(:\S*)?@)?(([1-9]|[1-9]\d|1\d\d|2[0-1]\d|22[0-3])(\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])){2}(\.([1-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-4]))|(([a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(\.([a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(\.([a-z\x{00a1}-\x{ffff}]{2,})))(:\d{2,5})?(/[^\s]*)?$_iuS', $mixed)
         ;
     }
+
+    /**
+     * Checks that $mixed value is magnet URL.
+     *
+     * @param mixed $mixed
+     *
+     * @return bool
+     */
+    public static function isURLMagnet($mixed): bool
+    {
+        return
+            is_string($mixed) &&
+            preg_match('#^magnet:\?xt=urn:[a-z0-9][a-z0-9-]{0,31}:[a-z0-9]{32,40}#i', $mixed)
+        ;
+    }
 }
