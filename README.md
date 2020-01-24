@@ -3,8 +3,8 @@
 
 <p align="center"><img src="rico.png" /></p>
 
-| Pipeline | Code Quality | Coverage |
-|:--------:|:------------:|:--------:|
+| Pipeline |
+|:--------:|
 [![pipeline status](https://gitlab.com/gui-don/rico-lib/badges/master/pipeline.svg)](https://gitlab.com/rico-lib/moustache/commits/master)
 
 
