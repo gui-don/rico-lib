@@ -1,7 +1,16 @@
-# Rico-lib Project [![CircleCI](https://circleci.com/gh/gui-don/Rico-library.svg?style=svg)](https://circleci.com/gh/gui-don/Rico-library)
----
+# Rico-lib Project
+
 
 <p align="center"><img src="rico.png" /></p>
+
+| Pipeline | Code Quality | Coverage |
+|:--------:|:------------:|:--------:|
+[![pipeline status](https://gitlab.com/gui-don/rico-lib/badges/master/pipeline.svg)](https://gitlab.com/rico-lib/moustache/commits/master)
+
+
+| PHP 7.4 | PHP 7.3 | PHP 7.2 | PHP 7.1 | PHP 7.0 | Older PHP |
+|:-------:|:-------:|:-------:|:-------:|:-------:|:---------:|
+| ✔       | ✔       | ✔       | ✔       | ✖       | ✖         |
 
 
 ## A bunch of PHP utility libraries. ##
