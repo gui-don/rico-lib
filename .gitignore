@@ -1,2 +1,3 @@
 # PHP CS fixer
 .php_cs.cache
+vendor
