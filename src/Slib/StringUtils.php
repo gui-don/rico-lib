@@ -247,9 +247,13 @@ abstract class StringUtils
         // replace non letter or digits by -
         $string = preg_replace('#[^\\pL\d]+#u', '-', $string);
 
-        $string = transliterator_transliterate("Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC; Lower();", $string);
+        $transliterate_string = transliterator_transliterate("Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC; Lower();", $string);
 
-        $string = trim($string, '-');
+        if (false === $transliterate_string) {
+            throw new \Exception('This function (' . __FUNCTION__ .') was not able to transliterate “'. $string .'”');
+        }
+
+        $string = trim($transliterate_string, '-');
 
         return $string;
     }
