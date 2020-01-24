@@ -113,11 +113,11 @@ class FilesystemUtilsTest extends RicoTestCase
      */
     public function testListDirectory()
     {
-        $this->assertEquals(['directory' => [self::$strDir, self::$strDir2], 'file' => [self::$strFile1, self::$strFile2, self::$strFile3]], StaticFilesystemUtils::listDirectory(self::TEST_DIR));
-        $this->assertEquals(['directory' => [self::$strDir, self::$strDir2], 'file' => [self::$strFile1, self::$strFile2, self::$strFile3]], StaticFilesystemUtils::listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_BOTH));
-        $this->assertEquals(['file' => [self::$strFile4]], StaticFilesystemUtils::listDirectory(self::TEST_DIR.self::$strDir2));
-        $this->assertEquals([self::$strDir, self::$strDir2], StaticFilesystemUtils::listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_DIR_ONLY));
-        $this->assertEquals([self::$strFile1, self::$strFile2, self::$strFile3], StaticFilesystemUtils::listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_FILE_ONLY));
+        $this->assertEqualsCanonicalizing(['directory' => [self::$strDir, self::$strDir2], 'file' => [self::$strFile1, self::$strFile2, self::$strFile3]], StaticFilesystemUtils::listDirectory(self::TEST_DIR));
+        $this->assertEqualsCanonicalizing(['directory' => [self::$strDir, self::$strDir2], 'file' => [self::$strFile1, self::$strFile2, self::$strFile3]], StaticFilesystemUtils::listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_BOTH));
+        $this->assertEqualsCanonicalizing(['file' => [self::$strFile4]], StaticFilesystemUtils::listDirectory(self::TEST_DIR.self::$strDir2));
+        $this->assertEqualsCanonicalizing([self::$strDir, self::$strDir2], StaticFilesystemUtils::listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_DIR_ONLY));
+        $this->assertEqualsCanonicalizing([self::$strFile1, self::$strFile2, self::$strFile3], StaticFilesystemUtils::listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_FILE_ONLY));
     }
 
     /**
