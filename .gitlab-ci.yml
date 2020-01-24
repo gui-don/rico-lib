@@ -14,7 +14,6 @@ variables:
 
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
-  - template: SAST.gitlab-ci.yml
 
 # Static analysis
 
@@ -30,6 +29,9 @@ code_style:
 
 sast:
   extends: .sa_template
+  artifacts:
+    reports:
+      sast: gl-sast-report.json
   script:
     - chmod +x ./vendor/pheromone/phpcs-security-audit/symlink.sh
     - vendor/pheromone/phpcs-security-audit/symlink.sh
