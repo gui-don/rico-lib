@@ -5,7 +5,7 @@
 
 | Pipeline |
 |:--------:|
-[![pipeline status](https://gitlab.com/gui-don/rico-lib/badges/master/pipeline.svg)](https://gitlab.com/rico-lib/moustache/commits/master)
+[![pipeline status](https://gitlab.com/gui-don/rico-lib/badges/master/pipeline.svg)](https://gitlab.com/gui-don/rico-lib/commits/master)
 
 
 | PHP 7.4 | PHP 7.3 | PHP 7.2 | PHP 7.1 | PHP 7.0 | Older PHP |

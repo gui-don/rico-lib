@@ -46,15 +46,6 @@ stan:
   script:
     - vendor/bin/phpunit
 
-unit:7.0:
-  extends: .unit_template
-  stage: test_edge
-  image: registry.gitlab.com/gui-don/moustache-ci-docker:7.0
-  allow_failure: true
-  only:
-    variables:
-      - $SCHEDULE == "edge"
-
 unit:7.1:
   extends: .unit_template
   image: registry.gitlab.com/gui-don/moustache-ci-docker:7.1
