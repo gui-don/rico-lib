@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rico\Test;
 
-class RicoTestCase extends \PHPUnit_Framework_TestCase
+class RicoTestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * Do a standard static test on $utilFile:$functionToTest with $value and $expected. Handles the TypeError exception automatically.
@@ -35,7 +35,7 @@ class RicoTestCase extends \PHPUnit_Framework_TestCase
         if ($expected !== null) {
             $function();
         } else {
-            $this->setExpectedException('TypeError');
+            $this->expectException('TypeError');
             $utilFile::$functionToTest(...$argsValue);
         }
     }
@@ -69,7 +69,7 @@ class RicoTestCase extends \PHPUnit_Framework_TestCase
         if ($expected !== null) {
             $function();
         } else {
-            $this->setExpectedException('TypeError');
+            $this->expectException('TypeError');
             call_user_func_array([$utilObject, $functionToTest], $argsValue);
         }
     }

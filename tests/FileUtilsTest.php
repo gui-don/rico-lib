@@ -19,6 +19,11 @@ class FileUtilsTest extends RicoTestCase
         $this->fileUtils = new FileUtils();
     }
 
+    public function tearDown()
+    {
+      file_put_contents(__DIR__.'/testFiles/empty.list', '');
+    }
+
     public function providerAddLineTypeErrors()
     {
         return [
@@ -64,10 +69,10 @@ class FileUtilsTest extends RicoTestCase
     public function testAddLineErrors()
     {
         // Null tests
-        $this->assertSame(null, StaticFileUtils::addLine('nonexistingfile.txt', 'test'));
-        $this->assertSame(null, $this->fileUtils->addLine('nonexistingfile.txt', 'test'));
-        $this->assertSame(null, StaticFileUtils::addLine('nonfile', '23432'));
-        $this->assertSame(null, $this->fileUtils->addLine('nonfile', '23432'));
+        $this->assertSame(false, StaticFileUtils::addLine('nonexistingfile.txt', 'test'));
+        $this->assertSame(false, $this->fileUtils->addLine('nonexistingfile.txt', 'test'));
+        $this->assertSame(false, StaticFileUtils::addLine('nonfile', '23432'));
+        $this->assertSame(false, $this->fileUtils->addLine('nonfile', '23432'));
     }
 
     /**
@@ -97,8 +102,6 @@ class FileUtilsTest extends RicoTestCase
         $this->assertSame(2, StaticFileUtils::count(__DIR__.'/testFiles/empty.list'));
         $this->assertSame(2, $this->fileUtils->count(__DIR__.'/testFiles/empty.list'));
         $this->assertSame('Coucou'.PHP_EOL.'Another'.PHP_EOL, file_get_contents(__DIR__.'/testFiles/empty.list'));
-
-        fclose(fopen(__DIR__.'/testFiles/empty.list', 'w+'));
     }
 
     /**
@@ -120,7 +123,7 @@ class FileUtilsTest extends RicoTestCase
      */
     public function testCount()
     {
-        $this->assertSame(false, StaticFileUtils::count('nonexistingfile.txt'));
+        $this->assertSame(0, StaticFileUtils::count('nonexistingfile.txt'));
         $this->assertSame(0, StaticFileUtils::count(__DIR__.'/testFiles/empty.list'));
         $this->assertSame(0, StaticFileUtils::count(__DIR__.'/testFiles/empty.list', true));
         $this->assertSame(48508, StaticFileUtils::count(__DIR__.'/testFiles/long.list'));
