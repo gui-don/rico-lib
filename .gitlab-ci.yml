@@ -3,7 +3,7 @@ stages:
   - test
   - test_edge
 
-image: php:7.4-alpine
+image: registry.gitlab.com/gui-don/moustache-ci-docker:7.4
 
 cache:
   paths:
@@ -49,7 +49,7 @@ stan:
 unit:7.0:
   extends: .unit_template
   stage: test_edge
-  image: php:7.0-alpine
+  image: registry.gitlab.com/gui-don/moustache-ci-docker:7.0
   allow_failure: true
   only:
     variables:
@@ -57,24 +57,24 @@ unit:7.0:
 
 unit:7.1:
   extends: .unit_template
-  image: php:7.1-alpine
+  image: registry.gitlab.com/gui-don/moustache-ci-docker:7.1
 
 unit:7.2:
   extends: .unit_template
-  image: php:7.2-alpine
+  image: registry.gitlab.com/gui-don/moustache-ci-docker:7.2
 
 unit:7.3:
   extends: .unit_template
-  image: php:7.3-alpine
+  image: registry.gitlab.com/gui-don/moustache-ci-docker:7.3
 
 unit:7.4:
   extends: .unit_template
-  image: php:7.4-alpine
+  image: registry.gitlab.com/gui-don/moustache-ci-docker:7.4
 
 unit:rc:
   extends: .unit_template
   stage: test_edge
-  image: php:rc-alpine
+  image: registry.gitlab.com/gui-don/moustache-ci-docker:rc
   allow_failure: true
   only:
     variables:
