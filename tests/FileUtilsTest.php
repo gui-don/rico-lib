@@ -123,7 +123,7 @@ class FileUtilsTest extends RicoTestCase
      */
     public function testCount()
     {
-        $this->assertSame(0, StaticFileUtils::count('nonexistingfile.txt'));
+        $this->assertSame(null, StaticFileUtils::count('nonexistingfile.txt'));
         $this->assertSame(0, StaticFileUtils::count(__DIR__.'/testFiles/empty.list'));
         $this->assertSame(0, StaticFileUtils::count(__DIR__.'/testFiles/empty.list', true));
         $this->assertSame(48508, StaticFileUtils::count(__DIR__.'/testFiles/long.list'));

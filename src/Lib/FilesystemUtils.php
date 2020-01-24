@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rico\Lib;
 
-use Rico\Slib\FileUtils as StaticFileUtils;
+use Rico\Slib\FilesystemUtils as StaticFilesytemUtils;
 
 class FilesystemUtils
 {
@@ -21,7 +21,7 @@ class FilesystemUtils
      */
     public function createPath(string $path): bool
     {
-        return StaticFileUtils::createPath($path);
+        return StaticFilesytemUtils::createPath($path);
     }
 
     /**
@@ -34,7 +34,7 @@ class FilesystemUtils
      */
     public function createSymlink(string $link, string $file): bool
     {
-        return StaticFileUtils::createSymlink($link, $file);
+        return StaticFilesytemUtils::createSymlink($link, $file);
     }
 
     /**
@@ -47,6 +47,6 @@ class FilesystemUtils
      */
     public function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH): array
     {
-        return StaticFileUtils::listDirectory($path, $option);
+        return StaticFilesytemUtils::listDirectory($path, $option);
     }
 }

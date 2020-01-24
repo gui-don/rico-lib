@@ -21,6 +21,10 @@ abstract class FileUtils
         }
 
         $handle = fopen($file, 'r+');
+        if (false === $handle) {
+            return false;
+        }
+
         while (($currentLine = fgets($handle)) !== false) {
             if (trim($currentLine) == $line) {
                 return false;
@@ -40,16 +44,19 @@ abstract class FileUtils
      * @param string $file
      * @param bool   $countEmpty
      *
-     * @return int
+     * @return int|null
      */
-    public static function count(string $file, bool $countEmpty = false): int
+    public static function count(string $file, bool $countEmpty = false): ?int
     {
         if (!file_exists($file)) {
-            return 0;
+            return null;
         }
 
         $lines = 0;
         $handle = fopen($file, 'r');
+        if (false === $handle) {
+            return null;
+        }
         while (!feof($handle)) {
             $line = fgets($handle, 8192);
 

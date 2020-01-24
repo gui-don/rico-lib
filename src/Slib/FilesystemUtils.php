@@ -19,10 +19,6 @@ abstract class FilesystemUtils
      */
     public static function createPath(string $path): bool
     {
-        if (!is_string($path)) {
-            return false;
-        }
-
         if (file_exists($path)) {
             return false;
         }
@@ -42,10 +38,6 @@ abstract class FilesystemUtils
      */
     public static function createSymlink(string $link, string $file): bool
     {
-        if (!is_string($file) || !is_string($link)) {
-            return false;
-        }
-
         if (!file_exists($link) && !file_exists(dirname($file).'/'.$link)) {
             return false;
         }
@@ -63,17 +55,21 @@ abstract class FilesystemUtils
      * @param string $path
      * @param int    $option
      *
-     * @return string[]
+     * @return string[]|null
      */
-    public static function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH): array
+    public static function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH): ?array
     {
         if (!file_exists($path) || !is_dir($path)) {
-            return false;
+            return null;
         }
 
         $aResult = [];
 
         $resourceDir = @opendir($path);
+        if (false === $resourceDir) {
+            return null;
+        }
+
         while (false !== ($strFile = readdir($resourceDir))) {
             if (in_array($strFile, ['.', '..'])) {
                 continue;
@@ -99,7 +95,7 @@ abstract class FilesystemUtils
                     }
                     break;
                 default:
-                    return false;
+                    return null;
             }
         }
         closedir($resourceDir);

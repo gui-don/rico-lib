@@ -9,9 +9,9 @@ abstract class ArrayUtils
     /**
      * Extracts each element of a $multidimensionalArray in a single list.
      *
-     * @param array $multidimensionalArray
+     * @param array<array> $multidimensionalArray
      *
-     * @return array
+     * @return array<Object>
      */
     public static function flatten(array $multidimensionalArray): array
     {
@@ -21,10 +21,10 @@ abstract class ArrayUtils
     /**
      * Extracts all $property values from a multidimensional $multidimensionalArray.
      *
-     * @param mixed[] $multidimensionalArray
+     * @param array<array> $multidimensionalArray
      * @param string  $property
      *
-     * @return mixed[]
+     * @return array<Object>
      */
     public static function pluck(array $multidimensionalArray, string $property): array
     {
@@ -40,7 +40,9 @@ abstract class ArrayUtils
     /**
      * Transforms multiple $similarArrays into key-valued arrays.
      *
-     * @param mixed[] $similarArrays
+     * @param array<array> $similarArrays
+     *
+     * @return mixed[]
      */
     public static function transpose(array $similarArrays): array
     {

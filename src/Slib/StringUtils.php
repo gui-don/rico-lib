@@ -24,8 +24,8 @@ abstract class StringUtils
         if ($secret) {
             $splitIndex = str_split($index);
 
-            // Create a new generated secret order based on secret
-            array_multisort(array_slice(str_split(hash('sha512', $secret)), 0, $base), SORT_DESC, $splitIndex);
+            $array = array_slice(str_split(hash('sha512', $secret)), 0, $base);
+            array_multisort($array, SORT_DESC, $splitIndex);
             $index = implode($splitIndex);
         }
 
@@ -98,8 +98,8 @@ abstract class StringUtils
         if ($secret) {
             $splitIndex = str_split($index);
 
-            // Create a new generated secret order based on secret
-            array_multisort(str_split(mb_substr(hash('sha512', $secret), 0, $base)), SORT_DESC, $splitIndex);
+            $array = array_slice(str_split(hash('sha512', $secret)), 0, $base);
+            array_multisort($array, SORT_DESC, $splitIndex);
             $index = implode($splitIndex);
         }
 
@@ -248,9 +248,13 @@ abstract class StringUtils
         $string = preg_replace('#[^\\pL\d]+#u', '-', $string);
 
         // Transliterate
-        $string = \iconv('UTF-8', 'US-ASCII//TRANSLIT', $string);
+        $transliterate_string = \iconv('UTF-8', 'US-ASCII//TRANSLIT', $string);
 
-        $string = mb_strtolower($string);
+        if (false === $transliterate_string) {
+            throw new \Exception('This function (' . __FUNCTION__ .') was not able to transliterate “'. $string .'”');
+        }
+
+        $string = mb_strtolower($transliterate_string);
 
         // Remove unwanted characters
         $string = preg_replace('~[^-\w]+~', '', $string);
