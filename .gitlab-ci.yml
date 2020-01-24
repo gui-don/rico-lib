@@ -35,7 +35,7 @@ sast:
   script:
     - chmod +x ./vendor/pheromone/phpcs-security-audit/symlink.sh
     - vendor/pheromone/phpcs-security-audit/symlink.sh
-    - vendor/bin/phpcs --error-severity=1 --warning-severity=6 --standard=./vendor/pheromone/phpcs-security-audit/example_base_ruleset.xml --extensions=php,inc,lib,module,info src
+    - vendor/bin/phpcs --error-severity=1 --warning-severity=6 --report=json --report-file=gl-sast-report.json --standard=./vendor/pheromone/phpcs-security-audit/example_base_ruleset.xml --extensions=php,inc,lib,module,info src
 
 composer:
   extends: .sa_template
