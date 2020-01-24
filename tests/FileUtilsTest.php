@@ -21,7 +21,7 @@ class FileUtilsTest extends RicoTestCase
 
     public function tearDown()
     {
-      file_put_contents(__DIR__.'/testFiles/empty.list', '');
+        file_put_contents(__DIR__.'/testFiles/empty.list', '');
     }
 
     public function providerAddLineTypeErrors()
