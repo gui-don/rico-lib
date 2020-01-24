@@ -1,0 +1,79 @@
+stages:
+  - static_analysis
+  - test
+  - test_edge
+
+cache:
+  paths:
+    - vendor/
+
+variables:
+  SYMFONY_ENV: 'test'
+
+before_script:
+  - bin/composer.phar install -o --no-interaction
+
+# Static analysis
+
+code_style:
+  stage: static_analysis
+  script:
+    - vendor/bin/php-cs-fixer fix --allow-risky yes --dry-run .
+
+sast:
+  stage: static_analysis
+  script:
+    - chmod +x ./vendor/pheromone/phpcs-security-audit/symlink.sh
+    - vendor/pheromone/phpcs-security-audit/symlink.sh
+    - vendor/bin/phpcs --error-severity=1 --warning-severity=6 --standard=./vendor/pheromone/phpcs-security-audit/example_base_ruleset.xml --extensions=php,inc,lib,module,info src
+
+composer:
+  stage: static_analysis
+  script:
+    - bin/composer.phar validate
+
+stan:
+  stage: static_analysis
+  script:
+    - vendor/bin/phpstan analyse src --level 7
+
+# Unit Tests
+
+.unit_template:
+  stage: test
+  script:
+    - vendor/bin/phpunit
+
+unit:7.0:
+  extends: .unit_template
+  stage: test_edge
+  image: php:7.0-alpine
+  allow_failure: true
+  only:
+    variables:
+      - $SCHEDULE == "edge"
+
+unit:7.1:
+  extends: .unit_template
+  image: php:7.1-alpine
+
+unit:7.2:
+  extends: .unit_template
+  image: php:7.2-alpine
+
+unit:7.3:
+  extends: .unit_template
+  image: php:7.3-alpine
+
+unit:7.4:
+  extends: .unit_template
+  image: php:7.4-alpine
+
+unit:rc:
+  extends: .unit_template
+  stage: test_edge
+  image: php:rc-alpine
+  allow_failure: true
+  only:
+    variables:
+      - $SCHEDULE == "edge"
