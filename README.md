@@ -1,26 +1,42 @@
-# Rico-lib Project
+# rico-libraries [![pipeline status](https://gitlab.com/gui-don/rico-lib/badges/master/pipeline.svg)](https://gitlab.com/gui-don/rico-lib/commits/master)
 
+<div dir="ltr" class="center">
+    <p dir="ltr" align="center"><img width="153" height="146" src="rico.png" /></p>
+</div>
 
-<p align="center"><img src="rico.png" /></p>
+| PHP 7.4 | PHP 7.3 | PHP 7.2 | PHP 7.1 | Older PHP |
+|:-------:|:-------:|:-------:|:-------:|:---------:|
+| ✔       | ✔       | ✔       | ✔       | ✖         |
 
-| Pipeline |
-|:--------:|
-[![pipeline status](https://gitlab.com/gui-don/rico-lib/badges/master/pipeline.svg)](https://gitlab.com/gui-don/rico-lib/commits/master)
+with `php-mbstring` and `php-dom` extensions.
 
-
-| PHP 7.4 | PHP 7.3 | PHP 7.2 | PHP 7.1 | PHP 7.0 | Older PHP |
-|:-------:|:-------:|:-------:|:-------:|:-------:|:---------:|
-| ✔       | ✔       | ✔       | ✔       | ✖       | ✖         |
-
-
-`php-mbstring` and `php-dom` extensions.
-
-## A bunch of PHP utility libraries. ##
+## PHP utility libraries ##
 
 This project is made of some lightweight and well-tested libraries.
-It’s useful when you want to access some frequently used low-level robust functions but you don’t want to import tons of dependencies.
 
-### How to - Procedural style ###
+They are useful to access some frequently used low-level robust functions while not wanting to import tons of dependencies.
+
+### Installation ###
+
+##### Composer:
+
+    composer require gui-don/rico-library
+
+##### Manual:
+
+Import the `autoload.php` file in your code:
+
+```php
+require_once('autoload.php');
+
+use \Rico\Lib\StringUtils;
+
+// etc
+```
+
+### Documentation ###
+
+#### How to - Procedural style
 
 ```php
 <?php
@@ -35,12 +51,13 @@ use \Rico\Slib\StringUtils;
 $beautifulString = StringUtils::beautifulise($uglyString);
 ```
 
-### How to - OOP style ###
+#### How to - OOP style (recommended)
 
 ```php
 <?php
 
-require_once('autoload.php');
+// autoload Not need if using composer
+// require_once('autoload.php');
 
 use \Rico\Lib\StringUtils;
 
@@ -50,12 +67,6 @@ use \Rico\Lib\StringUtils;
 $stringUtils = new StringUtils();
 $beautifulString = $stringUtils->beautifulise($uglyString);
 ```
-
-### Installation ###
-
-You can add this library as a local dependency to your project using [Composer](https://getcomposer.org/):
-
-    composer require gui-don/rico-library
 
 Missing a function? Make a pull request or simply extends the following classes.
 
