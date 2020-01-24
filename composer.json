@@ -1,14 +1,23 @@
 {
     "name": "gui-don/rico-library",
     "type": "library",
-    "description": "Rico project library",
+    "description": "Rico project library - PHP libraries",
     "license": "MIT",
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.1",
+        "ext-mbstring": "*",
+        "ext-dom": "*",
+        "ext-iconv": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.0",
+        "phpunit/phpunit": "^7",
+        "phpstan/phpstan": "^0.12.0"
     },
     "autoload": {
         "psr-4": {
-            "Rico\\": "src/"
+            "Rico\\": "src/",
+            "Rico\\Test\\": "tests/"
         }
     }
 }
