@@ -1,8 +1,9 @@
 <?php
 
 declare(strict_types=1);
-if (version_compare(PHP_VERSION, '7.0.0', '<')) {
-    throw new Exception('This library require PHP 7.0 minimum');
+
+if (version_compare(PHP_VERSION, '7.1.0', '<')) {
+    throw new Exception('This library require PHP 7.1 minimum');
 }
 
 /*
@@ -19,12 +20,12 @@ spl_autoload_register(function ($class) {
 
     $length = mb_strlen($prefix);
     $lengthTest = mb_strlen($prefixTest);
-    if (strncmp($prefix, $class, $length) === 0) {
+    if (0 === strncmp($prefix, $class, $length)) {
         $baseDir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/src/';
         $relativeClass = mb_substr($class, $length);
     }
-    if (strncmp($prefixTest, $class, $lengthTest) === 0) {
-        $baseDir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/test/';
+    if (0 === strncmp($prefixTest, $class, $lengthTest)) {
+        $baseDir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/tests/';
         $relativeClass = mb_substr($class, $lengthTest);
     }
 
