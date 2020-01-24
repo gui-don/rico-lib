@@ -12,30 +12,36 @@ cache:
 variables:
   SYMFONY_ENV: 'test'
 
-before_script:
-  - bin/composer.phar install -o --no-interaction
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
 
 # Static analysis
 
-code_style:
+.sa_template:
   stage: static_analysis
+  before_script:
+    - bin/composer.phar install -o --no-interaction
+
+code_style:
+  extends: .sa_template
   script:
     - vendor/bin/php-cs-fixer fix --allow-risky yes --dry-run .
 
 sast:
-  stage: static_analysis
+  extends: .sa_template
   script:
     - chmod +x ./vendor/pheromone/phpcs-security-audit/symlink.sh
     - vendor/pheromone/phpcs-security-audit/symlink.sh
     - vendor/bin/phpcs --error-severity=1 --warning-severity=6 --standard=./vendor/pheromone/phpcs-security-audit/example_base_ruleset.xml --extensions=php,inc,lib,module,info src
 
 composer:
-  stage: static_analysis
+  extends: .sa_template
   script:
     - bin/composer.phar validate
 
 stan:
-  stage: static_analysis
+  extends: .sa_template
   script:
     - vendor/bin/phpstan analyse src --level 7
 
@@ -45,6 +51,8 @@ stan:
   stage: test
   script:
     - vendor/bin/phpunit
+  before_script:
+    - bin/composer.phar install -o --no-interaction
 
 unit:7.1:
   extends: .unit_template
