@@ -12,12 +12,12 @@ abstract class FileUtils
      * @param string $file
      * @param string $line
      *
-     * @return bool|null
+     * @return bool
      */
-    public static function addLine(string $file, string $line)
+    public static function addLine(string $file, string $line): bool
     {
         if (!file_exists($file)) {
-            return null;
+            return false;
         }
 
         $handle = fopen($file, 'r+');
@@ -40,18 +40,23 @@ abstract class FileUtils
      * @param string $file
      * @param bool   $countEmpty
      *
-     * @return int|bool
+     * @return int
      */
-    public static function count(string $file, bool $countEmpty = false)
+    public static function count(string $file, bool $countEmpty = false): int
     {
-        if (!is_string($file) || !file_exists($file)) {
-            return false;
+        if (!file_exists($file)) {
+            return 0;
         }
 
         $lines = 0;
         $handle = fopen($file, 'r');
         while (!feof($handle)) {
-            $line = fgets($handle, 4096);
+            $line = fgets($handle, 8192);
+
+            if (false === $line) {
+                continue;
+            }
+
             $lastChar = mb_strlen((string) $line) - 1;
 
             if ($lastChar == 0) {
