@@ -22,11 +22,11 @@ abstract class ArrayUtils
      * Inserts an element $needle at the $index position in the $haystack, conserving the order and moving other element in the way.\n
      * Careful, keys will not be preserved.
      *
-     * @param $needle
+     * @param mixed $needle
      * @param int $index
-     * @param array $haystack
+     * @param array<mixed> $haystack
      *
-     * @return array
+     * @return array<mixed>
      */
     public static function insert($needle, int $index, array $haystack): array
     {
@@ -36,7 +36,7 @@ abstract class ArrayUtils
             return $haystack;
         }
 
-        return array_merge(array_slice($haystack, 0, $offset), [$needle], array_slice($haystack, $offset));
+        return array_merge(array_slice($haystack, 0, (int) $offset), [$needle], array_slice($haystack, (int) $offset));
     }
 
     /**
