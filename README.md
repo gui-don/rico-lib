@@ -36,7 +36,7 @@ use \Rico\Lib\StringUtils;
 
 ### Documentation ###
 
-#### How to - Procedural style
+#### How to - Procedural style (recommended in data object)
 
 ```php
 <?php
@@ -51,7 +51,7 @@ use \Rico\Slib\StringUtils;
 $beautifulString = StringUtils::beautifulise($uglyString);
 ```
 
-#### How to - OOP style (recommended)
+#### How to - OOP style (recommended anywhere else)
 
 ```php
 <?php
@@ -75,6 +75,8 @@ Missing a function? Make a pull request or simply extends the following classes.
 #### `ArrayUtils` lib ####
 
 - `flatten($multidimensionalArray)`: Extracts each element of a $multidimensionalArray in a single list.
+
+- `insert($needle, int $index, array $haystack): array`: Inserts an element $needle at the $index position in the $haystack, while moving other element in the way.
 
 - `pluck($multidimensionalArray, $property)`: Extracts all $property values from a multidimensional $multidimensionalArray.
 

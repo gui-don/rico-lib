@@ -64,6 +64,18 @@ class ArrayUtilsTest extends RicoTestCase
         ];
     }
 
+    public function providerInsert()
+    {
+        return [
+            [[], 0, [], [[]]], // 0
+            ['value', 4, [5 => 'test'], [4 => 'value', 5 => 'test']],
+            ['three', 2, ['one', 'two', 'four'], ['one', 'two', 'three', 'four']],
+            [20, 20, [5 => 5, 25 => 25, 30 => 30], [5 => 5, 20 =>20, 25 => 25, 30 => 30]],
+            ['replace', 1, [0 => 'zero', 1 => 'misplaced', 2 => 'next'], [0 => 'zero', 1 => 'replace', 2 => 'misplaced', 3 => 'next']],
+            ['replace', 10, [0 => 'zero', 10 => 'misplaced', 14 => 'next'], [0 => 'zero', 1 => 'replace', 2 => 'misplaced', 3 => 'next']],
+        ];
+    }
+
     //--- TESTS
 
     /**
@@ -94,5 +106,16 @@ class ArrayUtilsTest extends RicoTestCase
     {
         $this->assertSame($expected, StaticArrayUtils::transpose($array));
         $this->assertSame($expected, $this->arrayUtils->transpose($array));
+    }
+
+
+    /**
+     * @covers \ArrayUtils::insert
+     * @dataProvider providerInsert
+     */
+    public function testInsert($needle, $index, $haystack, $expected)
+    {
+        $this->assertSame($expected, StaticArrayUtils::insert($needle, $index, $haystack));
+        $this->assertSame($expected, $this->arrayUtils->insert($needle, $index, $haystack));
     }
 }

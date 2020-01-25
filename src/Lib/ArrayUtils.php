@@ -21,6 +21,21 @@ class ArrayUtils
     }
 
     /**
+     * Inserts an element $needle at the $index position in the $haystack, while moving other element in the way.\n
+     * Careful, keys will not be preserved.
+     *
+     * @param $needle
+     * @param int $index
+     * @param array $haystack
+     *
+     * @return array
+     */
+    public static function insert($needle, int $index, array $haystack): array
+    {
+        return StaticArrayUtils::insert($needle, $index, $haystack);
+    }
+
+    /**
      * Extracts all $property values from a multidimensional $multidimensionalArray.
      *
      * @param array<array> $multidimensionalArray

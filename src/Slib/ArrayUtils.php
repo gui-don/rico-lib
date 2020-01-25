@@ -19,6 +19,27 @@ abstract class ArrayUtils
     }
 
     /**
+     * Inserts an element $needle at the $index position in the $haystack, while moving other element in the way.\n
+     * Careful, keys will not be preserved.
+     *
+     * @param $needle
+     * @param int $index
+     * @param array $haystack
+     *
+     * @return array
+     */
+    public static function insert($needle, int $index, array $haystack): array
+    {
+        if (($offset = array_search($index, array_keys($haystack))) === false) {
+            $haystack[$index] = $needle;
+            ksort($haystack);
+            return $haystack;
+        }
+
+        return array_merge(array_slice($haystack, 0, $offset), [$needle], array_slice($haystack, $offset));
+    }
+
+    /**
      * Extracts all $property values from a multidimensional $multidimensionalArray.
      *
      * @param array<array> $multidimensionalArray
