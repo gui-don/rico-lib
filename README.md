@@ -76,7 +76,7 @@ Missing a function? Make a pull request or simply extends the following classes.
 
 - `flatten($multidimensionalArray)`: Extracts each element of a $multidimensionalArray in a single list.
 
-- `insert($needle, int $index, array $haystack): array`: Inserts an element $needle at the $index position in the $haystack, while moving other element in the way.
+- `insert($needle, int $index, array $haystack): array`: Inserts an element $needle at the $index position in the $haystack, conserving the order and moving other element in the way.
 
 - `pluck($multidimensionalArray, $property)`: Extracts all $property values from a multidimensional $multidimensionalArray.
 

@@ -19,7 +19,7 @@ abstract class ArrayUtils
     }
 
     /**
-     * Inserts an element $needle at the $index position in the $haystack, while moving other element in the way.\n
+     * Inserts an element $needle at the $index position in the $haystack, conserving the order and moving other element in the way.\n
      * Careful, keys will not be preserved.
      *
      * @param $needle
