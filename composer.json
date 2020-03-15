@@ -23,7 +23,8 @@
         "symfony/stopwatch": "^4",
         "symfony/service-contracts": "^1",
         "symfony/filesystem": "^4",
-        "phpdocumentor/reflection-docblock": "^4"
+        "phpdocumentor/reflection-docblock":  "^4",
+        "phpdocumentor/type-resolver": "^1"
     },
     "autoload": {
         "psr-4": {
