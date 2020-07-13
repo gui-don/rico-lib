@@ -13,7 +13,9 @@ variables:
   SYMFONY_ENV: 'test'
 
 include:
-  - template: Dependency-Scanning.gitlab-ci.yml
+  - project: 'gitlab-org/gitlab'
+      ref: master
+      file: '/lib/gitlab/ci/templates/Security/Dependency-Scanning.gitlab-ci.yml'
 
 # Static analysis
 
