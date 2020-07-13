@@ -238,7 +238,7 @@ abstract class StringUtils
      *
      * @param string $string
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     public static function slugify(string $string): string
     {
