@@ -237,8 +237,8 @@ abstract class StringUtils
      * Transforms a $string into a ascii-only string separated by -.
      *
      * @param string $string
-     *
      * @return string
+     * @throws Exception
      */
     public static function slugify(string $string): string
     {

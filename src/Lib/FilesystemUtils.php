@@ -45,7 +45,7 @@ class FilesystemUtils
      *
      * @return string[]
      */
-    public function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH): array
+    public function listDirectory(string $path, int $option = self::LIST_DIRECTORY_BOTH): ?array
     {
         return StaticFilesytemUtils::listDirectory($path, $option);
     }
