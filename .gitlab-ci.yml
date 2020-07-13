@@ -87,7 +87,7 @@ unit:coverage:
   stage: test
   image: registry.gitlab.com/gui-don/moustache-ci-docker:coverage
   allow_failure: true
-  script: vendor/bin/phpunit --coverage-text
+  script: vendor/bin/phpunit --coverage-text --coverage-html build/coverage-report --colors=never
   coverage: '/^\s*Lines:\s*\d+.\d+\%/'
   artifacts:
     paths:
