@@ -25,7 +25,8 @@
         "symfony/filesystem": "^4",
         "phpdocumentor/reflection-docblock":  "^4",
         "phpdocumentor/type-resolver": "1.0.*",
-        "phpdocumentor/reflection-common": "2.1.*"
+        "phpdocumentor/reflection-common": "2.1.*",
+        "theseer/tokenizer": "1.1.*"
     },
     "autoload": {
         "psr-4": {
