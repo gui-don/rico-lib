@@ -320,7 +320,8 @@ lignemaispaslesespaces', ],
     //--- TESTS
 
     /**
-     * @covers \StringUtils::alphaToId
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerAlphaToId
      */
     public function testAlphaToId($values, $expected)
@@ -330,17 +331,18 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::beautifulise
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerBeautifulise
      */
     public function testBeautifulise($value, $expected)
     {
         $test = function () use ($value, $expected) {
-            $result = StaticStringUtils::beautifulise($value);
+            $result = $this->stringUtils->beautifulise($value);
             $this->assertSame($expected, $result);
 
             // Doing it again changes nothing
-            $this->assertSame($expected, StaticStringUtils::beautifulise($result));
+            $this->assertSame($expected, $this->stringUtils->beautifulise($result));
         };
 
         $this->callbackStandardStaticTest(StaticStringUtils::class, 'beautifulise', [$value], $expected, $test);
@@ -348,17 +350,21 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::humanFilesize
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
+     * @covers Rico\Lib\MathUtils
+     * @covers Rico\SLib\MathUtils
      * @dataProvider providerHumanFilesize
      */
-    public function testHumanFilesize($value, $expected)
+    public function testHumanFileSize($value, $expected)
     {
         $this->standardStaticTest(StaticStringUtils::class, 'humanFilesize', [$value], $expected);
         $this->standardTest($this->stringUtils, 'humanFilesize', [$value], $expected);
     }
 
     /**
-     * @covers \StringUtils::idToAlpha
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerIdToAlpha
      */
     public function testIdToAlpha($values, $expected)
@@ -368,7 +374,8 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::minify
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerMinify
      */
     public function testMinify($value, $expected)
@@ -378,7 +385,8 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::normalize
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerNormalize
      */
     public function testNormalize($value, $expected)
@@ -388,20 +396,21 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::randString
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerRandString
      */
     public function testRandString($value, $expected, $allowedChars)
     {
         $test = function () use ($allowedChars, $value) {
             if ($value <= 0) {
-                $this->assertEmpty(StaticStringUtils::randString($value, $allowedChars));
+                $this->assertEmpty($this->stringUtils->randString($value, $allowedChars));
             } else {
                 if (mb_strlen($allowedChars) > 0) {
-                    $result = StaticStringUtils::randString($value, $allowedChars);
+                    $result = $this->stringUtils->randString($value, $allowedChars);
                     $this->assertRegExp('/^['.$allowedChars.']+$/', $result);
                 } else {
-                    $result = StaticStringUtils::randString($value);
+                    $result = $this->stringUtils->randString($value);
                     $this->assertRegExp('/^[a-zA-Z0-9]+$/', $result);
                 }
 
@@ -414,7 +423,8 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::normalizeWhitespace
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerNormalizeWhitespace
      */
     public function testNormalizeWhitespace($value, $expected)
@@ -424,7 +434,8 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::removeBracketContent
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerRemoveBracketContent
      */
     public function testRemoveBracketContent($value, $expected)
@@ -434,7 +445,8 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::removeLine
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerRemoveLine
      */
     public function testRemoveLine($value, $expected)
@@ -444,7 +456,8 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::removeWhitespace
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerRemoveWhitespace
      */
     public function testRemoveWhitespace($value, $expected)
@@ -454,7 +467,8 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::slugify
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerSlugify
      */
     public function testSlugify($value, $expected)
@@ -464,7 +478,8 @@ lignemaispaslesespaces', ],
     }
 
     /**
-     * @covers \StringUtils::underscoreToSpace
+     * @covers Rico\Lib\StringUtils
+     * @covers Rico\SLib\StringUtils
      * @dataProvider providerUnderscoreToSpace
      */
     public function testUnderscoreToSpace($value, $expected)

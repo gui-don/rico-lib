@@ -62,7 +62,8 @@ class UrlUtilsTest extends RicoTestCase
     //--- TESTS
 
     /**
-     * @covers \UrlUtils::getResourceName
+     * @covers Rico\Lib\UrlUtils
+     * @covers Rico\SLib\UrlUtils
      * @dataProvider providerGetResourceName
      */
     public function testGetResourceNameInUrl($value, $expected)
@@ -72,7 +73,8 @@ class UrlUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \UrlUtils::getUrlWithoutResourceName
+     * @covers Rico\Lib\UrlUtils
+     * @covers Rico\SLib\UrlUtils
      * @dataProvider providerGetUrlWithoutResourceName
      */
     public function testGetUrlWithoutResourceName($value, $expected)

@@ -79,7 +79,8 @@ class ArrayUtilsTest extends RicoTestCase
     //--- TESTS
 
     /**
-     * @covers \ArrayUtils::flatten
+     * @covers Rico\Lib\ArrayUtils
+     * @covers Rico\SLib\ArrayUtils
      * @dataProvider providerFlatten
      */
     public function testFlatten($array, $expected)
@@ -89,7 +90,8 @@ class ArrayUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ArrayUtils::pluck
+     * @covers Rico\Lib\ArrayUtils
+     * @covers Rico\SLib\ArrayUtils
      * @dataProvider providerPluck
      */
     public function testPluck($array, $property, $expected)
@@ -99,7 +101,8 @@ class ArrayUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ArrayUtils::transpose
+     * @covers Rico\Lib\ArrayUtils
+     * @covers Rico\SLib\ArrayUtils
      * @dataProvider providerTranspose
      */
     public function testTranspose($array, $expected)
@@ -110,7 +113,8 @@ class ArrayUtilsTest extends RicoTestCase
 
 
     /**
-     * @covers \ArrayUtils::insert
+     * @covers Rico\Lib\ArrayUtils
+     * @covers Rico\SLib\ArrayUtils
      * @dataProvider providerInsert
      */
     public function testInsert($needle, $index, $haystack, $expected)

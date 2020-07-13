@@ -42,7 +42,8 @@ class MathUtilsTest extends RicoTestCase
     //--- TESTS
 
     /**
-     * @covers \MathUtils::smartRound
+     * @covers Rico\Lib\MathUtils
+     * @covers Rico\SLib\MathUtils
      * @dataProvider providerSmartRound
      */
     public function testSmartRound($value, $idealLength, $expected)

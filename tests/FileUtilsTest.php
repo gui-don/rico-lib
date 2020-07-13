@@ -64,7 +64,8 @@ class FileUtilsTest extends RicoTestCase
     //--- TESTS
 
     /**
-     * @covers \StaticFileUtils::addLine
+     * @covers Rico\Lib\FileUtils
+     * @covers Rico\SLib\FileUtils
      */
     public function testAddLineErrors()
     {
@@ -76,7 +77,8 @@ class FileUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \StaticFileUtils::addLine
+     * @covers Rico\Lib\FileUtils
+     * @covers Rico\SLib\FileUtils
      * @dataProvider providerAddLineTypeErrors
      * @expectedException \TypeError
      */
@@ -87,7 +89,8 @@ class FileUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \StaticFileUtils::addLine
+     * @covers Rico\Lib\FileUtils
+     * @covers Rico\SLib\FileUtils
      */
     public function testAddLine()
     {
@@ -105,7 +108,8 @@ class FileUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \StaticFileUtils::addLine
+     * @covers Rico\Lib\FileUtils
+     * @covers Rico\SLib\FileUtils
      */
     public function testAddLineDuplicate()
     {
@@ -119,7 +123,8 @@ class FileUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \StaticFileUtils::count
+     * @covers Rico\Lib\FileUtils
+     * @covers Rico\SLib\FileUtils
      */
     public function testCount()
     {
@@ -133,7 +138,8 @@ class FileUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \StringUtils::extractExtension
+     * @covers Rico\Lib\FileUtils
+     * @covers Rico\SLib\FileUtils
      * @dataProvider providerExtractExtension
      */
     public function testExtractExtension($value, $expected)

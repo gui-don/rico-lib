@@ -214,7 +214,8 @@ class ValidationUtilsTest extends RicoTestCase
     //--- TESTS
 
     /**
-     * @covers \ValidationUtils::isEmail
+     * @covers Rico\Lib\ValidationUtils
+     * @covers Rico\SLib\ValidationUtils
      * @dataProvider providerIsEmail
      */
     public function testIsEmail($value, $expected)
@@ -224,7 +225,8 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ValidationUtils::isHexadecimal
+     * @covers Rico\Lib\ValidationUtils
+     * @covers Rico\SLib\ValidationUtils
      * @dataProvider providerIsHexadecimal
      */
     public function testIsHexadecimal($value, $expected)
@@ -234,7 +236,8 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ValidationUtils::isIp
+     * @covers Rico\Lib\ValidationUtils
+     * @covers Rico\SLib\ValidationUtils
      * @dataProvider providerIsIp
      */
     public function testIsIp($value, $expected)
@@ -244,7 +247,8 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ValidationUtils::isNumber
+     * @covers Rico\Lib\ValidationUtils
+     * @covers Rico\SLib\ValidationUtils
      * @dataProvider providerIsNumber
      */
     public function testIsNumber($value, $expected)
@@ -254,7 +258,8 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ValidationUtils::isPhoneNumber
+     * @covers Rico\Lib\ValidationUtils
+     * @covers Rico\SLib\ValidationUtils
      * @dataProvider providerIsPhoneNumber
      */
     public function testIsPhoneNumber($value, $expected)
@@ -264,7 +269,8 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ValidationUtils::isPositiveInt
+     * @covers Rico\Lib\ValidationUtils
+     * @covers Rico\SLib\ValidationUtils
      * @dataProvider providerIsPositiveInt
      */
     public function testIsPositiveInt($value, $expected)
@@ -274,7 +280,8 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ValidationUtils::isUrl
+     * @covers Rico\Lib\ValidationUtils
+     * @covers Rico\SLib\ValidationUtils
      * @dataProvider providerIsURL
      */
     public function testIsURL($value, $expected)
@@ -284,7 +291,8 @@ class ValidationUtilsTest extends RicoTestCase
     }
 
     /**
-     * @covers \ValidationUtils::isUrlMagnet
+     * @covers Rico\Lib\ValidationUtils
+     * @covers Rico\SLib\ValidationUtils
      * @dataProvider providerIsURLMagnet
      */
     public function testIsURLMagnet($value, $expected)
