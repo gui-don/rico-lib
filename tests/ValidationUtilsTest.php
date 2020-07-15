@@ -14,7 +14,7 @@ class ValidationUtilsTest extends RicoTestCase
      */
     private $validationUtils;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->validationUtils = new ValidationUtils();
     }

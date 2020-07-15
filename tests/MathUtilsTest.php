@@ -14,7 +14,7 @@ class MathUtilsTest extends RicoTestCase
      */
     private $mathUtils;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mathUtils = new MathUtils();
     }

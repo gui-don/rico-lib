@@ -14,7 +14,7 @@ class UrlUtilsTest extends RicoTestCase
      */
     private $urlUtils;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->urlUtils = new UrlUtils();
     }

@@ -14,7 +14,7 @@ class ArrayUtilsTest extends RicoTestCase
      */
     private $arrayUtils;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->arrayUtils = new ArrayUtils();
     }

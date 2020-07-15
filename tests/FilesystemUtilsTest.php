@@ -22,12 +22,12 @@ class FilesystemUtilsTest extends RicoTestCase
      */
     private $filesystemUtils;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->filesystemUtils = new FilesystemUtils();
     }
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         mkdir(self::TEST_DIR);
         mkdir(self::TEST_DIR.self::$strDir);
@@ -41,7 +41,7 @@ class FilesystemUtilsTest extends RicoTestCase
         file_put_contents(self::TEST_DIR.self::$strDir2.'/'.self::$strFile4, str_repeat((string) mt_rand(0, 9), 288576));
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         unlink(self::TEST_DIR.self::$strFile1);
         unlink(self::TEST_DIR.self::$strFile2);

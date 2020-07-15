@@ -14,7 +14,7 @@ class StringUtilsTest extends RicoTestCase
      */
     private $stringUtils;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->stringUtils = new StringUtils();
     }

@@ -14,12 +14,12 @@ class FileUtilsTest extends RicoTestCase
      */
     private $fileUtils;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->fileUtils = new FileUtils();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         file_put_contents(__DIR__.'/testFiles/empty.list', '');
     }
