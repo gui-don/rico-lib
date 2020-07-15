@@ -21,9 +21,6 @@ abstract class FileUtils
         }
 
         $handle = fopen($file, 'r+');
-        if (false === $handle) {
-            return false;
-        }
 
         while (($currentLine = fgets($handle)) !== false) {
             if (trim($currentLine) == $line) {
@@ -54,9 +51,6 @@ abstract class FileUtils
 
         $lines = 0;
         $handle = fopen($file, 'r');
-        if (false === $handle) {
-            return null;
-        }
         while (!feof($handle)) {
             $line = fgets($handle, 8192);
 
