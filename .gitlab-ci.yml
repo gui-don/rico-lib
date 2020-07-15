@@ -47,7 +47,7 @@ composer:
 stan:
   extends: .sa_template
   script:
-    - vendor/bin/phpstan analyse src --level 7
+    - vendor/bin/phpstan analyse src --level 6
 
 # Unit Tests
 
