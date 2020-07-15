@@ -80,10 +80,11 @@ class FileUtilsTest extends RicoTestCase
      * @covers Rico\Lib\FileUtils
      * @covers Rico\SLib\FileUtils
      * @dataProvider providerAddLineTypeErrors
-     * @expectedException \TypeError
      */
     public function testAddLineTypeErrors($file, $line)
     {
+        $this->expectException(\TypeError::class);
+
         StaticFileUtils::addLine($file, $line);
         $this->fileUtils->addLine($file, $line);
     }
