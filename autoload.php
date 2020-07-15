@@ -20,12 +20,14 @@ spl_autoload_register(function ($class) {
 
     $length = mb_strlen($prefix);
     $lengthTest = mb_strlen($prefixTest);
+    $baseDir = '';
+    $relativeClass = '';
     if (0 === strncmp($prefix, $class, $length)) {
-        $baseDir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/src/';
+        $baseDir =  __DIR__.'/src/';
         $relativeClass = mb_substr($class, $length);
     }
     if (0 === strncmp($prefixTest, $class, $lengthTest)) {
-        $baseDir = defined('UTILITY_BASE_DIR') ? UTILITY_BASE_DIR : __DIR__.'/tests/';
+        $baseDir = __DIR__.'/tests/';
         $relativeClass = mb_substr($class, $lengthTest);
     }
 
