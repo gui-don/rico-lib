@@ -120,9 +120,9 @@ class FilesystemUtilsTest extends RicoTestCase
     {
         $this->assertNull($this->filesystemUtils->listDirectory("does_not_exist"));
         $this->assertNull($this->filesystemUtils->listDirectory(self::TEST_DIR, 5));
-        $this->assertEqualsCanonicalizing(['directory' => [self::$strDir, self::$strDir2], 'file' => [self::$strFile1, self::$strFile2, self::$strFile3]], $this->filesystemUtils->listDirectory(self::TEST_DIR));
-        $this->assertEqualsCanonicalizing(['directory' => [self::$strDir, self::$strDir2], 'file' => [self::$strFile1, self::$strFile2, self::$strFile3]], $this->filesystemUtils->listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_BOTH));
-        $this->assertEqualsCanonicalizing(['file' => [self::$strFile4]], $this->filesystemUtils->listDirectory(self::TEST_DIR.self::$strDir2));
+        $this->assertEqualsCanonicalizing([self::$strDir, self::$strDir2, self::$strFile1, self::$strFile2, self::$strFile3], $this->filesystemUtils->listDirectory(self::TEST_DIR));
+        $this->assertEqualsCanonicalizing([self::$strDir, self::$strDir2, self::$strFile1, self::$strFile2, self::$strFile3], $this->filesystemUtils->listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_BOTH));
+        $this->assertEqualsCanonicalizing([self::$strFile4], $this->filesystemUtils->listDirectory(self::TEST_DIR.self::$strDir2));
         $this->assertEqualsCanonicalizing([self::$strDir, self::$strDir2], $this->filesystemUtils->listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_DIR_ONLY));
         $this->assertEqualsCanonicalizing([self::$strFile1, self::$strFile2, self::$strFile3], $this->filesystemUtils->listDirectory(self::TEST_DIR, StaticFilesystemUtils::LIST_DIRECTORY_FILE_ONLY));
     }
