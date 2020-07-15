@@ -22,7 +22,7 @@ include:
 .sa_template:
   stage: static_analysis
   before_script:
-    - bin/composer.phar install -o --no-interaction
+    - composer install -o --no-interaction
 
 code_style:
   extends: .sa_template
@@ -42,7 +42,7 @@ sast:
 composer:
   extends: .sa_template
   script:
-    - bin/composer.phar validate
+    - composer validate
 
 stan:
   extends: .sa_template
@@ -56,7 +56,7 @@ stan:
   script:
     - vendor/bin/phpunit
   before_script:
-    - bin/composer.phar install -o --no-interaction
+    - composer install -o --no-interaction
 
 unit:7.1:
   extends: .unit_template
