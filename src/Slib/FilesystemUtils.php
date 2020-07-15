@@ -65,10 +65,7 @@ abstract class FilesystemUtils
 
         $aResult = [];
 
-        $resourceDir = @opendir($path);
-        if (false === $resourceDir) {
-            return null;
-        }
+        $resourceDir = opendir($path);
 
         while (false !== ($strFile = readdir($resourceDir))) {
             if (in_array($strFile, ['.', '..'])) {
@@ -88,11 +85,7 @@ abstract class FilesystemUtils
                     }
                     break;
                 case self::LIST_DIRECTORY_BOTH:
-                    if (is_dir($strCompleteFile)) {
-                        $aResult['directory'][] = $strFile;
-                    } else {
-                        $aResult['file'][] = $strFile;
-                    }
+                    $aResult[] = $strFile;
                     break;
                 default:
                     return null;
