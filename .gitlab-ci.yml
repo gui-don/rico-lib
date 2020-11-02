@@ -98,10 +98,5 @@ publish:
     - php -d phar.readonly=Off scripts/create_phar.php
   artifacts:
     paths:
-      - rico-lib.phar
-#  only:     
-#    - tags
-#    - /^v?[0-9]+\.[0-9]+\.[0-9]+$/
-#  except:     
-#    - branches
+      - scripts/rico-lib.phar
 
