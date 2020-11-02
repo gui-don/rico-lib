@@ -32,6 +32,9 @@ use \Rico\Lib\StringUtils;
 
 _Not recommanded because it will load all the classes in memory whether or not you use them_
 
+- Download latest phar file on [the releases page](https://gitlab.com/gui-don/rico-lib/-/releases).
+- Import it in your code:
+
 ```php
 require_once('rico-lib.phar');
 
