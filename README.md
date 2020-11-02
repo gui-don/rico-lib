@@ -12,16 +12,28 @@ They are useful to access some frequently used low-level robust functions while 
 
 ### Installation ###
 
-##### Composer:
+##### Composer
 
     composer require gui-don/rico-library
 
-##### Manual:
+##### Manual with source
 
 Import the `autoload.php` file in your code:
 
 ```php
 require_once('autoload.php');
+
+use \Rico\Lib\StringUtils;
+
+// etc
+```
+
+##### Manual with Phar
+
+_Not recommanded because it will load all the classes in memory whether or not you use them_
+
+```php
+require_once('rico-lib.phar');
 
 use \Rico\Lib\StringUtils;
 
