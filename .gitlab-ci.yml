@@ -92,10 +92,10 @@ unit:coverage:
 
 # Publish
 
-publish<:
+publish:
   stage: publish
   script:
-    - scripts/create_phar.php
+    - pĥp scripts/create_phar.php
   artifacts:
     paths:
       - rico-lib.phar
