@@ -2,7 +2,9 @@ stages:
   - static_analysis
   - test
   - test_edge
-  - publish
+  - build
+  - upload
+  - release
 
 image: registry.gitlab.com/gui-don/moustache-ci-docker:7.4
 
@@ -12,6 +14,7 @@ cache:
 
 variables:
   SYMFONY_ENV: 'test'
+  PACKAGE_REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/myawesomerelease/${CI_COMMIT_TAG}/"
 
 include:
   - project: 'gitlab-org/gitlab'
@@ -90,13 +93,46 @@ unit:coverage:
     paths:
       - coverage
 
-# Publish
+# Build
 
 publish:
-  stage: publish
+  stage: build
   script:
     - php -d phar.readonly=Off scripts/create_phar.php
   artifacts:
     paths:
       - scripts/rico-lib.phar
+
+# Upload
+
+upload:
+  stage: upload
+  image: curlimages/curl:latest
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - |
+      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file scripts/rico-lib.phar ${PACKAGE_REGISTRY_URL}
+  only:
+    - tags
+    - /^v?[0-9]+\.[0-9]+\.[0-9]+$/
+  except:
+    - branches
+
+# Release
+
+release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:lastest
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - |
+      release-cli create --name "$CI_COMMIT_TAG" --tag-name $CI_COMMIT_TAG \
+        --assets-link "{\"name\":\"rico-lib.phar\",\"url\":\"${PACKAGE_REGISTRY_URL}/rico-lib.phar\"}"
+  only:
+    - tags
+    - /^v?[0-9]+\.[0-9]+\.[0-9]+$/
+  except:
+    - branches
 
