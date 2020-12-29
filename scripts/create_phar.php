@@ -1,7 +1,7 @@
 <?php
 
 $directory = getcwd();
-chdir(__DIR__); 
+chdir(__DIR__);
 
 $phar = new Phar('rico-lib.phar');
 $phar->addFile('index.php');
