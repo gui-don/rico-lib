@@ -1,6 +1,5 @@
 <?php
 
-
 spl_autoload_register(function ($class) {
     $prefix = 'Rico\\';
 
@@ -16,4 +15,3 @@ spl_autoload_register(function ($class) {
 
     require_once 'phar://rico-lib.phar/'.$file;
 });
-
