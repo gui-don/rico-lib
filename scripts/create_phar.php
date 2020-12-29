@@ -1,5 +1,10 @@
 <?php
 
-$phar = new Phar(__DIR__ . '/rico-lib.phar');
-$phar->addFile(__DIR__ . '/index.php');
-$phar->buildFromDirectory(__DIR__ . '/../src');
+$directory = getcwd();
+chdir(__DIR__); 
+
+$phar = new Phar('rico-lib.phar');
+$phar->addFile('index.php');
+$phar->buildFromDirectory('../src');
+
+chdir($directory);

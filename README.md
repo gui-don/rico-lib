@@ -36,7 +36,7 @@ _Not recommanded because it will load all the classes in memory whether or not y
 - Import it in your code:
 
 ```php
-require_once('rico-lib.phar');
+require_once('phar://rico-lib.phar');
 
 use \Rico\Lib\StringUtils;
 
