@@ -6,7 +6,7 @@ stages:
   - upload
   - release
 
-image: registry.gitlab.com/gui-don/moustache-ci-docker:8.0
+image: registry.gitlab.com/gui-don/moustache-ci-docker:7.4
 
 cache:
   paths:
