@@ -62,10 +62,6 @@ stan:
   before_script:
     - composer install -o --no-interaction
 
-unit:7.2:
-  extends: .unit_template
-  image: registry.gitlab.com/gui-don/moustache-ci-docker:7.2
-
 unit:7.3:
   extends: .unit_template
   image: registry.gitlab.com/gui-don/moustache-ci-docker:7.3
