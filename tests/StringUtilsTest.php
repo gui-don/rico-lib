@@ -408,10 +408,10 @@ lignemaispaslesespaces', ],
             } else {
                 if (mb_strlen($allowedChars) > 0) {
                     $result = $this->stringUtils->randString($value, $allowedChars);
-                    $this->assertRegExp('/^['.$allowedChars.']+$/', $result);
+                    $this->assertMatchesRegularExpression('/^['.$allowedChars.']+$/', $result);
                 } else {
                     $result = $this->stringUtils->randString($value);
-                    $this->assertRegExp('/^[a-zA-Z0-9]+$/', $result);
+                    $this->assertMatchesRegularExpression('/^[a-zA-Z0-9]+$/', $result);
                 }
 
                 $this->assertEquals($value, mb_strlen($result, 'utf8'));
