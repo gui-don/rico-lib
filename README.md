@@ -30,8 +30,6 @@ use \Rico\Lib\StringUtils;
 
 ##### Manual with Phar
 
-_Not recommanded because it will load all the classes in memory whether or not you use them_
-
 - Download latest phar file on [the releases page](https://gitlab.com/gui-don/rico-lib/-/releases).
 - Import it in your code:
 
@@ -83,15 +81,47 @@ Missing a function? Make a pull request or simply extends the following classes.
 
 #### `ArrayUtils` lib ####
 
-- `flatten($multidimensionalArray)`: Extracts each element of a $multidimensionalArray in a single list. Does not preserve any keys.
+- `flatten(array $multidimensionalArray): array`: Extracts each element of a $multidimensionalArray in a single list. Does not preserve any keys.
 
-- `insert($needle, int $index, array $haystack): array`: Inserts an element $needle at the $index position in the $haystack, conserving the order and moving other element in the way.
+```php
+    // […]
+    $array = [1, 2, 3], ['test' => 2], [], [2, 5, 6, 7]];
+
+    var_dump(ArrayUtils::flatten($array));
+    // Result: [1, 2, 3, 2, 2, 5, 6, 7]
+```
+
+- `insert($needle, int $index, array $haystack): array`: Inserts an element $needle at the $index position in the $haystack, conserving the order and moving other element in the way. Does not preserve any keys.
+
+```php
+    // […]
+    $needle = 'replace';
+    $index = 10;
+    $haystack = [0 => 'zero', 10 => 'misplaced', 14 => 'next'];
+
+    var_dump(ArrayUtils::insert($needle, $index, $haystack));
+    // Result: [0 => 'zero', 1 => 'replace', 2 => 'misplaced', 3 => 'next']
+```
 
 - `orderByOccurrence(array $array): array`: Order an $array values by the number of occurrences of each element of that array. Work with any types. De-duplicates values.
 
-- `pluck($multidimensionalArray, $property)`: Extracts all $property values from a multidimensional $multidimensionalArray.
+```php
+    // […]
+    $array = [1, 2, 3, 4, 5, 4, 5, 4];
 
-- `transpose($similarArrays)`: Transforms multiple $similarArrays into key-valued arrays.
+    var_dump(ArrayUtils::orderByOccurrence($array));
+    // Result: [4, 5, 1, 2, 3]
+```
+
+- `transpose(array $similarArrays): array`: Transforms multiple $similarArrays into key-valued arrays.
+
+```php
+    // […]
+    $similarArrays = ['first' => 1, 'second' => 2, 'third' => 3], ['first' => 1], ['first' => 1, 'third' => 3, 'second' => 2];
+
+    var_dump(ArrayUtils::transpose($similarArrays));
+    // Result: ['first' => [1, 1, 1], 'second' => [2, 2], 'third' => [3, 3]]
+```
 
 #### `FileUtils` lib ####
 

@@ -49,7 +49,7 @@ class ArrayUtils
 
     /**
      * Extracts all $property values from a multidimensional $multidimensionalArray.
-     *
+     * @deprecated Use array_column
      * @param array<array> $multidimensionalArray
      * @param string  $property
      *

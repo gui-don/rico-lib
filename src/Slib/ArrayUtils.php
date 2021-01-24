@@ -78,7 +78,7 @@ abstract class ArrayUtils
 
     /**
      * Extracts all $property values from a multidimensional $multidimensionalArray.
-     *
+     * @deprecated Use array_column
      * @param array<array> $multidimensionalArray
      * @param string  $property
      *
@@ -86,13 +86,7 @@ abstract class ArrayUtils
      */
     public static function pluck(array $multidimensionalArray, string $property): array
     {
-        return array_reduce($multidimensionalArray, function ($result, $currentArray) use ($property) {
-            if (isset($currentArray[$property])) {
-                $result[] = $currentArray[$property];
-            }
-
-            return $result;
-        }, []);
+        return array_column($multidimensionalArray, $property);
     }
 
     /**
