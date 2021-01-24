@@ -36,6 +36,18 @@ class ArrayUtils
     }
 
     /**
+     * Order an $array values by the number of occurrences of each element of that array. Work with any types. De-duplicates values.
+     *
+     * @param array[string]|array[int] $array
+     *
+     * @return array
+     */
+    public static function orderByOccurrence(array $array): array
+    {
+        return StaticArrayUtils::orderByOccurrence($array);
+    }
+
+    /**
      * Extracts all $property values from a multidimensional $multidimensionalArray.
      *
      * @param array<array> $multidimensionalArray

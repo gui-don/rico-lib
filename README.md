@@ -87,6 +87,8 @@ Missing a function? Make a pull request or simply extends the following classes.
 
 - `insert($needle, int $index, array $haystack): array`: Inserts an element $needle at the $index position in the $haystack, conserving the order and moving other element in the way.
 
+- `orderByOccurrence(array $array): array`: Order an $array values by the number of occurrences of each element of that array. Work with any types. De-duplicates values.
+
 - `pluck($multidimensionalArray, $property)`: Extracts all $property values from a multidimensional $multidimensionalArray.
 
 - `transpose($similarArrays)`: Transforms multiple $similarArrays into key-valued arrays.

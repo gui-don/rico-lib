@@ -33,6 +33,24 @@ class ArrayUtilsTest extends RicoTestCase
         ];
     }
 
+    public function providerOrderByOccurrence()
+    {
+        $object1 = new \SplMinHeap();
+        $object2 = new \SplMaxHeap();
+        $object3 = new \SplMaxHeap();
+
+        return [
+            [[], []], // 0
+            [['666'], ['666']],
+            [['OK' => []], [[]]],
+            [[true, false, false, false], [false, true]],
+            [[ [1, 2], [3, 4], [3, 4], [8, 9]], [[3, 4], [1, 2], [8, 9]]],
+            [[1, 2, 3, 4, 5, 4, 5, 4], [4, 5, 1, 2, 3]], // 5
+            [[$object2, $object1, $object1, $object3], [$object1, $object2, $object3]],
+            [['A', 'B', 3, 3, ['ok']], [3, 'A', 'B', ['ok']]],
+        ];
+    }
+
     public function providerPluck()
     {
         $data[] = ['categoryId' => 1, 'eventId' => 2, 'eventName' => 3, 'vendorName' => 4];
@@ -122,5 +140,16 @@ class ArrayUtilsTest extends RicoTestCase
     {
         $this->assertSame($expected, StaticArrayUtils::insert($needle, $index, $haystack));
         $this->assertSame($expected, $this->arrayUtils->insert($needle, $index, $haystack));
+    }
+
+    /**
+     * @covers Rico\Lib\ArrayUtils
+     * @covers Rico\SLib\ArrayUtils
+     * @dataProvider providerOrderByOccurrence
+     */
+    public function testOrderByOccurrences($array, $expected)
+    {
+        $this->assertSame($expected, StaticArrayUtils::orderByOccurrence($array));
+        $this->assertSame($expected, $this->arrayUtils->orderByOccurrence($array));
     }
 }

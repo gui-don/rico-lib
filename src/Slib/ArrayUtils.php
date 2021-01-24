@@ -40,6 +40,43 @@ abstract class ArrayUtils
     }
 
     /**
+     * Order an $array values by the number of occurrences of each element of that array. Work with any types.  De-duplicates values.
+     * @param array[string]|array[int] $array
+     *
+     * @return array
+     */
+    public static function orderByOccurrence(array $array): array
+    {
+        $buffer = [];
+        foreach ($array as $key => $element) {
+            if (is_array($element)) {
+                $keyElement = implode(',', $element);
+            } elseif (is_object($element)) {
+                $keyElement = spl_object_hash($element);
+            } else {
+                $keyElement = strval($element);
+            }
+
+            if (isset($buffer[$keyElement])) {
+                $buffer[$keyElement]['count'] += 1;
+            } else {
+                $buffer[$keyElement]['count'] = 1;
+                $buffer[$keyElement]['value'] = $element;
+            }
+        }
+
+        usort($buffer, function ($a, $b) {
+            if ($a === $b) {
+                return 0;
+            }
+
+            return ($a['count'] < $b['count']) ? 1 : -1;
+        });
+
+        return array_column($buffer, 'value');
+    }
+
+    /**
      * Extracts all $property values from a multidimensional $multidimensionalArray.
      *
      * @param array<array> $multidimensionalArray
