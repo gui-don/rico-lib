@@ -7,7 +7,7 @@ namespace Rico\Slib;
 abstract class ArrayUtils
 {
     /**
-     * Extracts each element of a $multidimensionalArray in a single list.
+     * Extracts each element of a $multidimensionalArray in a single list. Does not preserve any keys.
      *
      * @param array<array> $multidimensionalArray
      *
@@ -15,7 +15,7 @@ abstract class ArrayUtils
      */
     public static function flatten(array $multidimensionalArray): array
     {
-        return array_map('current', $multidimensionalArray);
+        return iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveArrayIterator($multidimensionalArray)), false);
     }
 
     /**
