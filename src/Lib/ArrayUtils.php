@@ -38,9 +38,9 @@ class ArrayUtils
     /**
      * Order an $array values by the number of occurrences of each element of that array. Work with any types. De-duplicates values.
      *
-     * @param array[string]|array[int] $array
+     * @param array<mixed> $array
      *
-     * @return array
+     * @return array<mixed>
      */
     public static function orderByOccurrence(array $array): array
     {
