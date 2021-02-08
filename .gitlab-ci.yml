@@ -80,6 +80,8 @@ unit:coverage:
   allow_failure: true
   script: vendor/bin/phpunit --coverage-text --coverage-html build/coverage-report --colors=never
   coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+  variables:
+    - XDEBUG_MODE: 'coverage'
   artifacts:
     paths:
       - coverage
